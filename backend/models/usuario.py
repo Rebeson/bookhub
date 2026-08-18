@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from sqlalchemy import DateTime, func
 from .base import Base
 
 
@@ -31,9 +31,10 @@ class Usuario(Base):
     )
 
     data_cadastro: Mapped[datetime] = mapped_column(
-        DateTime,
-        nullable=False
-    )
+    DateTime,
+    nullable=False,
+    server_default=func.current_timestamp()
+)
 
     foto_perfil: Mapped[str | None] = mapped_column(
         String(500)

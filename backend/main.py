@@ -1,8 +1,6 @@
-from fastapi import Depends, FastAPI
-from sqlalchemy import text
-from sqlalchemy.orm import Session
-
-from backend.database.connection import get_db
+from fastapi import FastAPI
+from backend.routers.auth import router as auth_router
+from backend.routers.usuarios import router as usuarios_router
 
 
 app = FastAPI(
@@ -12,18 +10,12 @@ app = FastAPI(
 )
 
 
+app.include_router(usuarios_router)
+app.include_router(auth_router)
+
+
 @app.get("/")
-def root():
+def raiz():
     return {
-        "mensagem": "Bem-vindo à API do BookHub!"
-    }
-
-
-@app.get("/teste-banco")
-def teste_banco(db: Session = Depends(get_db)):
-    resultado = db.execute(text("SELECT 1"))
-    
-    return {
-        "banco": "conectado",
-        "resultado": resultado.scalar()
+        "mensagem": "BookHub API funcionando!"
     }

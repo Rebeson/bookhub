@@ -36,3 +36,24 @@ class UsuarioResponse(UsuarioBase):
 
     class Config:
         from_attributes = True
+
+
+class UsuarioUpdate(BaseModel):
+    nome: str | None = Field(
+        default=None,
+        max_length=100
+    )
+
+    nome_usuario: str | None = Field(
+        default=None,
+        max_length=50
+    )
+
+    email: EmailStr | None = None
+
+    foto_perfil: str | None = Field(
+        default=None,
+        max_length=500
+    )
+
+    biografia: str | None = None
