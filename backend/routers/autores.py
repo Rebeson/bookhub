@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from backend.database.connection import get_db
 from backend.models.autor import Autor
+from backend.models.associations import livro_autor
 from backend.schemas.autor import AutorCreate, AutorResponse, AutorUpdate
 from backend.core.security import get_current_admin
 
@@ -130,3 +131,36 @@ def atualizar_autor(
     db.refresh(autor)
 
     return autor
+
+
+@router.delete(
+    "/{autor_id}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
+def excluir_autor(
+    autor_id: int,
+    db: Session = Depends(get_db),
+    admin=Depends(get_current_admin)
+):
+    autor = db.get(Autor, autor_id)
+
+    if autor is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Autor não encontrado."
+        )
+
+    possui_livros = db.scalar(
+        select(livro_autor).where(
+            livro_autor.c.autor_id == autor_id
+        )
+    )
+
+    if possui_livros:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Não é possível excluir este autor porque ele está associado a um ou mais livros."
+        )
+
+    db.delete(autor)
+    db.commit()

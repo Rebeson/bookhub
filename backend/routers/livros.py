@@ -6,6 +6,7 @@ from backend.core.security import get_current_admin
 from backend.database.connection import get_db
 from backend.models.editora import Editora
 from backend.models.livro import Livro
+from backend.models.autor import Autor
 from backend.schemas.livro import (
     LivroCreate,
     LivroResponse,
@@ -14,6 +15,7 @@ from backend.schemas.livro import (
 from backend.models.avaliacao import Avaliacao
 from backend.models.resenha import Resenha
 from backend.models.usuario_livro import UsuarioLivro
+from backend.models.genero import Genero
 from backend.models.associations import livro_autor, livro_genero
 
 
@@ -208,3 +210,190 @@ def excluir_livro(
 
     db.delete(livro)
     db.commit()
+
+
+@router.get("/{livro_id}/autores")
+def listar_autores_do_livro(
+    livro_id: int,
+    db: Session = Depends(get_db)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    return livro.autores
+
+
+@router.post("/{livro_id}/autores/{autor_id}", status_code=status.HTTP_201_CREATED)
+def adicionar_autor_ao_livro(
+    livro_id: int,
+    autor_id: int,
+    db: Session = Depends(get_db),
+    current_admin = Depends(get_current_admin)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    autor = db.get(Autor, autor_id)
+
+    if not autor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Autor não encontrado."
+        )
+
+    if autor in livro.autores:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Este autor já está associado ao livro."
+        )
+
+    livro.autores.append(autor)
+
+    db.commit()
+
+    return {
+        "message": "Autor associado ao livro com sucesso."
+    }
+
+
+@router.delete("/{livro_id}/autores/{autor_id}")
+def remover_autor_do_livro(
+    livro_id: int,
+    autor_id: int,
+    db: Session = Depends(get_db),
+    current_admin = Depends(get_current_admin)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    autor = db.get(Autor, autor_id)
+
+    if not autor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Autor não encontrado."
+        )
+
+    if autor not in livro.autores:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Este autor não está associado ao livro."
+        )
+
+    livro.autores.remove(autor)
+
+    db.commit()
+
+    return {
+        "message": "Autor removido do livro com sucesso."
+    }
+
+
+@router.get("/{livro_id}/generos")
+def listar_generos_do_livro(
+    livro_id: int,
+    db: Session = Depends(get_db)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    return livro.generos
+
+
+@router.post(
+    "/{livro_id}/generos/{genero_id}",
+    status_code=status.HTTP_201_CREATED
+)
+def adicionar_genero_ao_livro(
+    livro_id: int,
+    genero_id: int,
+    db: Session = Depends(get_db),
+    current_admin=Depends(get_current_admin)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    genero = db.get(Genero, genero_id)
+
+    if not genero:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Gênero não encontrado."
+        )
+
+    if genero in livro.generos:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Este gênero já está associado ao livro."
+        )
+
+    livro.generos.append(genero)
+
+    db.commit()
+
+    return {
+        "message": "Gênero associado ao livro com sucesso."
+    }
+
+
+@router.delete("/{livro_id}/generos/{genero_id}")
+def remover_genero_do_livro(
+    livro_id: int,
+    genero_id: int,
+    db: Session = Depends(get_db),
+    current_admin=Depends(get_current_admin)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    genero = db.get(Genero, genero_id)
+
+    if not genero:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Gênero não encontrado."
+        )
+
+    if genero not in livro.generos:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Este gênero não está associado ao livro."
+        )
+
+    livro.generos.remove(genero)
+
+    db.commit()
+
+    return {
+        "message": "Gênero removido do livro com sucesso."
+    }
