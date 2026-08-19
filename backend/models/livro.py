@@ -6,7 +6,8 @@ from sqlalchemy import (
     Integer,
     SmallInteger,
     String,
-    Text
+    Text,
+    func
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -62,9 +63,10 @@ class Livro(Base):
     )
 
     data_cadastro: Mapped[datetime] = mapped_column(
-        DateTime,
-        nullable=False
-    )
+    DateTime,
+    nullable=False,
+    server_default=func.current_timestamp()
+)
 
     editora = relationship(
         "Editora",

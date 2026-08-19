@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class LivroBase(BaseModel):
@@ -44,13 +44,64 @@ class LivroBase(BaseModel):
     editora_id: int
 
 
-class LivroCreate(LivroBase):
-    pass
+class LivroCreate(BaseModel):
+    titulo: str = Field(
+        min_length=1,
+        max_length=255
+    )
+
+    subtitulo: str | None = Field(
+        default=None,
+        max_length=255
+    )
+
+    isbn: str | None = Field(
+        default=None,
+        max_length=20
+    )
+
+    sinopse: str | None = None
+
+    ano_publicacao: int | None = None
+
+    numero_paginas: int | None = None
+
+    idioma: str | None = Field(
+        default=None,
+        max_length=50
+    )
+
+    capa: str | None = Field(
+        default=None,
+        max_length=500
+    )
+
+    editora_id: int
 
 
-class LivroResponse(LivroBase):
+class LivroUpdate(BaseModel):
+    titulo: str
+    subtitulo: str | None = None
+    isbn: str | None = None
+    sinopse: str | None = None
+    ano_publicacao: int | None = None
+    numero_paginas: int | None = None
+    idioma: str | None = None
+    capa: str | None = None
+    editora_id: int
+
+
+class LivroResponse(BaseModel):
     id: int
+    titulo: str
+    subtitulo: str | None = None
+    isbn: str | None = None
+    sinopse: str | None = None
+    ano_publicacao: int | None = None
+    numero_paginas: int | None = None
+    idioma: str | None = None
+    capa: str | None = None
+    editora_id: int
     data_cadastro: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

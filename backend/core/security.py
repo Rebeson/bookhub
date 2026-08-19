@@ -73,6 +73,8 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
     db: Session = Depends(get_db)
 ):
+    
+    
     token = credentials.credentials
 
     try:
@@ -111,3 +113,14 @@ def get_current_user(
         )
 
     return usuario
+
+def get_current_admin(
+    usuario: Usuario = Depends(get_current_user)
+):
+        if usuario.tipo_usuario != "ADMIN":
+            raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Acesso permitido somente para administradores."
+        )
+
+        return usuario
