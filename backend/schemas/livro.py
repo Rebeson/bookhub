@@ -105,3 +105,19 @@ class LivroResponse(BaseModel):
     data_cadastro: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class LivroListaResponse(BaseModel):
+    id: int
+    titulo: str
+    ano_publicacao: int
+    idioma: str
+    numero_paginas: int
+
+    editora: str | None
+
+    media_avaliacoes: float | None
+    quantidade_avaliacoes: int
+
+    class Config:
+        from_attributes = True

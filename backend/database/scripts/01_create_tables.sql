@@ -242,3 +242,22 @@ CREATE TABLE resenha (
     CONSTRAINT uq_resenha_usuario_livro
         UNIQUE (usuario_id, livro_id)
 );
+
+CREATE TABLE favorito (
+    usuario_id INTEGER NOT NULL,
+    livro_id INTEGER NOT NULL,
+    data_adicao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT pk_favorito
+        PRIMARY KEY (usuario_id, livro_id),
+
+    CONSTRAINT fk_favorito_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuario(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_favorito_livro
+        FOREIGN KEY (livro_id)
+        REFERENCES livro(id)
+        ON DELETE CASCADE
+);

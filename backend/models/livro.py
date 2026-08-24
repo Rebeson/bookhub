@@ -99,3 +99,9 @@ class Livro(Base):
         "UsuarioLivro",
         back_populates="livro"
     )
+
+    favoritos = relationship(
+    "Favorito",
+    back_populates="livro",
+    cascade="all, delete-orphan"
+    )

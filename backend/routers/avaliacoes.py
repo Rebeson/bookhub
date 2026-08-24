@@ -182,3 +182,40 @@ def excluir_avaliacao(
     db.commit()
 
     return None
+
+
+@router.get("/livro/{livro_id}/media")
+def calcular_media_avaliacoes(
+    livro_id: int,
+    db: Session = Depends(get_db)
+):
+    livro = db.get(Livro, livro_id)
+
+    if not livro:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Livro não encontrado."
+        )
+
+    avaliacoes = (
+        db.query(Avaliacao)
+        .filter(Avaliacao.livro_id == livro_id)
+        .all()
+    )
+
+    if not avaliacoes:
+        return {
+            "livro_id": livro_id,
+            "media": None,
+            "quantidade_avaliacoes": 0
+        }
+
+    media = sum(
+        avaliacao.nota for avaliacao in avaliacoes
+    ) / len(avaliacoes)
+
+    return {
+        "livro_id": livro_id,
+        "media": round(media, 2),
+        "quantidade_avaliacoes": len(avaliacoes)
+    }

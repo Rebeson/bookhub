@@ -59,6 +59,12 @@ class Usuario(Base):
         back_populates="usuario"
     )
 
+    favoritos = relationship(
+    "Favorito",
+    back_populates="usuario",
+    cascade="all, delete-orphan"
+    )
+
     resenhas = relationship(
         "Resenha",
         back_populates="usuario"

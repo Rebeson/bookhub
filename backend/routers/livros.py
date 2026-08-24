@@ -1,17 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
 from backend.core.security import get_current_admin
 from backend.database.connection import get_db
-from backend.models.editora import Editora
-from backend.models.livro import Livro
-from backend.models.autor import Autor
 from backend.schemas.livro import (
     LivroCreate,
     LivroResponse,
-    LivroUpdate
+    LivroUpdate,
+    LivroListaResponse
 )
+from backend.models.editora import Editora
+from backend.models.livro import Livro
+from backend.models.autor import Autor
 from backend.models.avaliacao import Avaliacao
 from backend.models.resenha import Resenha
 from backend.models.usuario_livro import UsuarioLivro
@@ -397,3 +398,31 @@ def remover_genero_do_livro(
     return {
         "message": "Gênero removido do livro com sucesso."
     }
+
+
+@router.get("/", response_model=list[LivroListaResponse])
+def listar_livros(db: Session = Depends(get_db)):
+    resultados = (
+        db.query(
+            Livro,
+            func.avg(Avaliacao.nota).label("media"),
+            func.count(Avaliacao.id).label("quantidade")
+        )
+        .outerjoin(Avaliacao, Livro.id == Avaliacao.livro_id)
+        .group_by(Livro.id)
+        .all()
+    )
+
+    return [
+        {
+            "id": livro.id,
+            "titulo": livro.titulo,
+            "ano_publicacao": livro.ano_publicacao,
+            "idioma": livro.idioma,
+            "numero_paginas": livro.numero_paginas,
+            "editora": livro.editora.nome if livro.editora else None,
+            "media_avaliacoes": round(float(media), 2) if media is not None else None,
+            "quantidade_avaliacoes": quantidade
+        }
+        for livro, media, quantidade in resultados
+    ]
