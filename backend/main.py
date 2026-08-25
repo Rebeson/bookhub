@@ -7,6 +7,7 @@ from backend.routers.autores import router as autores_router
 from backend.routers.generos import router as generos_router
 from backend.routers.avaliacoes import router as avaliacoes_router
 from backend.routers.favoritos import router as favoritos_router
+from backend.routers.resenhas import router as resenhas_router
 
 
 app = FastAPI(
@@ -24,6 +25,7 @@ app.include_router(generos_router)
 app.include_router(estante_router)
 app.include_router(avaliacoes_router)
 app.include_router(favoritos_router)
+app.include_router(resenhas_router)
 
 
 @app.get("/")
