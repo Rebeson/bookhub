@@ -11,8 +11,8 @@ from backend.routers.resenhas import router as resenhas_router
 
 
 app = FastAPI(
-    title="BookHub API",
-    description="API REST do sistema BookHub",
+    title="API do BookHub",
+    description="API REST criada para o sistema do BookHub",
     version="1.0.0"
 )
 
