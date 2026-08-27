@@ -287,6 +287,405 @@
 </article>
 
 
+<!-- =========================================================
+     2. VISÃO GERAL DA ARQUITETURA
+     ========================================================= -->
+
+<section id="visao-arquitetura" class="manual-secao">
+
+```
+<h1>2. Visão Geral da Arquitetura</h1>
+
+<!-- =====================================================
+     2.1. ARQUITETURA DO SISTEMA
+     ===================================================== -->
+
+<article id="arquitetura-sistema" class="manual-subsecao">
+
+    <h2>2.1. Arquitetura do sistema</h2>
+
+    <p>
+        O BookHub utiliza uma arquitetura dividida em três camadas
+        principais: <strong>frontend, backend e banco de dados</strong>.
+        Essa organização permite separar as responsabilidades da aplicação,
+        facilitando o desenvolvimento, a manutenção e a evolução do sistema.
+    </p>
+
+    <p>
+        A primeira camada corresponde ao <strong>frontend</strong>,
+        responsável pela interface com a qual o usuário interage. Essa
+        camada foi desenvolvida utilizando <strong>HTML, CSS e
+        JavaScript</strong>, sendo responsável pela apresentação das
+        informações, pela interação com o usuário e pelo envio de
+        solicitações ao backend.
+    </p>
+
+    <p>
+        A segunda camada corresponde ao <strong>backend</strong>,
+        desenvolvido em <strong>Python utilizando o framework
+        FastAPI</strong>. Essa camada concentra as regras e funcionalidades
+        da aplicação, recebe as requisições realizadas pelo frontend,
+        realiza as validações necessárias, processa as operações solicitadas
+        e retorna as respostas ao cliente.
+    </p>
+
+    <p>
+        O backend apresenta uma organização modular. Os
+        <strong>routers</strong> são responsáveis pela definição e
+        organização dos endpoints da API de acordo com suas funcionalidades.
+        Os <strong>schemas</strong> são utilizados para definir e validar os
+        dados recebidos e enviados pela API. Os <strong>models</strong>
+        representam as entidades utilizadas pela aplicação e sua relação
+        com as estruturas do banco de dados. A comunicação com o banco é
+        realizada por meio do <strong>SQLAlchemy</strong>, utilizado como
+        ferramenta de mapeamento objeto-relacional (ORM).
+    </p>
+
+    <p>
+        A aplicação também possui uma camada relacionada à
+        <strong>segurança e autenticação</strong>, concentrada
+        principalmente no módulo <code>security.py</code>. Essa estrutura
+        é responsável pelos mecanismos utilizados para proteger o acesso às
+        funcionalidades que exigem autenticação.
+    </p>
+
+    <p>
+        A terceira camada corresponde ao <strong>banco de dados</strong>,
+        implementado utilizando o <strong>PostgreSQL</strong>. É nessa
+        camada que são armazenadas as informações persistentes do sistema,
+        incluindo dados relacionados a usuários, livros, autores, gêneros,
+        avaliações, resenhas, favoritos e organização da estante.
+    </p>
+
+    <p>
+        A comunicação entre frontend e backend ocorre por meio de
+        requisições HTTP, utilizando a API. O backend, por sua vez, realiza
+        as operações necessárias no banco de dados e devolve ao frontend as
+        informações resultantes da solicitação.
+    </p>
+
+    <p>
+        A separação dessas responsabilidades permite que cada camada seja
+        desenvolvida e mantida de maneira mais independente, contribuindo
+        para uma estrutura organizada e facilitando futuras alterações ou
+        ampliações do BookHub.
+    </p>
+
+
+    <!-- Diagrama arquitetural -->
+
+    <div class="diagrama-arquitetura">
+
+        <div class="camada arquitetura-frontend">
+            <h3>Frontend</h3>
+
+            <p>
+                HTML &bull; CSS &bull; JavaScript
+            </p>
+
+            <span>
+                Interface e interação do usuário
+            </span>
+        </div>
+
+        <div class="fluxo-arquitetura">
+            <span>HTTP / JSON</span>
+            <span>&darr;</span>
+        </div>
+
+        <div class="camada arquitetura-backend">
+            <h3>Backend</h3>
+
+            <p>
+                Python &bull; FastAPI
+            </p>
+
+            <ul>
+                <li>Routers</li>
+                <li>Schemas</li>
+                <li>Models / SQLAlchemy</li>
+                <li>Security / JWT</li>
+            </ul>
+        </div>
+
+        <div class="fluxo-arquitetura">
+            <span>SQL / ORM</span>
+            <span>&darr;</span>
+        </div>
+
+        <div class="camada arquitetura-banco">
+            <h3>Banco de Dados</h3>
+
+            <p>
+                PostgreSQL
+            </p>
+
+            <span>
+                Usuários &bull; Livros &bull; Autores &bull; Gêneros
+                &bull; Avaliações &bull; Resenhas &bull; Favoritos
+                &bull; Estante
+            </span>
+        </div>
+
+    </div>
+
+</article>
+
+
+<!-- =====================================================
+     2.2. COMUNICAÇÃO ENTRE AS CAMADAS
+     ===================================================== -->
+
+<article id="comunicacao-camadas" class="manual-subsecao">
+
+    <h2>2.2. Comunicação entre as camadas</h2>
+
+    <p>
+        A comunicação entre as camadas do BookHub ocorre de forma
+        sequencial, tendo o <strong>frontend</strong> como ponto de
+        interação com o usuário e o <strong>backend</strong> como
+        intermediário entre a interface e o banco de dados. Essa
+        organização permite que o frontend não acesse diretamente o banco,
+        mantendo as regras de negócio e o controle das operações
+        concentrados no backend.
+    </p>
+
+    <p>
+        Quando o usuário realiza uma ação na interface, como consultar um
+        livro, registrar uma avaliação ou adicionar uma obra aos favoritos,
+        o <strong>JavaScript do frontend</strong> prepara e envia uma
+        requisição HTTP para o endpoint correspondente da API. Os dados
+        necessários para a operação são enviados de acordo com o formato
+        esperado pelo endpoint.
+    </p>
+
+    <p>
+        Ao receber a requisição, o <strong>FastAPI</strong> identifica o
+        endpoint responsável pela operação e encaminha a solicitação para o
+        componente correspondente dentro do backend. Os
+        <strong>schemas</strong> participam desse processo realizando a
+        validação e a estruturação dos dados recebidos, garantindo que as
+        informações estejam de acordo com os formatos definidos pela
+        aplicação.
+    </p>
+
+    <p>
+        Após a validação, o backend executa a lógica necessária para
+        realizar a operação solicitada. Quando a operação envolve
+        informações armazenadas no banco de dados, os
+        <strong>models</strong> e o <strong>SQLAlchemy</strong> são
+        utilizados para consultar, inserir, atualizar ou remover os
+        registros necessários no <strong>PostgreSQL</strong>.
+    </p>
+
+    <p>
+        Depois que a operação é concluída, o backend constrói uma resposta
+        e a envia de volta ao frontend, normalmente utilizando o formato
+        <strong>JSON</strong>. O JavaScript recebe essa resposta, interpreta
+        os dados retornados e atualiza a interface de acordo com o
+        resultado da operação.
+    </p>
+
+
+    <div class="fluxo-comunicacao">
+
+        <p>
+            <strong>
+                Usuário
+                &rarr;
+                Frontend
+                &rarr;
+                API / FastAPI
+                &rarr;
+                Routers
+                &rarr;
+                Schemas / Validação
+                &rarr;
+                Models / SQLAlchemy
+                &rarr;
+                PostgreSQL
+                &rarr;
+                Backend
+                &rarr;
+                Frontend
+                &rarr;
+                Usuário
+            </strong>
+        </p>
+
+    </div>
+
+
+    <p>
+        Essa estrutura estabelece uma comunicação organizada entre as
+        diferentes partes do sistema e evita que as responsabilidades sejam
+        concentradas em uma única camada. O frontend fica responsável pela
+        apresentação e interação, o backend pelo processamento das
+        operações e o banco de dados pelo armazenamento persistente das
+        informações.
+    </p>
+
+    <p>
+        Além disso, a utilização de uma API como intermediária permite que
+        o backend possa ser consumido por diferentes clientes no futuro,
+        sem que seja necessário modificar diretamente a estrutura do banco
+        de dados para cada nova interface.
+    </p>
+
+</article>
+
+
+<!-- =====================================================
+     2.3. FLUXO GERAL DA APLICAÇÃO
+     ===================================================== -->
+
+<article id="fluxo-aplicacao" class="manual-subsecao">
+
+    <h2>2.3. Fluxo geral da aplicação</h2>
+
+    <p>
+        O funcionamento do BookHub segue um fluxo baseado na interação entre
+        o usuário, o frontend, a API, o backend e o banco de dados. A
+        partir de uma ação realizada na interface, a solicitação percorre
+        as diferentes camadas do sistema até que a operação seja processada
+        e o resultado seja apresentado novamente ao usuário.
+    </p>
+
+    <p>
+        De forma geral, o fluxo de uma operação pode ser representado pelas
+        seguintes etapas:
+    </p>
+
+    <ol class="fluxo-etapas">
+
+        <li>
+            <strong>Interação do usuário:</strong>
+            o usuário realiza uma ação no frontend, como consultar um livro,
+            realizar uma avaliação, publicar uma resenha, adicionar um
+            favorito ou organizar uma obra em sua estante.
+        </li>
+
+        <li>
+            <strong>Envio da requisição:</strong>
+            o JavaScript do frontend identifica a ação realizada e envia uma
+            requisição HTTP para o endpoint correspondente da API.
+        </li>
+
+        <li>
+            <strong>Recebimento pelo backend:</strong>
+            o FastAPI recebe a requisição e direciona a solicitação para o
+            router responsável pela funcionalidade.
+        </li>
+
+        <li>
+            <strong>Validação dos dados:</strong>
+            os dados recebidos são analisados de acordo com os schemas
+            definidos para a operação. Quando necessário, também são
+            verificadas as informações relacionadas à autenticação e
+            autorização do usuário.
+        </li>
+
+        <li>
+            <strong>Processamento da operação:</strong>
+            após as validações, o backend executa as regras necessárias para
+            realizar a operação solicitada.
+        </li>
+
+        <li>
+            <strong>Acesso ao banco de dados:</strong>
+            quando a operação necessita consultar ou modificar informações
+            persistentes, o SQLAlchemy realiza a comunicação com o
+            PostgreSQL por meio dos models correspondentes.
+        </li>
+
+        <li>
+            <strong>Retorno da operação:</strong>
+            após o processamento, o backend gera uma resposta contendo o
+            resultado da solicitação e a envia ao frontend, utilizando o
+            formato JSON.
+        </li>
+
+        <li>
+            <strong>Atualização da interface:</strong>
+            o JavaScript recebe a resposta da API, processa as informações
+            retornadas e atualiza a interface de acordo com o resultado da
+            operação.
+        </li>
+
+        <li>
+            <strong>Apresentação ao usuário:</strong>
+            o resultado final da operação é apresentado na interface do
+            BookHub, permitindo que o usuário tenha conhecimento do
+            resultado de sua ação.
+        </li>
+
+    </ol>
+
+
+    <p>
+        Esse fluxo pode ser resumido da seguinte maneira:
+    </p>
+
+    <div class="fluxo-aplicacao-resumo">
+
+        <p>
+            <strong>
+                Usuário
+                &rarr;
+                Frontend
+                &rarr;
+                Requisição HTTP
+                &rarr;
+                FastAPI
+                &rarr;
+                Router
+                &rarr;
+                Schema / Validação
+                &rarr;
+                Processamento
+                &rarr;
+                SQLAlchemy / Model
+                &rarr;
+                PostgreSQL
+                &rarr;
+                Resposta JSON
+                &rarr;
+                Frontend
+                &rarr;
+                Usuário
+            </strong>
+        </p>
+
+    </div>
+
+
+    <p>
+        Por exemplo, quando um usuário registra uma avaliação para um livro,
+        a ação é realizada na interface do frontend. O JavaScript envia os
+        dados da avaliação para o endpoint correspondente da API. O backend
+        recebe e valida essas informações, verifica os requisitos
+        necessários para a operação e utiliza os componentes responsáveis
+        pelo acesso aos dados para registrar a avaliação no PostgreSQL.
+        Após a conclusão da operação, uma resposta é enviada ao frontend,
+        que apresenta ao usuário o resultado da ação.
+    </p>
+
+    <p>
+        Esse fluxo é utilizado como base para as diferentes funcionalidades
+        do sistema, variando apenas os endpoints, dados e operações
+        envolvidos em cada caso. A separação das responsabilidades permite
+        que o processamento das informações ocorra de maneira organizada e
+        que cada camada desempenhe uma função específica dentro da
+        aplicação.
+    </p>
+
+</article>
+```
+
+</section>
+
+
+
 </section>
 
     
