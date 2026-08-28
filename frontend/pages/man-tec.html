@@ -58,27 +58,24 @@
     </li>
 
     <li>
-        <a href="#banco-dados">Banco de Dados</a>
+        <a href="#secao-5">Configuração e execução do ambiente</a>
         <ol>
-            <li><a href="#sgbd">Sistema gerenciador utilizado</a></li>
-            <li><a href="#config-conexao">Configuração da conexão</a></li>
-            <li><a href="#scripts-sql">Scripts SQL</a></li>
-            <li><a href="#modelos-entidades">Modelos e entidades</a></li>
-            <li><a href="#relacionamentos">Relacionamentos</a></li>
+            <li><a href="#secao-5-1">Requisitos do ambiente</a></li>
+            <li><a href="#secao-5-2">Ambiente de desenvolvimento</a></li>
+            <li><a href="#secao-5-3">Configuração das variáveis de ambiente</a></li>
+            <li><a href="#secao-5-4">Containerização com Docker</a></li>
+            <li><a href="#secao-5-5">Execução do sistema com Docker</a></li>
         </ol>
     </li>
 
     <li>
-        <a href="#backend">Backend</a>
+        <a href="#secao-6">Estrutura do Banco de Dados</a>
         <ol>
-            <li><a href="#estrutura-fastapi">Estrutura da aplicação FastAPI</a></li>
-            <li><a href="#main-py">Arquivo principal (main.py)</a></li>
-            <li><a href="#models">Models</a></li>
-            <li><a href="#schemas">Schemas</a></li>
-            <li><a href="#routers">Routers</a></li>
-            <li><a href="#autenticacao-seguranca">Autenticação e segurança</a></li>
-            <li><a href="#comunicacao-banco">Comunicação com o banco de dados</a></li>
-            <li><a href="#tratamento-validacao">Tratamento e validação de dados</a></li>
+            <li><a href="#secao-6-1">Sistema Gerenciador de Banco de Dados</a></li>
+            <li><a href="#secao-6-2">Modelo e estrutura das tabelas</a></li>
+            <li><a href="#secao-6-3">Mapeamento objeto-relacional com SQLAlchemy</a></li>
+            <li><a href="#secao-6-4">Scripts de banco de dados</a></li>
+            <li><a href="#secao-6-5">Conexão entre aplicação e banco de dados</a></li>
         </ol>
     </li>
 
@@ -2042,6 +2039,1875 @@
 
 
 </section>
+
+
+<!-- =========================================================
+     SEÇÃO 5 — CONFIGURAÇÃO E EXECUÇÃO DO AMBIENTE
+     ========================================================= -->
+
+<section id="secao-5" class="manual-section">
+
+    <header class="section-header">
+        <h2>5. Configuração e Execução do Ambiente</h2>
+        <p>
+            Esta seção apresenta os requisitos e procedimentos necessários
+            para configurar o ambiente de desenvolvimento do BookHub.
+        </p>
+    </header>
+
+
+    <!-- =====================================================
+         5.1 — REQUISITOS DO AMBIENTE
+         ===================================================== -->
+
+    <section id="secao-5-1" class="manual-subsection">
+
+        <h3>5.1. Requisitos do ambiente</h3>
+
+        <p>
+            Para executar e desenvolver o BookHub, é necessário possuir
+            um conjunto de ferramentas responsáveis pelo desenvolvimento
+            do backend, gerenciamento do banco de dados, execução do
+            frontend e, posteriormente, pela execução do sistema em
+            containers.
+        </p>
+
+        <p>
+            Os principais requisitos do projeto são apresentados abaixo:
+        </p>
+
+        <div class="table-container">
+
+            <table class="technical-table">
+
+                <thead>
+                    <tr>
+                        <th>Requisito</th>
+                        <th>Utilização</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Python 3.12.10</td>
+                        <td>
+                            Linguagem utilizada no desenvolvimento e
+                            execução do backend.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>PostgreSQL</td>
+                        <td>
+                            Sistema gerenciador de banco de dados
+                            utilizado pelo BookHub.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Git</td>
+                        <td>
+                            Controle de versões e gerenciamento do
+                            código-fonte.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Visual Studio Code</td>
+                        <td>
+                            Ambiente utilizado para desenvolvimento
+                            e edição dos arquivos do projeto.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Navegador web</td>
+                        <td>
+                            Acesso ao frontend e à documentação
+                            interativa da API.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>PowerShell ou terminal</td>
+                        <td>
+                            Execução dos comandos de configuração
+                            e desenvolvimento.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Docker</td>
+                        <td>
+                            Containerização e execução padronizada
+                            do sistema.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Docker Compose</td>
+                        <td>
+                            Orquestração dos containers utilizados
+                            pelo projeto.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <h4>Python</h4>
+
+        <p>
+            O backend do BookHub foi desenvolvido utilizando
+            <strong>Python 3.12.10</strong>.
+        </p>
+
+        <p>
+            A versão instalada pode ser verificada através do comando:
+        </p>
+
+        <pre><code>python --version</code></pre>
+
+        <p>
+            No ambiente utilizado durante o desenvolvimento, o resultado
+            esperado é:
+        </p>
+
+        <pre><code>Python 3.12.10</code></pre>
+
+
+        <h4>PostgreSQL</h4>
+
+        <p>
+            O BookHub utiliza o <strong>PostgreSQL</strong> como sistema
+            gerenciador de banco de dados.
+        </p>
+
+        <p>
+            Durante o desenvolvimento, o PostgreSQL é utilizado para
+            armazenar as informações da aplicação e permitir a realização
+            de testes das operações executadas pelo backend.
+        </p>
+
+        <p>
+            A estrutura do banco pode ser preparada através dos scripts
+            SQL localizados em:
+        </p>
+
+        <pre><code>backend/database/scripts/</code></pre>
+
+
+        <h4>Git</h4>
+
+        <p>
+            O <strong>Git</strong> é utilizado para o controle de versões
+            do projeto. Ele permite registrar alterações realizadas no
+            código, recuperar versões anteriores e facilitar o
+            desenvolvimento colaborativo entre os integrantes da equipe.
+        </p>
+
+
+        <h4>Visual Studio Code</h4>
+
+        <p>
+            O <strong>Visual Studio Code</strong> foi utilizado como
+            principal ambiente de desenvolvimento do BookHub.
+        </p>
+
+        <p>
+            A ferramenta permite trabalhar com os diferentes componentes
+            do projeto, incluindo Python, HTML, CSS, JavaScript e SQL,
+            além de disponibilizar um terminal integrado para execução
+            dos comandos necessários durante o desenvolvimento.
+        </p>
+
+
+        <h4>Navegador web</h4>
+
+        <p>
+            Um navegador web é necessário para acessar a interface do
+            BookHub e realizar testes das funcionalidades disponibilizadas
+            pelo sistema.
+        </p>
+
+        <p>
+            Também pode ser utilizado para acessar a documentação
+            interativa da API fornecida pelo FastAPI.
+        </p>
+
+
+        <h4>Docker e Docker Compose</h4>
+
+        <p>
+            O Docker será utilizado para realizar a
+            <strong>containerização do BookHub</strong>, conforme exigência
+            do projeto.
+        </p>
+
+        <p>
+            A utilização de containers permitirá padronizar o ambiente
+            de execução da aplicação, reduzindo a dependência de
+            configurações específicas da máquina utilizada.
+        </p>
+
+        <p>
+            O Docker Compose será utilizado para facilitar a configuração
+            e execução conjunta dos componentes containerizados do sistema.
+        </p>
+
+        <p>
+            A configuração específica dos containers será documentada
+            na subseção <strong>5.4 — Containerização com Docker</strong>,
+            após sua implementação.
+        </p>
+
+
+        <h4>Considerações sobre os requisitos</h4>
+
+        <p>
+            Os requisitos apresentados representam as principais
+            ferramentas necessárias para o desenvolvimento e execução
+            do BookHub.
+        </p>
+
+        <p>
+            Durante o desenvolvimento, o backend pode ser executado
+            diretamente em um ambiente virtual Python e conectado ao
+            PostgreSQL. Na versão final do projeto, a execução será
+            realizada através da estrutura de containers definida
+            para a aplicação.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         5.2 — AMBIENTE DE DESENVOLVIMENTO
+         ===================================================== -->
+
+    <section id="secao-5-2" class="manual-subsection">
+
+        <h3>5.2. Ambiente de desenvolvimento</h3>
+
+        <p>
+            O ambiente de desenvolvimento do BookHub utiliza um
+            ambiente virtual Python para manter isoladas as dependências
+            necessárias ao backend.
+        </p>
+
+        <p>
+            Essa abordagem permite que as bibliotecas utilizadas pelo
+            projeto sejam instaladas de maneira independente do ambiente
+            Python global do computador, reduzindo a possibilidade de
+            conflitos com outros projetos.
+        </p>
+
+
+        <h4>Estrutura do ambiente de desenvolvimento</h4>
+
+        <p>
+            A estrutura básica do ambiente de desenvolvimento é:
+        </p>
+
+        <pre><code>Ambiente de desenvolvimento
+│
+├── Python 3.12.10
+│
+├── .venv/
+│   └── Dependências do projeto
+│
+├── requirements.txt
+│   └── Lista de dependências
+│
+├── PostgreSQL
+│   └── Banco de dados
+│
+└── BookHub
+    ├── backend/
+    └── frontend/</code></pre>
+
+
+        <h4>Criação do ambiente virtual</h4>
+
+        <p>
+            Para criar um novo ambiente virtual, deve-se executar
+            o seguinte comando na raiz do projeto:
+        </p>
+
+        <pre><code>python -m venv .venv</code></pre>
+
+        <p>
+            Após a criação, o ambiente virtual deve ser ativado.
+        </p>
+
+        <p>
+            No Windows PowerShell, a ativação pode ser realizada através de:
+        </p>
+
+        <pre><code>.venv\Scripts\Activate.ps1</code></pre>
+
+
+        <h4>Verificação do ambiente</h4>
+
+        <p>
+            A versão do Python pode ser verificada utilizando:
+        </p>
+
+        <pre><code>python --version</code></pre>
+
+        <p>
+            Também é possível verificar o gerenciador de pacotes com:
+        </p>
+
+        <pre><code>pip --version</code></pre>
+
+        <p>
+            Esses comandos permitem confirmar se o ambiente virtual
+            está configurado e sendo utilizado corretamente.
+        </p>
+
+
+        <h4>requirements.txt</h4>
+
+        <p>
+            As dependências diretas utilizadas pelo backend do BookHub
+            são registradas no arquivo:
+        </p>
+
+        <pre><code>requirements.txt</code></pre>
+
+        <p>
+            O arquivo está localizado na raiz do projeto e permite
+            reproduzir o ambiente de dependências de maneira padronizada.
+        </p>
+
+        <p>
+            Atualmente, o arquivo contém:
+        </p>
+
+        <pre><code>fastapi==0.141.1
+uvicorn==0.52.3
+SQLAlchemy==2.0.52
+psycopg[binary]==3.3.4
+pydantic==2.13.4
+PyJWT==2.13.0
+pwdlib[argon2]==0.3.1
+python-dotenv==1.2.3
+email-validator==2.3.0</code></pre>
+
+
+        <h4>Instalação das dependências</h4>
+
+        <p>
+            Com a <code>.venv</code> ativada, todas as dependências
+            podem ser instaladas através do comando:
+        </p>
+
+        <pre><code>pip install -r requirements.txt</code></pre>
+
+        <p>
+            Esse comando lê o arquivo <code>requirements.txt</code>
+            e instala automaticamente os pacotes e versões especificados.
+        </p>
+
+
+        <h4>Validação do ambiente</h4>
+
+        <p>
+            A configuração do <code>requirements.txt</code> foi validada
+            em um novo ambiente virtual.
+        </p>
+
+        <p>
+            O procedimento realizado consistiu em:
+        </p>
+
+        <ol>
+            <li>Criação de uma nova <code>.venv</code>;</li>
+            <li>Ativação do ambiente virtual;</li>
+            <li>Instalação das dependências através do <code>requirements.txt</code>;</li>
+            <li>Inicialização do servidor FastAPI;</li>
+            <li>Verificação do funcionamento da aplicação.</li>
+        </ol>
+
+        <p>
+            A instalação das dependências foi concluída corretamente
+            e o servidor FastAPI foi iniciado normalmente, confirmando
+            que o arquivo <code>requirements.txt</code> contém as
+            dependências necessárias para reproduzir o ambiente de
+            desenvolvimento do backend.
+        </p>
+
+
+        <h4>Execução do backend no ambiente de desenvolvimento</h4>
+
+        <p>
+            Após a instalação das dependências e a configuração das
+            demais partes do projeto, o backend pode ser iniciado utilizando:
+        </p>
+
+        <pre><code>uvicorn backend.main:app --reload</code></pre>
+
+        <p>
+            O parâmetro <code>--reload</code> permite que o servidor
+            seja reiniciado automaticamente durante o desenvolvimento
+            quando alterações são detectadas nos arquivos da aplicação.
+        </p>
+
+        <p>
+            A execução através desse procedimento representa o ambiente
+            de desenvolvimento local. A forma definitiva de execução
+            do BookHub utilizando Docker será apresentada posteriormente
+            neste manual.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         5.3 — CONFIGURAÇÃO DAS VARIÁVEIS DE AMBIENTE
+         ===================================================== -->
+
+    <section id="secao-5-3" class="manual-subsection">
+
+        <h3>5.3. Configuração das variáveis de ambiente</h3>
+
+        <p>
+            O BookHub utiliza variáveis de ambiente para armazenar
+            configurações que podem variar de acordo com o ambiente
+            de execução da aplicação.
+        </p>
+
+        <p>
+            Essas informações são armazenadas no arquivo
+            <strong>.env</strong>, localizado na raiz do projeto,
+            e podem ser carregadas pelo backend durante sua inicialização.
+        </p>
+
+        <p>
+            A utilização de variáveis de ambiente permite separar
+            configurações do código-fonte, tornando a aplicação mais
+            flexível e evitando que informações sensíveis sejam inseridas
+            diretamente nos arquivos Python.
+        </p>
+
+
+        <h4>Arquivo .env</h4>
+
+        <p>
+            O arquivo <strong>.env</strong> possui a seguinte localização
+            na estrutura do projeto:
+        </p>
+
+        <pre><code>BookHub/
+│
+├── .env
+├── requirements.txt
+├── backend/
+└── frontend/</code></pre>
+
+        <p>
+            Esse arquivo deve ser utilizado para armazenar as configurações
+            necessárias para que o backend consiga funcionar corretamente.
+        </p>
+
+
+        <h4>Configuração da conexão com o banco de dados</h4>
+
+        <p>
+            O backend necessita de informações de conexão para estabelecer
+            comunicação com o PostgreSQL.
+        </p>
+
+        <p>
+            Essas informações podem ser fornecidas através de variáveis
+            de ambiente, evitando que usuário, senha ou outros dados
+            de conexão sejam escritos diretamente no código-fonte.
+        </p>
+
+        <pre><code>Banco de dados
+     │
+     │ informações de conexão
+     ▼
+   .env
+     │
+     ▼
+  Backend
+     │
+     ▼
+ PostgreSQL</code></pre>
+
+
+        <h4>Chaves utilizadas na autenticação</h4>
+
+        <p>
+            O sistema também utiliza configurações relacionadas ao
+            mecanismo de autenticação baseado em tokens JWT.
+        </p>
+
+        <p>
+            Informações utilizadas para a geração e validação desses
+            tokens devem ser mantidas como configurações do ambiente,
+            evitando que valores sensíveis sejam incorporados diretamente
+            ao código da aplicação.
+        </p>
+
+        <p>
+            Por motivos de segurança, os valores reais dessas configurações
+            <strong>não devem ser apresentados na documentação nem
+            compartilhados publicamente</strong>.
+        </p>
+
+
+        <h4>Segurança do arquivo .env</h4>
+
+        <p>
+            O arquivo <strong>.env</strong> pode conter informações
+            sensíveis e, por esse motivo, não deve ser disponibilizado
+            publicamente.
+        </p>
+
+        <p>
+            O arquivo deve ser incluído no <strong>.gitignore</strong>
+            para impedir que suas informações sejam acidentalmente
+            adicionadas ao repositório Git.
+        </p>
+
+        <p>
+            No repositório, recomenda-se disponibilizar apenas uma
+            referência das variáveis necessárias, sem seus valores reais.
+        </p>
+
+        <p>
+            Um exemplo conceitual pode ser apresentado da seguinte maneira:
+        </p>
+
+        <pre><code>DATABASE_URL=valor_da_conexao
+SECRET_KEY=valor_da_chave</code></pre>
+
+        <p>
+            Os valores acima são apenas ilustrativos e não devem ser
+            utilizados como credenciais reais.
+        </p>
+
+
+        <h4>Configuração em diferentes ambientes</h4>
+
+        <p>
+            A utilização de variáveis de ambiente permite que o mesmo
+            código da aplicação seja utilizado em diferentes ambientes
+            sem a necessidade de modificar diretamente os arquivos
+            do projeto.
+        </p>
+
+        <pre><code>                  Aplicação BookHub
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+       Desenvolvimento          Docker
+              │                     │
+              ▼                     ▼
+         .env local           Variáveis do
+                              container</code></pre>
+
+        <p>
+            Essa característica será especialmente importante na etapa
+            de containerização do projeto, pois as configurações necessárias
+            poderão ser fornecidas ao ambiente Docker sem que informações
+            sensíveis precisem ser incorporadas à imagem da aplicação.
+        </p>
+
+        <p>
+            A forma específica de configuração das variáveis de ambiente
+            nos containers será apresentada posteriormente na subseção
+            <strong>5.4 — Containerização com Docker</strong>.
+        </p>
+
+
+        <h4>Boas práticas</h4>
+
+        <p>
+            Para manter a segurança das configurações do BookHub,
+            devem ser observadas as seguintes práticas:
+        </p>
+
+        <ul>
+            <li>Não inserir senhas diretamente no código-fonte;</li>
+            <li>Não compartilhar publicamente os valores armazenados no <code>.env</code>;</li>
+            <li>Manter o <code>.env</code> fora do controle de versões quando ele contiver informações sensíveis;</li>
+            <li>Utilizar valores diferentes para ambientes distintos quando necessário;</li>
+            <li>Não utilizar chaves de segurança reais em exemplos ou documentação pública;</li>
+            <li>Fornecer aos desenvolvedores apenas as informações necessárias para configurar seus próprios ambientes.</li>
+        </ul>
+
+        <p>
+            A utilização adequada das variáveis de ambiente contribui
+            para a segurança da aplicação e facilita sua execução em
+            diferentes ambientes, incluindo o ambiente containerizado
+            que será utilizado na versão final do BookHub.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         ESPAÇO RESERVADO PARA 5.4 E 5.5
+         ===================================================== -->
+
+    <section id="secao-5-4" class="manual-subsection">
+
+        <h3>5.4. Containerização com Docker</h3>
+
+        <div class="future-section">
+            <p>
+                Esta seção será preenchida após a implementação da
+                containerização do BookHub utilizando Docker.
+            </p>
+        </div>
+
+    </section>
+
+
+    <section id="secao-5-5" class="manual-subsection">
+
+        <h3>5.5. Execução do sistema com Docker</h3>
+
+        <div class="future-section">
+            <p>
+                Esta seção será preenchida após a implementação e
+                validação da execução do BookHub através dos containers.
+            </p>
+        </div>
+
+    </section>
+
+</section>
+
+
+
+<section id="secao-6">
+    <h2>6. Estrutura do Banco de Dados</h2>
+
+    <p>
+        O BookHub utiliza o PostgreSQL como Sistema Gerenciador de Banco de Dados
+        (SGBD), sendo responsável pelo armazenamento, organização e gerenciamento
+        dos dados utilizados pela aplicação.
+    </p>
+
+    <!-- 6.1 -->
+    <section id="secao-6-1">
+        <h3>6.1. Sistema Gerenciador de Banco de Dados</h3>
+
+        <p>
+            O BookHub utiliza o <strong>PostgreSQL</strong> como Sistema Gerenciador
+            de Banco de Dados (SGBD). Ele é responsável pelo armazenamento,
+            organização e gerenciamento dos dados utilizados pela aplicação.
+        </p>
+
+        <p>
+            A escolha do PostgreSQL está relacionada à sua capacidade de trabalhar
+            com bancos de dados relacionais, oferecendo recursos para definição de
+            tabelas, relacionamentos, restrições de integridade e operações de
+            consulta e manipulação de dados.
+        </p>
+
+        <p>
+            No BookHub, o PostgreSQL atua como a camada responsável pela persistência
+            das informações. Os dados enviados ou modificados através da aplicação
+            são processados pelo backend e posteriormente armazenados ou consultados
+            no banco de dados.
+        </p>
+
+        <h4>Fluxo de comunicação</h4>
+
+        <pre><code>Usuário
+   │
+   ▼
+Frontend
+   │
+   ▼
+API — FastAPI
+   │
+   ▼
+SQLAlchemy
+   │
+   ▼
+PostgreSQL
+   │
+   ▼
+Dados persistidos</code></pre>
+
+        <h4>Função do PostgreSQL no BookHub</h4>
+
+        <p>
+            O banco de dados é responsável por armazenar as principais informações
+            utilizadas pelo sistema, incluindo dados relacionados a usuários,
+            livros, autores, editoras, gêneros, avaliações, resenhas, favoritos
+            e demais relacionamentos existentes entre essas entidades.
+        </p>
+
+        <p>
+            A utilização de um banco de dados relacional permite organizar essas
+            informações em diferentes tabelas e estabelecer relacionamentos entre
+            elas. Dessa maneira, os dados podem ser armazenados de forma estruturada,
+            reduzindo redundâncias e facilitando sua consulta e manutenção.
+        </p>
+
+        <p>
+            O PostgreSQL também é responsável por aplicar as restrições definidas
+            na estrutura do banco, como chaves primárias, chaves estrangeiras,
+            valores obrigatórios, valores únicos e demais regras de integridade
+            estabelecidas pelo projeto.
+        </p>
+
+        <h4>Comunicação com o backend</h4>
+
+        <p>
+            O backend do BookHub não realiza diretamente as operações SQL a partir
+            dos endpoints. A comunicação com o PostgreSQL é intermediada pelo
+            <strong>SQLAlchemy</strong>, utilizado como ferramenta de mapeamento
+            objeto-relacional (ORM).
+        </p>
+
+        <pre><code>Endpoint
+   │
+   ▼
+Router
+   │
+   ▼
+Model SQLAlchemy
+   │
+   ▼
+SQLAlchemy
+   │
+   ▼
+PostgreSQL</code></pre>
+
+        <h4>Banco de dados e integridade dos dados</h4>
+
+        <p>
+            A estrutura relacional utilizada pelo BookHub permite estabelecer
+            regras que contribuem para a consistência dos dados armazenados.
+        </p>
+
+        <ul>
+            <li>Chaves primárias para identificação dos registros;</li>
+            <li>Chaves estrangeiras para estabelecer relacionamentos;</li>
+            <li>Restrições de unicidade para impedir duplicidade em determinados campos;</li>
+            <li>Restrições <code>NOT NULL</code> para campos obrigatórios;</li>
+            <li>Valores padrão para determinados atributos;</li>
+            <li>Restrições <code>CHECK</code> para limitar valores permitidos.</li>
+        </ul>
+    </section>
+
+    <!-- 6.2 -->
+    <section id="secao-6-2">
+        <h3>6.2. Modelo e estrutura das tabelas</h3>
+
+        <p>
+            A estrutura do banco de dados do BookHub é baseada em um modelo
+            relacional composto por entidades que representam os principais
+            elementos da aplicação e pelos relacionamentos existentes entre
+            essas entidades.
+        </p>
+
+        <p>
+            No backend, essas entidades são representadas por modelos SQLAlchemy
+            localizados no diretório:
+        </p>
+
+        <pre><code>backend/models/</code></pre>
+
+        <p>
+            Cada modelo possui uma correspondência com uma tabela do banco de
+            dados PostgreSQL. Os relacionamentos entre as entidades são definidos
+            através de chaves estrangeiras e estruturas associativas.
+        </p>
+
+        <pre><code>                         ┌──────────────┐
+                         │    Editora   │
+                         └──────┬───────┘
+                                │
+                                │ 1:N
+                                ▼
+                         ┌──────────────┐
+                         │    Livro     │
+                         └──────┬───────┘
+                    ┌───────────┼────────────┐
+                    │           │             │
+                  N:N           │            N:N
+                    │           │             │
+                    ▼           ▼             ▼
+                 Autor      Avaliação       Gênero
+                                │
+                                │
+                              Usuário
+                                │
+                  ┌─────────────┼─────────────┐
+                  │             │             │
+                  ▼             ▼             ▼
+             Resenhas       Favoritos     Estante</code></pre>
+
+        <h4>6.2.1. Tabela <code>usuario</code></h4>
+
+        <p>
+            A tabela <code>usuario</code> armazena os dados dos usuários
+            cadastrados no BookHub.
+        </p>
+
+        <p>O modelo correspondente está localizado em:</p>
+
+        <pre><code>backend/models/usuario.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador único do usuário;</li>
+            <li><code>nome</code>: nome completo do usuário;</li>
+            <li><code>nome_usuario</code>: nome utilizado pelo usuário no sistema;</li>
+            <li><code>email</code>: endereço de e-mail;</li>
+            <li><code>senha_hash</code>: senha armazenada em formato de hash;</li>
+            <li><code>data_cadastro</code>: data e hora de cadastro;</li>
+            <li><code>foto_perfil</code>: referência para a foto de perfil;</li>
+            <li><code>biografia</code>: descrição do usuário;</li>
+            <li><code>tipo_usuario</code>: identifica o tipo de usuário;</li>
+            <li><code>ativo</code>: indica se o usuário está ativo.</li>
+        </ul>
+
+        <p>
+            Os campos <code>nome_usuario</code> e <code>email</code> possuem
+            restrição de unicidade, evitando que dois usuários utilizem os
+            mesmos valores.
+        </p>
+
+        <p>
+            A entidade <code>Usuario</code> também possui relacionamentos com
+            avaliações, favoritos, resenhas e registros de leitura.
+        </p>
+
+        <h4>6.2.2. Tabela <code>livro</code></h4>
+
+        <p>
+            A tabela <code>livro</code> representa as obras cadastradas no sistema.
+        </p>
+
+        <pre><code>backend/models/livro.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador único do livro;</li>
+            <li><code>titulo</code>: título da obra;</li>
+            <li><code>subtitulo</code>: subtítulo, quando existente;</li>
+            <li><code>isbn</code>: ISBN do livro;</li>
+            <li><code>sinopse</code>: descrição da obra;</li>
+            <li><code>ano_publicacao</code>: ano de publicação;</li>
+            <li><code>numero_paginas</code>: quantidade de páginas;</li>
+            <li><code>idioma</code>: idioma da obra;</li>
+            <li><code>capa</code>: referência para a imagem da capa;</li>
+            <li><code>editora_id</code>: chave estrangeira referente à editora;</li>
+            <li><code>data_cadastro</code>: data e hora de cadastro.</li>
+        </ul>
+
+        <p>
+            O ISBN possui restrição de unicidade quando informado.
+        </p>
+
+        <p>
+            Cada livro está associado a uma editora e pode possuir diversos
+            autores, gêneros, avaliações, resenhas, registros de leitura e
+            favoritos.
+        </p>
+
+        <p>
+            O relacionamento com autores e gêneros é realizado através das
+            tabelas associativas <code>livro_autor</code> e
+            <code>livro_genero</code>.
+        </p>
+
+        <h4>6.2.3. Tabela <code>autor</code></h4>
+
+        <p>
+            A tabela <code>autor</code> armazena informações referentes aos
+            autores das obras.
+        </p>
+
+        <pre><code>backend/models/autor.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador único do autor;</li>
+            <li><code>nome</code>: nome do autor;</li>
+            <li><code>biografia</code>: informações biográficas;</li>
+            <li><code>data_nascimento</code>: data de nascimento;</li>
+            <li><code>foto</code>: referência para a imagem do autor.</li>
+        </ul>
+
+        <p>
+            Um autor pode estar associado a vários livros, enquanto um livro
+            também pode possuir vários autores. Por esse motivo, a relação
+            entre <code>autor</code> e <code>livro</code> é do tipo
+            <strong>N:N (muitos para muitos)</strong>.
+        </p>
+
+        <p>
+            Essa relação é implementada através da tabela associativa
+            <code>livro_autor</code>.
+        </p>
+
+        <h4>6.2.4. Tabela <code>editora</code></h4>
+
+        <p>
+            A tabela <code>editora</code> representa as editoras responsáveis
+            pelas obras cadastradas.
+        </p>
+
+        <pre><code>backend/models/editora.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador único da editora;</li>
+            <li><code>nome</code>: nome da editora;</li>
+            <li><code>descricao</code>: descrição da editora;</li>
+            <li><code>site</code>: endereço do site da editora.</li>
+        </ul>
+
+        <p>
+            O campo <code>nome</code> possui restrição de unicidade.
+        </p>
+
+        <p>
+            Uma editora pode estar relacionada a vários livros, enquanto cada
+            livro possui uma editora definida através da chave estrangeira
+            <code>editora_id</code>. Dessa forma, o relacionamento entre
+            <code>editora</code> e <code>livro</code> é do tipo
+            <strong>1:N (um para muitos)</strong>.
+        </p>
+
+        <h4>6.2.5. Tabela <code>genero</code></h4>
+
+        <p>
+            A tabela <code>genero</code> armazena os gêneros literários
+            disponíveis no sistema.
+        </p>
+
+        <pre><code>backend/models/genero.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador único do gênero;</li>
+            <li><code>nome</code>: nome do gênero;</li>
+            <li><code>descricao</code>: descrição do gênero.</li>
+        </ul>
+
+        <p>
+            O campo <code>nome</code> possui restrição de unicidade.
+        </p>
+
+        <p>
+            Um livro pode pertencer a vários gêneros e um gênero pode estar
+            associado a vários livros. Portanto, o relacionamento entre
+            <code>livro</code> e <code>genero</code> é do tipo
+            <strong>N:N</strong>.
+        </p>
+
+        <p>
+            Esse relacionamento é implementado através da tabela associativa
+            <code>livro_genero</code>.
+        </p>
+
+        <h4>6.2.6. Tabela <code>avaliacao</code></h4>
+
+        <p>
+            A tabela <code>avaliacao</code> armazena as avaliações realizadas
+            pelos usuários sobre os livros.
+        </p>
+
+        <pre><code>backend/models/avaliacao.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador da avaliação;</li>
+            <li><code>usuario_id</code>: usuário responsável pela avaliação;</li>
+            <li><code>livro_id</code>: livro avaliado;</li>
+            <li><code>nota</code>: nota atribuída ao livro;</li>
+            <li><code>data_avaliacao</code>: data e hora da avaliação;</li>
+            <li><code>data_atualizacao</code>: data e hora da última atualização.</li>
+        </ul>
+
+        <p>
+            Os campos <code>usuario_id</code> e <code>livro_id</code> são
+            chaves estrangeiras que estabelecem o relacionamento da avaliação
+            com o usuário e com o livro.
+        </p>
+
+        <p>
+            Um usuário pode realizar várias avaliações e um livro pode receber
+            várias avaliações.
+        </p>
+
+        <h4>6.2.7. Tabela <code>resenha</code></h4>
+
+        <p>
+            A tabela <code>resenha</code> armazena as resenhas publicadas pelos
+            usuários sobre os livros.
+        </p>
+
+        <pre><code>backend/models/resenha.py</code></pre>
+
+        <ul>
+            <li><code>id</code>: identificador da resenha;</li>
+            <li><code>usuario_id</code>: usuário responsável pela publicação;</li>
+            <li><code>livro_id</code>: livro relacionado à resenha;</li>
+            <li><code>titulo</code>: título da resenha;</li>
+            <li><code>conteudo</code>: conteúdo textual;</li>
+            <li><code>data_publicacao</code>: data e hora da publicação;</li>
+            <li><code>data_atualizacao</code>: data e hora da última atualização.</li>
+        </ul>
+
+        <p>
+            Cada resenha está associada a um usuário e a um livro através das
+            chaves estrangeiras <code>usuario_id</code> e <code>livro_id</code>.
+        </p>
+
+        <h4>6.2.8. Tabela <code>favorito</code></h4>
+
+        <p>
+            A tabela <code>favorito</code> representa os livros adicionados
+            pelos usuários à sua lista de favoritos.
+        </p>
+
+        <pre><code>backend/models/favorito.py</code></pre>
+
+        <ul>
+            <li><code>usuario_id</code>: usuário que adicionou o livro;</li>
+            <li><code>livro_id</code>: livro adicionado aos favoritos;</li>
+            <li><code>data_adicao</code>: data e hora da adição.</li>
+        </ul>
+
+        <p>
+            Os campos <code>usuario_id</code> e <code>livro_id</code> formam
+            conjuntamente a chave primária da tabela, impedindo que a mesma
+            combinação seja registrada mais de uma vez.
+        </p>
+
+        <h4>6.2.9. Tabela <code>usuario_livro</code></h4>
+
+        <p>
+            A tabela <code>usuario_livro</code> representa a relação entre
+            usuários e livros acompanhados em sua estante.
+        </p>
+
+        <pre><code>backend/models/usuario_livro.py</code></pre>
+
+        <ul>
+            <li><code>usuario_id</code>: usuário relacionado;</li>
+            <li><code>livro_id</code>: livro relacionado;</li>
+            <li><code>status_leitura</code>: situação atual da leitura;</li>
+            <li><code>pagina_atual</code>: página em que o usuário se encontra;</li>
+            <li><code>data_adicao</code>: data em que o livro foi adicionado;</li>
+            <li><code>data_inicio</code>: data de início da leitura;</li>
+            <li><code>data_conclusao</code>: data de conclusão da leitura.</li>
+        </ul>
+
+        <p>
+            Os campos <code>usuario_id</code> e <code>livro_id</code> formam
+            conjuntamente a chave primária.
+        </p>
+
+        <h4>6.2.10. Tabelas associativas</h4>
+
+        <p>
+            O BookHub utiliza tabelas associativas para representar
+            relacionamentos de muitos para muitos.
+        </p>
+
+        <p>
+            Essas estruturas são definidas no arquivo:
+        </p>
+
+        <pre><code>backend/models/associations.py</code></pre>
+
+        <p>São utilizadas duas tabelas associativas:</p>
+
+        <pre><code>livro_autor
+livro_genero</code></pre>
+
+        <p>
+            A tabela <code>livro_autor</code> relaciona livros e autores através
+            dos campos <code>livro_id</code> e <code>autor_id</code>.
+        </p>
+
+        <p>
+            A tabela <code>livro_genero</code> relaciona livros e gêneros através
+            dos campos <code>livro_id</code> e <code>genero_id</code>.
+        </p>
+
+        <p>
+            Em ambas as tabelas, os dois campos formam conjuntamente a chave
+            primária, evitando duplicidade de associações.
+        </p>
+
+        <h4>6.2.11. Relacionamentos entre as entidades</h4>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Relacionamento</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Editora → Livro</td>
+                    <td>1:N</td>
+                    <td>Uma editora pode possuir vários livros.</td>
+                </tr>
+                <tr>
+                    <td>Livro ↔ Autor</td>
+                    <td>N:N</td>
+                    <td>Um livro pode possuir vários autores e um autor pode possuir vários livros.</td>
+                </tr>
+                <tr>
+                    <td>Livro ↔ Gênero</td>
+                    <td>N:N</td>
+                    <td>Um livro pode possuir vários gêneros e um gênero pode estar associado a vários livros.</td>
+                </tr>
+                <tr>
+                    <td>Usuário → Avaliação</td>
+                    <td>1:N</td>
+                    <td>Um usuário pode realizar várias avaliações.</td>
+                </tr>
+                <tr>
+                    <td>Livro → Avaliação</td>
+                    <td>1:N</td>
+                    <td>Um livro pode receber várias avaliações.</td>
+                </tr>
+                <tr>
+                    <td>Usuário → Resenha</td>
+                    <td>1:N</td>
+                    <td>Um usuário pode publicar várias resenhas.</td>
+                </tr>
+                <tr>
+                    <td>Livro → Resenha</td>
+                    <td>1:N</td>
+                    <td>Um livro pode possuir várias resenhas.</td>
+                </tr>
+                <tr>
+                    <td>Usuário ↔ Livro → Favorito</td>
+                    <td>N:N</td>
+                    <td>Um usuário pode favoritar vários livros e um livro pode ser favoritado por vários usuários.</td>
+                </tr>
+                <tr>
+                    <td>Usuário ↔ Livro → Estante</td>
+                    <td>N:N</td>
+                    <td>Um usuário pode acompanhar vários livros e um livro pode estar na estante de vários usuários.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- 6.3 -->
+    <section id="secao-6-3">
+        <h3>6.3. Mapeamento objeto-relacional com SQLAlchemy</h3>
+
+        <p>
+            O BookHub utiliza o <strong>SQLAlchemy</strong> como ferramenta de
+            mapeamento objeto-relacional (ORM — <em>Object-Relational Mapping</em>).
+            Sua função é estabelecer a correspondência entre as classes Python
+            utilizadas pelo backend e as tabelas existentes no banco de dados
+            PostgreSQL.
+        </p>
+
+        <p>
+            Cada entidade do banco de dados é representada por uma classe Python,
+            enquanto seus atributos correspondem às colunas das respectivas tabelas.
+        </p>
+
+        <pre><code>Banco de dados PostgreSQL
+          │
+          ▼
+      Tabela SQL
+          │
+          │ mapeamento ORM
+          ▼
+    Classe SQLAlchemy
+          │
+          ▼
+       Python</code></pre>
+
+        <h4>6.3.1. Classe base dos modelos</h4>
+
+        <p>
+            Todos os modelos do BookHub utilizam uma classe base comum, definida
+            no arquivo:
+        </p>
+
+        <pre><code>backend/models/base.py</code></pre>
+
+        <pre><code>from sqlalchemy.orm import DeclarativeBase
+
+class Base(DeclarativeBase):
+    pass</code></pre>
+
+        <p>
+            A classe <code>Base</code> funciona como a base declarativa para os
+            modelos do sistema.
+        </p>
+
+        <h4>6.3.2. Definição das tabelas</h4>
+
+        <p>
+            Cada classe representa uma tabela do banco através do atributo
+            <code>__tablename__</code>.
+        </p>
+
+        <pre><code>class Usuario(Base):
+    __tablename__ = "usuario"</code></pre>
+
+        <p>
+            Existe, portanto, uma correspondência direta entre as classes Python
+            e as tabelas PostgreSQL.
+        </p>
+
+        <pre><code>Usuario       ───────► usuario
+Livro         ───────► livro
+Autor         ───────► autor
+Editora       ───────► editora
+Genero        ───────► genero
+Avaliacao     ───────► avaliacao
+Resenha       ───────► resenha
+Favorito      ───────► favorito
+UsuarioLivro  ───────► usuario_livro</code></pre>
+
+        <h4>6.3.3. Mapeamento das colunas</h4>
+
+        <p>
+            Os atributos das classes representam as colunas das tabelas. O projeto
+            utiliza a abordagem de tipagem do SQLAlchemy através de
+            <code>Mapped</code> e <code>mapped_column</code>.
+        </p>
+
+        <pre><code>titulo: Mapped[str] = mapped_column(
+    String(255),
+    nullable=False
+)</code></pre>
+
+        <p>
+            Nesse exemplo, <code>titulo</code> representa o atributo da classe,
+            <code>Mapped[str]</code> indica o tipo esperado no Python,
+            <code>String(255)</code> define o tipo da coluna e
+            <code>nullable=False</code> determina que o campo é obrigatório.
+        </p>
+
+        <h4>6.3.4. Chaves primárias</h4>
+
+        <p>
+            As chaves primárias são definidas através de
+            <code>primary_key=True</code>.
+        </p>
+
+        <pre><code>id: Mapped[int] = mapped_column(
+    Integer,
+    primary_key=True
+)</code></pre>
+
+        <p>
+            Nas entidades <code>Favorito</code> e <code>UsuarioLivro</code>,
+            a chave primária é composta pelos campos <code>usuario_id</code> e
+            <code>livro_id</code>.
+        </p>
+
+        <h4>6.3.5. Chaves estrangeiras</h4>
+
+        <p>
+            As chaves estrangeiras estabelecem os relacionamentos entre as tabelas.
+        </p>
+
+        <pre><code>editora_id: Mapped[int] = mapped_column(
+    ForeignKey("editora.id"),
+    nullable=False
+)</code></pre>
+
+        <p>
+            Nesse exemplo, <code>editora_id</code> referencia o identificador
+            da tabela <code>editora</code>.
+        </p>
+
+        <h4>6.3.6. Relacionamentos com <code>relationship()</code></h4>
+
+        <p>
+            O SQLAlchemy utiliza <code>relationship()</code> para representar as
+            associações entre os objetos.
+        </p>
+
+        <pre><code>editora = relationship(
+    "Editora",
+    back_populates="livros"
+)</code></pre>
+
+        <p>
+            O parâmetro <code>back_populates</code> permite vincular explicitamente
+            os dois lados do relacionamento.
+        </p>
+
+        <h4>6.3.7. Relacionamentos muitos-para-muitos</h4>
+
+        <p>
+            Os relacionamentos entre livros e autores e entre livros e gêneros
+            utilizam tabelas associativas.
+        </p>
+
+        <pre><code>livro_autor = Table(
+    "livro_autor",
+    Base.metadata,
+    ...
+)
+
+livro_genero = Table(
+    "livro_genero",
+    Base.metadata,
+    ...
+)</code></pre>
+
+        <p>
+            Nos modelos, o parâmetro <code>secondary</code> informa ao SQLAlchemy
+            qual tabela associativa deve ser utilizada.
+        </p>
+
+        <pre><code>autores = relationship(
+    "Autor",
+    secondary=livro_autor,
+    back_populates="livros"
+)</code></pre>
+
+        <h4>6.3.8. Restrições de unicidade e obrigatoriedade</h4>
+
+        <p>
+            Algumas regras de integridade também são representadas nos modelos.
+            Por exemplo, <code>nome_usuario</code> e <code>email</code> do usuário
+            são definidos como únicos.
+        </p>
+
+        <pre><code>nome_usuario: Mapped[str] = mapped_column(
+    String(50),
+    nullable=False,
+    unique=True
+)</code></pre>
+
+        <p>
+            A mesma estratégia é utilizada para o nome de editoras e gêneros.
+        </p>
+
+        <h4>6.3.9. Valores padrão gerenciados pelo banco</h4>
+
+        <p>
+            Os modelos <code>Usuario</code> e <code>Livro</code> utilizam
+            <code>server_default=func.current_timestamp()</code> para os campos
+            de data de cadastro.
+        </p>
+
+        <pre><code>data_cadastro: Mapped[datetime] = mapped_column(
+    DateTime,
+    nullable=False,
+    server_default=func.current_timestamp()
+)</code></pre>
+
+        <p>
+            Dessa forma, quando a data não é informada explicitamente, o banco
+            pode utilizar o horário atual como valor padrão.
+        </p>
+
+        <h4>6.3.10. Relacionamentos com entidades próprias</h4>
+
+        <p>
+            As entidades <code>Favorito</code> e <code>UsuarioLivro</code>
+            representam associações entre usuários e livros, mas possuem
+            atributos próprios.
+        </p>
+
+        <p>
+            Em <code>Favorito</code>, a associação possui o atributo
+            <code>data_adicao</code>. Já <code>UsuarioLivro</code> possui
+            informações como status de leitura, página atual e datas de início
+            e conclusão.
+        </p>
+
+        <p>
+            Por possuírem informações próprias além das chaves de relacionamento,
+            essas estruturas são representadas como modelos SQLAlchemy
+            independentes.
+        </p>
+
+        <h4>6.3.11. Integração entre os modelos e o PostgreSQL</h4>
+
+        <pre><code>                 Backend FastAPI
+                       │
+                       ▼
+                Modelos SQLAlchemy
+                       │
+          ┌────────────┼────────────┐
+          │            │            │
+          ▼            ▼            ▼
+       Usuario       Livro        Autor
+          │            │            │
+          └────────────┼────────────┘
+                       │
+                       ▼
+                   SQLAlchemy
+                       │
+                       ▼
+                  PostgreSQL</code></pre>
+
+        <p>
+            Essa estrutura estabelece uma separação entre a lógica da aplicação
+            e a representação dos dados, permitindo que o backend manipule as
+            entidades através de objetos Python enquanto o SQLAlchemy realiza
+            o mapeamento necessário para o banco de dados relacional.
+        </p>
+    </section>
+
+    <!-- 6.4 -->
+    <section id="secao-6-4">
+        <h3>6.4. Scripts de banco de dados</h3>
+
+        <p>
+            O BookHub possui scripts SQL responsáveis pela preparação e população
+            do banco de dados PostgreSQL.
+        </p>
+
+        <pre><code>backend/database/scripts/
+├── 00_drop_tables.sql
+├── 01_create_tables.sql
+└── 02_insert_data.sql</code></pre>
+
+        <p>
+            A numeração estabelece a ordem recomendada de execução.
+        </p>
+
+        <h4>6.4.1. <code>00_drop_tables.sql</code></h4>
+
+        <p>
+            O arquivo é responsável pela remoção das tabelas existentes no banco
+            de dados.
+        </p>
+
+        <pre><code>DROP TABLE IF EXISTS
+    resenha,
+    avaliacao,
+    usuario_livro,
+    livro_genero,
+    livro_autor,
+    livro,
+    genero,
+    autor,
+    editora,
+    usuario
+CASCADE;</code></pre>
+
+        <p>
+            O <code>IF EXISTS</code> evita erro caso uma tabela não exista.
+            O <code>CASCADE</code> permite remover objetos dependentes das
+            tabelas.
+        </p>
+
+        <p>
+            Esse script é utilizado principalmente durante o desenvolvimento
+            e os testes, quando é necessário reconstruir o banco a partir de
+            uma estrutura conhecida.
+        </p>
+
+        <h4>6.4.2. <code>01_create_tables.sql</code></h4>
+
+        <p>
+            O arquivo é responsável pela criação da estrutura do banco de dados,
+            incluindo tabelas, colunas, tipos de dados, chaves primárias,
+            chaves estrangeiras e restrições de integridade.
+        </p>
+
+        <p>As tabelas criadas são:</p>
+
+        <pre><code>usuario
+editora
+autor
+genero
+livro
+livro_autor
+livro_genero
+usuario_livro
+avaliacao
+resenha
+favorito</code></pre>
+
+        <p>
+            A criação segue uma ordem que respeita as dependências entre as tabelas.
+        </p>
+
+        <h4>6.4.3. Chaves primárias e estrangeiras</h4>
+
+        <p>
+            As entidades principais utilizam identificadores inteiros gerados
+            automaticamente:
+        </p>
+
+        <pre><code>id INTEGER GENERATED ALWAYS AS IDENTITY</code></pre>
+
+        <p>
+            As tabelas associativas utilizam chaves primárias compostas, como:
+        </p>
+
+        <pre><code>PRIMARY KEY (livro_id, autor_id)</code></pre>
+
+        <p>
+            As chaves estrangeiras garantem a integridade referencial entre as
+            tabelas.
+        </p>
+
+        <h4>6.4.4. Restrições de integridade</h4>
+
+        <p>
+            O script utiliza diferentes restrições para manter a consistência
+            dos dados.
+        </p>
+
+        <ul>
+            <li><code>NOT NULL</code>: define campos obrigatórios;</li>
+            <li><code>UNIQUE</code>: impede duplicidade em determinados campos;</li>
+            <li><code>CHECK</code>: limita os valores permitidos;</li>
+            <li><code>PRIMARY KEY</code>: identifica unicamente os registros;</li>
+            <li><code>FOREIGN KEY</code>: mantém a integridade referencial.</li>
+        </ul>
+
+        <p>
+            Na tabela <code>avaliacao</code>, por exemplo, a nota deve estar
+            entre 1 e 5:
+        </p>
+
+        <pre><code>CHECK (nota BETWEEN 1 AND 5)</code></pre>
+
+        <p>
+            Na tabela <code>usuario_livro</code>, o status de leitura é limitado
+            aos valores <code>QUERO_LER</code>, <code>LENDO</code>,
+            <code>LIDO</code> e <code>ABANDONADO</code>.
+        </p>
+
+        <h4>6.4.5. Valores padrão</h4>
+
+        <p>
+            Alguns campos possuem valores padrão definidos diretamente no banco.
+        </p>
+
+        <pre><code>data_cadastro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP</code></pre>
+
+        <p>
+            Essa estratégia também é utilizada em campos como tipo de usuário,
+            status de leitura, página atual, datas de adição, avaliação,
+            atualização, publicação e favoritos.
+        </p>
+
+        <h4>6.4.6. <code>02_insert_data.sql</code></h4>
+
+        <p>
+            O arquivo é responsável pela inserção dos dados iniciais utilizados
+            pelo ambiente de desenvolvimento e demonstração.
+        </p>
+
+        <p>
+            São inseridos registros de editoras, usuários, autores, gêneros,
+            livros, relacionamentos entre livros e autores, relacionamentos
+            entre livros e gêneros, além de uma resenha e uma avaliação.
+        </p>
+
+        <p>
+            Entre os dados iniciais estão três editoras, um usuário, três autores,
+            cinco gêneros e três livros.
+        </p>
+
+        <h4>6.4.7. Ordem de execução</h4>
+
+        <pre><code>1. 00_drop_tables.sql
+          │
+          ▼
+2. 01_create_tables.sql
+          │
+          ▼
+3. 02_insert_data.sql</code></pre>
+
+        <p>
+            O primeiro script limpa a estrutura existente, o segundo cria as
+            tabelas e suas restrições e o terceiro insere os dados iniciais.
+        </p>
+
+        <h4>6.4.8. Finalidade dos scripts no desenvolvimento</h4>
+
+        <p>
+            A separação dos scripts permite reconstruir o banco de dados de
+            maneira padronizada durante o desenvolvimento.
+        </p>
+
+        <ol>
+            <li>Remover a estrutura anterior;</li>
+            <li>Criar novamente as tabelas;</li>
+            <li>Estabelecer os relacionamentos e restrições;</li>
+            <li>Inserir os dados iniciais.</li>
+        </ol>
+
+        <p>
+            Essa organização facilita a realização de testes, a preparação de
+            novos ambientes de desenvolvimento e a reprodução da estrutura
+            do banco utilizada pelo projeto.
+        </p>
+    </section>
+
+    <!-- 6.5 -->
+    <section id="secao-6-5">
+        <h3>6.5. Conexão entre aplicação e banco de dados</h3>
+
+        <p>
+            A comunicação entre o backend do BookHub e o PostgreSQL é realizada
+            através do SQLAlchemy, utilizando o driver <strong>psycopg</strong>
+            para estabelecer a conexão com o banco de dados.
+        </p>
+
+        <p>
+            A configuração dessa conexão está centralizada no arquivo:
+        </p>
+
+        <pre><code>backend/database/connection.py</code></pre>
+
+        <h4>6.5.1. Configuração das variáveis de ambiente</h4>
+
+        <p>
+            As informações necessárias para a conexão são obtidas através de
+            variáveis de ambiente.
+        </p>
+
+        <pre><code>from dotenv import load_dotenv
+
+load_dotenv()</code></pre>
+
+        <p>
+            As configurações são obtidas através de <code>os.getenv()</code>:
+        </p>
+
+        <pre><code>DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")</code></pre>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Variável</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>DB_HOST</code></td>
+                    <td>Endereço do servidor do banco de dados.</td>
+                </tr>
+                <tr>
+                    <td><code>DB_PORT</code></td>
+                    <td>Porta utilizada pelo PostgreSQL.</td>
+                </tr>
+                <tr>
+                    <td><code>DB_NAME</code></td>
+                    <td>Nome do banco de dados.</td>
+                </tr>
+                <tr>
+                    <td><code>DB_USER</code></td>
+                    <td>Usuário utilizado na autenticação.</td>
+                </tr>
+                <tr>
+                    <td><code>DB_PASSWORD</code></td>
+                    <td>Senha utilizada na autenticação.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>6.5.2. URL de conexão</h4>
+
+        <p>
+            As variáveis de ambiente são utilizadas para montar a URL de conexão:
+        </p>
+
+        <pre><code>DATABASE_URL = (
+    f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}"
+    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)</code></pre>
+
+        <p>A estrutura da URL segue o formato:</p>
+
+        <pre><code>postgresql+psycopg://USUARIO:SENHA@HOST:PORTA/BANCO</code></pre>
+
+        <p>
+            O trecho <code>postgresql+psycopg</code> informa que o SGBD utilizado
+            é o PostgreSQL e que a comunicação será realizada através do driver
+            psycopg.
+        </p>
+
+        <h4>6.5.3. Criação do Engine</h4>
+
+        <p>
+            A infraestrutura de conexão é criada através de:
+        </p>
+
+        <pre><code>engine = create_engine(DATABASE_URL)</code></pre>
+
+        <p>
+            O objeto <code>engine</code> funciona como o principal ponto de
+            comunicação entre o SQLAlchemy e o banco de dados.
+        </p>
+
+        <pre><code>FastAPI
+   │
+   ▼
+SQLAlchemy Session
+   │
+   ▼
+Engine
+   │
+   ▼
+psycopg
+   │
+   ▼
+PostgreSQL</code></pre>
+
+        <h4>6.5.4. Criação das sessões</h4>
+
+        <p>
+            O projeto utiliza <code>sessionmaker</code> para criar uma fábrica
+            responsável pela geração das sessões:
+        </p>
+
+        <pre><code>SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)</code></pre>
+
+        <ul>
+            <li><code>bind=engine</code>: vincula as sessões ao engine;</li>
+            <li><code>autocommit=False</code>: as operações não são confirmadas automaticamente;</li>
+            <li><code>autoflush=False</code>: o envio automático das alterações pendentes é desabilitado.</li>
+        </ul>
+
+        <h4>6.5.5. Dependência <code>get_db()</code></h4>
+
+        <p>
+            A função <code>get_db()</code> fornece uma sessão do banco de dados
+            aos componentes que necessitam realizar operações de persistência.
+        </p>
+
+        <pre><code>def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()</code></pre>
+
+        <p>
+            O funcionamento pode ser dividido em três etapas:
+        </p>
+
+        <ol>
+            <li>Uma nova sessão é criada através de <code>SessionLocal()</code>;</li>
+            <li>A sessão é disponibilizada através de <code>yield</code>;</li>
+            <li>Após a utilização, a sessão é encerrada através de <code>db.close()</code>.</li>
+        </ol>
+
+        <h4>6.5.6. Integração com os endpoints</h4>
+
+        <p>
+            A função <code>get_db()</code> pode ser utilizada como dependência
+            do FastAPI nos endpoints que precisam acessar o banco de dados.
+        </p>
+
+        <pre><code>Requisição HTTP
+      │
+      ▼
+   FastAPI
+      │
+      ▼
+    Router
+      │
+      ▼
+   get_db()
+      │
+      ▼
+ SessionLocal
+      │
+      ▼
+    Engine
+      │
+      ▼
+    psycopg
+      │
+      ▼
+ PostgreSQL
+      │
+      ▼
+   Resultado
+      │
+      ▼
+ Resposta HTTP</code></pre>
+
+        <h4>6.5.7. Gerenciamento do ciclo de vida da sessão</h4>
+
+        <p>
+            O controle do ciclo de vida da sessão é importante para evitar que
+            conexões permaneçam abertas desnecessariamente.
+        </p>
+
+        <pre><code>Criar sessão
+     │
+     ▼
+Disponibilizar sessão
+     │
+     ▼
+Executar operações
+     │
+     ▼
+Finalizar operação
+     │
+     ▼
+Fechar sessão</code></pre>
+
+        <p>
+            O bloco <code>finally</code> garante que o fechamento da sessão
+            seja executado mesmo quando ocorre uma exceção durante a operação.
+        </p>
+
+        <h4>6.5.8. Segurança das informações de conexão</h4>
+
+        <p>
+            As informações utilizadas para acessar o banco de dados não são
+            definidas diretamente no código-fonte. O projeto utiliza variáveis
+            de ambiente para armazenar essas configurações.
+        </p>
+
+        <p>
+            Essa separação é importante para informações como usuário e senha
+            do banco de dados.
+        </p>
+
+        <p>
+            A estrutura também facilita a mudança do ambiente de execução.
+            Os valores utilizados durante o desenvolvimento podem ser diferentes
+            daqueles utilizados posteriormente no ambiente de containerização
+            com Docker, sem que seja necessário alterar o código responsável
+            pela conexão.
+        </p>
+
+        <p>
+            A configuração específica das variáveis de ambiente no ambiente
+            Docker será abordada posteriormente na seção de containerização
+            do projeto.
+        </p>
+    </section>
+</section>
+
 
 
 
