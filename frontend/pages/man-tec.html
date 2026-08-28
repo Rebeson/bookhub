@@ -105,36 +105,24 @@
     </li>
 
     <li>
-        <a href="#frontend">Frontend</a>
+        <a href="#secao-9">Detalhamento do Frontend</a>
         <ol>
-            <li><a href="#estrutura-frontend">Estrutura do frontend</a></li>
-            <li><a href="#html">HTML</a></li>
-            <li><a href="#css">CSS</a></li>
-            <li><a href="#javascript">JavaScript</a></li>
-            <li><a href="#comunicacao-api">Comunicação com a API</a></li>
-            <li><a href="#organizacao-paginas">Organização das páginas</a></li>
+            <li><a href="#secao-9-1">Estrutura do frontend</a></li>
+            <li><a href="#secao-9-2">HTML</a></li>
+            <li><a href="#secao-9-3">CSS</a></li>
+            <li><a href="#secao-9-4">JavaScript</a></li>
+            <li><a href="#secao-9-5">Comunicação com a API</a></li>
+            <li><a href="#secao-9-6">Organização das páginas</a></li>
         </ol>
     </li>
 
     <li>
-        <a href="#configuracao-execucao">Configuração e Execução</a>
+        <a href="#secao-10">Testes e Validação</a>
         <ol>
-            <li><a href="#pre-requisitos">Pré-requisitos</a></li>
-            <li><a href="#config-ambiente">Configuração do ambiente</a></li>
-            <li><a href="#variaveis-ambiente">Configuração das variáveis de ambiente</a></li>
-            <li><a href="#config-banco">Configuração do banco de dados</a></li>
-            <li><a href="#execucao-backend">Execução do backend</a></li>
-            <li><a href="#execucao-frontend">Execução do frontend</a></li>
-        </ol>
-    </li>
-
-    <li>
-        <a href="#testes-validacao">Testes e Validação</a>
-        <ol>
-            <li><a href="#testes-backend">Testes do backend</a></li>
-            <li><a href="#testes-api">Testes da API</a></li>
-            <li><a href="#testes-integracao">Testes de integração</a></li>
-            <li><a href="#validacao-funcionalidades">Validação das funcionalidades</a></li>
+            <li><a href="#secao-10-1">Testes do backend</a></li>
+            <li><a href="#secao-10-2">Testes da API</a></li>
+            <li><a href="#secao-10-3">Testes de integração</a></li>
+            <li><a href="#secao-10-4">Validação das funcionalidades</a></li>
         </ol>
     </li>
 
@@ -5568,9 +5556,1340 @@ Exibição dos livros </code></pre>
 </section>
 
 
+<section id="secao-9">
+    <h2>9. Detalhamento do Frontend</h2>
 
+    <p>
+        Esta seção apresenta a estrutura e o funcionamento do frontend
+        do BookHub, incluindo sua organização, tecnologias utilizadas,
+        comunicação com a API e estrutura das páginas da aplicação.
+    </p>
+
+    <!-- 9.1 -->
+    <section id="secao-9-1"></section>
+    <h3>9.1 Estrutura do frontend</h3>
+
+    <!-- Conteúdo será desenvolvido após a finalização do frontend -->
+
+
+    <!-- 9.2 -->
+    <section id="secao-9-2"></section>
+    <h3>9.2 HTML</h3>
+
+    <!-- Conteúdo será desenvolvido após a finalização do frontend -->
+
+
+    <!-- 9.3 -->
+    <section id="secao-9-3"></section>
+    <h3>9.3 CSS</h3>
+
+    <!-- Conteúdo será desenvolvido após a finalização do frontend -->
+
+
+    <!-- 9.4 -->
+    <section id="secao-9-4"></section>
+    <h3>9.4 JavaScript</h3>
+
+    <!-- Conteúdo será desenvolvido após a finalização do frontend -->
+
+
+    <!-- 9.5 -->
+    <section id="secao-9-5"></section>
+    <h3>9.5 Comunicação com a API</h3>
+
+    <!-- Conteúdo será desenvolvido após a finalização do frontend -->
+
+
+    <!-- 9.6 -->
+    <section id="secao-9-6"></section>
+    <h3>9.6 Organização das páginas</h3>
+
+    <!-- Conteúdo será desenvolvido após a finalização do frontend -->
+
+</section>
 
     
+<section id="secao-10">
+    <h2>10. Testes e Validação</h2>
+
+
+<p>
+    Os testes e a validação do BookHub foram realizados com o objetivo
+    de verificar o funcionamento correto dos diferentes componentes
+    da aplicação e confirmar se as funcionalidades implementadas
+    atendem aos requisitos definidos para o projeto.
+</p>
+
+<p>
+    A seção está dividida em quatro etapas: testes do backend,
+    testes da API, testes de integração e validação das funcionalidades.
+    Em conjunto, essas etapas permitem avaliar o sistema desde seus
+    componentes individuais até o funcionamento integrado das
+    principais funcionalidades.
+</p>
+
+
+<!-- ========================================================= -->
+<!-- 10.1 TESTES DO BACKEND -->
+<!-- ========================================================= -->
+
+<section id="secao-10-1"></section>
+    <h3>10.1 Testes do Backend</h3>
+
+    <p>
+        Os testes do backend foram realizados com o objetivo de verificar
+        se os principais componentes da aplicação estavam funcionando
+        corretamente. Os testes foram executados de forma incremental,
+        permitindo identificar e corrigir problemas durante o desenvolvimento.
+    </p>
+
+    <h4>10.1.1 Teste de inicialização</h4>
+
+    <p>
+        Inicialmente, foi verificado se a aplicação FastAPI poderia ser
+        executada corretamente através do Uvicorn.
+    </p>
+
+    <pre><code>uvicorn backend.main:app --reload</code></pre>
+
+    <p>
+        Com o servidor em execução, a aplicação fica disponível localmente
+        e pode receber requisições HTTP.
+    </p>
+
+    <p>
+        Também foi utilizada a rota principal da aplicação:
+    </p>
+
+    <pre><code>GET /</code></pre>
+
+    <p>
+        A resposta esperada é:
+    </p>
+
+    <pre><code>{
+    "mensagem": "BookHub API funcionando!"
+
+
+    }</code></pre>
+
+
+    <p>
+        Esse teste permite verificar se a aplicação FastAPI foi carregada
+        corretamente e se o arquivo <code>main.py</code> está sendo localizado
+        e executado pelo servidor.
+    </p>
+
+
+    <h4>10.1.2 Teste de conexão com o banco de dados</h4>
+
+    <p>
+        Foi verificada a comunicação entre o backend e o banco de dados
+        PostgreSQL através do SQLAlchemy.
+    </p>
+
+    <p>
+        A conexão utiliza informações armazenadas nas seguintes variáveis
+        de ambiente:
+    </p>
+
+    <ul>
+        <li><code>DB_HOST</code></li>
+        <li><code>DB_PORT</code></li>
+        <li><code>DB_NAME</code></li>
+        <li><code>DB_USER</code></li>
+        <li><code>DB_PASSWORD</code></li>
+    </ul>
+
+    <p>
+        Essas informações são carregadas pelo <code>python-dotenv</code>,
+        evitando que as credenciais do banco sejam inseridas diretamente
+        no código-fonte.
+    </p>
+
+    <p>
+        A conexão é estabelecida através da camada de banco de dados,
+        localizada em:
+    </p>
+
+    <pre><code>backend/database/connection.py</code></pre>
+
+
+    <h4>10.1.3 Teste dos Models</h4>
+
+    <p>
+        Os Models foram verificados para garantir que as entidades da
+        aplicação estivessem corretamente representadas no SQLAlchemy.
+    </p>
+
+    <p>Entre os Models utilizados pelo BookHub estão:</p>
+
+    <ul>
+        <li>Usuario</li>
+        <li>Editora</li>
+        <li>Autor</li>
+        <li>Genero</li>
+        <li>Livro</li>
+        <li>UsuarioLivro</li>
+        <li>Avaliacao</li>
+        <li>Favorito</li>
+        <li>Resenha</li>
+    </ul>
+
+    <p>
+        Também foram verificadas as associações entre as entidades,
+        incluindo os relacionamentos muitos-para-muitos entre livros
+        e autores e entre livros e gêneros.
+    </p>
+
+
+    <h4>10.1.4 Teste dos Schemas</h4>
+
+    <p>
+        Os Schemas foram utilizados para verificar a estrutura dos dados
+        recebidos e enviados pela API.
+    </p>
+
+    <p>Durante os testes, foram verificadas situações como:</p>
+
+    <ul>
+        <li>Envio de campos obrigatórios;</li>
+        <li>Utilização dos tipos de dados esperados;</li>
+        <li>Envio de valores inválidos;</li>
+        <li>Utilização de campos opcionais;</li>
+        <li>Estrutura das respostas retornadas pela API.</li>
+    </ul>
+
+    <p>
+        A utilização do Pydantic permite que dados incompatíveis com os
+        Schemas sejam identificados antes de serem processados pela aplicação.
+    </p>
+
+
+    <h4>10.1.5 Teste de autenticação</h4>
+
+    <p>
+        O sistema de autenticação também foi testado durante o desenvolvimento.
+        Foram realizados testes relacionados à criação e validação dos tokens
+        JWT utilizados pelo BookHub.
+    </p>
+
+    <pre><code>Credenciais do usuário
+        ↓
+
+
+    Autenticação
+    ↓
+    Geração do JWT
+    ↓
+    Envio do token
+    ↓
+    Validação do token
+    ↓
+    Acesso às funcionalidades protegidas</code></pre>
+
+
+    <p>
+        Os testes de criação e decodificação dos tokens foram realizados
+        com sucesso.
+    </p>
+
+
+    <h4>10.1.6 Testes das operações CRUD</h4>
+
+    <p>
+        As operações básicas de manipulação dos dados foram verificadas
+        através das funcionalidades implementadas nos Routers.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Operação</th>
+                <th>Método HTTP</th>
+                <th>Objetivo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Create</td>
+                <td>POST</td>
+                <td>Criar um registro</td>
+            </tr>
+            <tr>
+                <td>Read</td>
+                <td>GET</td>
+                <td>Consultar registros</td>
+            </tr>
+            <tr>
+                <td>Update</td>
+                <td>PUT</td>
+                <td>Atualizar um registro</td>
+            </tr>
+            <tr>
+                <td>Delete</td>
+                <td>DELETE</td>
+                <td>Excluir um registro</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h4>10.1.7 Teste de exclusão</h4>
+
+    <p>
+        As operações de exclusão receberam atenção específica durante
+        os testes do backend. Foi verificado se os registros poderiam
+        ser removidos corretamente e se os relacionamentos existentes
+        entre as entidades eram tratados de acordo com as regras definidas.
+    </p>
+
+    <p>
+        Também foram realizados testes relacionados à exclusão de favoritos,
+        verificando o comportamento das relações entre usuários, favoritos
+        e livros.
+    </p>
+
+
+    <h4>10.1.8 Teste de integridade dos dados</h4>
+
+    <p>
+        Além das operações CRUD, foram verificadas as restrições estabelecidas
+        no banco de dados.
+    </p>
+
+    <ul>
+        <li>Chaves primárias;</li>
+        <li>Chaves estrangeiras;</li>
+        <li>Campos obrigatórios;</li>
+        <li>Valores únicos;</li>
+        <li>Valores permitidos;</li>
+        <li>Restrições de integridade;</li>
+        <li>Relacionamentos entre entidades.</li>
+    </ul>
+
+    <p>
+        Um exemplo é a avaliação de livros, que deve possuir uma nota
+        entre 1 e 5.
+    </p>
+
+    <pre><code>CHECK (nota BETWEEN 1 AND 5)</code></pre>
+
+
+    <h4>10.1.9 Identificação e correção de erros</h4>
+
+    <p>
+        Durante os testes também foram identificados problemas no funcionamento
+        do backend.
+    </p>
+
+    <p>
+        Um dos problemas encontrados ocorreu durante a criação de usuários,
+        quando o campo <code>data_cadastro</code> estava sendo enviado como
+        <code>NULL</code>, resultando em uma violação da restrição
+        <code>NOT NULL</code>.
+    </p>
+
+    <p>
+        O problema foi analisado a partir do erro retornado pelo PostgreSQL
+        e posteriormente corrigido na implementação.
+    </p>
+
+
+    <h4>10.1.10 Resultado dos testes do backend</h4>
+
+    <p>
+        De maneira geral, os testes realizados permitiram verificar o
+        funcionamento dos principais componentes do backend do BookHub.
+    </p>
+
+    <ul>
+        <li>Inicialização da aplicação;</li>
+        <li>Comunicação com o PostgreSQL;</li>
+        <li>Funcionamento dos Models;</li>
+        <li>Validação através dos Schemas;</li>
+        <li>Autenticação utilizando JWT;</li>
+        <li>Operações CRUD;</li>
+        <li>Exclusão de registros;</li>
+        <li>Integridade dos dados;</li>
+        <li>Tratamento e correção de erros encontrados.</li>
+    </ul>
+
+
+<!-- ========================================================= -->
+<!-- 10.2 TESTES DA API -->
+<!-- ========================================================= -->
+<section id="secao-10-2"></section>
+    <h3>10.2 Testes da API</h3>
+
+    <p>
+        Os testes da API foram realizados com o objetivo de verificar se
+        os endpoints disponibilizados pelo backend respondem corretamente
+        às requisições HTTP, recebem os dados esperados, executam as
+        operações correspondentes e retornam respostas adequadas ao cliente.
+    </p>
+
+    <h4>10.2.1 Ambiente de testes</h4>
+
+    <p>
+        Durante o desenvolvimento, a API foi executada localmente através
+        do Uvicorn:
+    </p>
+
+    <pre><code>uvicorn backend.main:app --reload</code></pre>
+
+    <p>
+        A API fica disponível localmente através do endereço:
+    </p>
+
+    <pre><code>http://127.0.0.1:8000</code></pre>
+
+    <p>
+        A documentação interativa pode ser acessada em:
+    </p>
+
+    <pre><code>http://127.0.0.1:8000/docs</code></pre>
+
+
+    <h4>10.2.2 Teste da rota principal</h4>
+
+    <pre><code>GET /</code></pre>
+
+    <p>
+        A rota retorna uma mensagem indicando que a API está em funcionamento:
+    </p>
+
+    <pre><code>{
+    "mensagem": "BookHub API funcionando!"
+
+
+    }</code></pre>
+
+
+    <h4>10.2.3 Testes dos endpoints</h4>
+
+    <p>
+        Os endpoints da API foram organizados de acordo com os principais
+        recursos do BookHub.
+    </p>
+
+    <pre><code>/auth
+
+
+    /usuarios
+    /livros
+    /autores
+    /generos
+    /estante
+    /avaliacoes
+    /favoritos
+    /resenhas</code></pre>
+
+
+    <p>
+        Para cada recurso, são verificadas as operações disponibilizadas
+        pela API, considerando seus respectivos métodos HTTP, parâmetros,
+        dados enviados e respostas.
+    </p>
+
+
+    <h4>10.2.4 Testes de consulta</h4>
+
+    <p>
+        As operações de consulta utilizam o método HTTP <code>GET</code>.
+    </p>
+
+    <pre><code>GET /livros</code></pre>
+
+    <p>
+        Também podem existir consultas específicas utilizando identificadores:
+    </p>
+
+    <pre><code>GET /livros/{id}</code></pre>
+
+    <p>
+        Durante os testes, foram observados tanto o conteúdo retornado
+        quanto o código de status HTTP da resposta.
+    </p>
+
+
+    <h4>10.2.5 Testes de criação</h4>
+
+    <p>
+        As operações de criação utilizam o método <code>POST</code>.
+    </p>
+
+    <pre><code>POST /livros</code></pre>
+
+    <p>Exemplo de dados enviados:</p>
+
+    <pre><code>{
+    "titulo": "Exemplo de Livro",
+    "ano_publicacao": 2026,
+    "numero_paginas": 250,
+    "idioma": "Português",
+    "editora_id": 1
+
+
+    }</code></pre>
+
+
+    <h4>10.2.6 Testes de atualização</h4>
+
+    <p>
+        As operações de atualização permitem verificar se dados existentes
+        podem ser modificados corretamente.
+    </p>
+
+    <pre><code>Recurso existente
+        ↓
+
+
+    Requisição de atualização
+    ↓
+    Validação dos dados
+    ↓
+    Alteração no banco
+    ↓
+    Resposta da API</code></pre>
+
+
+    <h4>10.2.7 Testes de exclusão</h4>
+
+    <p>
+        As operações de exclusão utilizam o método HTTP <code>DELETE</code>.
+    </p>
+
+    <pre><code>Identificação do recurso
+        ↓
+
+
+    DELETE
+    ↓
+    Processamento da requisição
+    ↓
+    Exclusão do registro
+    ↓
+    Resposta da API
+    ↓
+    Nova consulta para confirmação</code></pre>
+
+
+    <h4>10.2.8 Testes de autenticação</h4>
+
+    <p>
+        Os endpoints relacionados à autenticação foram testados para verificar
+        o processo de identificação do usuário e utilização do token JWT.
+    </p>
+
+    <pre><code>Credenciais
+    ↓
+
+
+    Endpoint de autenticação
+    ↓
+    Validação do usuário
+    ↓
+    Geração do JWT
+    ↓
+    Token retornado
+    ↓
+    Utilização em endpoint protegido</code></pre>
+
+
+    <p>
+        Nos endpoints protegidos, o token pode ser enviado através do cabeçalho:
+    </p>
+
+    <pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+
+    <h4>10.2.9 Testes de validação</h4>
+
+    <p>
+        Também foram realizados testes envolvendo dados inválidos ou incompletos.
+    </p>
+
+    <ul>
+        <li>Ausência de campos obrigatórios;</li>
+        <li>Tipos de dados incorretos;</li>
+        <li>Valores fora dos limites permitidos;</li>
+        <li>Identificadores inexistentes;</li>
+        <li>Dados incompatíveis com os Schemas.</li>
+    </ul>
+
+    <p>
+        Quando os dados não atendem aos requisitos definidos pelo Schema,
+        a API pode retornar o código:
+    </p>
+
+    <pre><code>422 Unprocessable Entity</code></pre>
+
+
+    <h4>10.2.10 Testes de recursos inexistentes</h4>
+
+    <p>
+        Também é verificado o comportamento da API quando o cliente solicita
+        um recurso que não existe.
+    </p>
+
+    <pre><code>GET /livros/999999</code></pre>
+
+    <p>
+        Em situações desse tipo, o código HTTP esperado normalmente é:
+    </p>
+
+    <pre><code>404 Not Found</code></pre>
+
+
+    <h4>10.2.11 Verificação dos códigos HTTP</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Significado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>Operação realizada com sucesso</td>
+            </tr>
+            <tr>
+                <td>201 Created</td>
+                <td>Recurso criado</td>
+            </tr>
+            <tr>
+                <td>400 Bad Request</td>
+                <td>Requisição inválida</td>
+            </tr>
+            <tr>
+                <td>401 Unauthorized</td>
+                <td>Usuário não autenticado ou credenciais inválidas</td>
+            </tr>
+            <tr>
+                <td>403 Forbidden</td>
+                <td>Operação não autorizada</td>
+            </tr>
+            <tr>
+                <td>404 Not Found</td>
+                <td>Recurso não encontrado</td>
+            </tr>
+            <tr>
+                <td>422 Unprocessable Entity</td>
+                <td>Dados não passaram pela validação</td>
+            </tr>
+            <tr>
+                <td>500 Internal Server Error</td>
+                <td>Erro interno da aplicação</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h4>10.2.12 Testes através do Swagger UI</h4>
+
+    <p>
+        O Swagger UI foi utilizado para facilitar a execução e o acompanhamento
+        dos testes da API.
+    </p>
+
+    <p>
+        O acesso é realizado através de:
+    </p>
+
+    <pre><code>http://127.0.0.1:8000/docs</code></pre>
+
+    <p>O procedimento básico consiste em:</p>
+
+    <ol>
+        <li>Acessar a documentação da API;</li>
+        <li>Localizar o endpoint desejado;</li>
+        <li>Selecionar a operação;</li>
+        <li>Clicar em <strong>Try it out</strong>;</li>
+        <li>Informar os parâmetros necessários;</li>
+        <li>Informar o corpo da requisição, quando necessário;</li>
+        <li>Executar a requisição;</li>
+        <li>Analisar a resposta.</li>
+    </ol>
+
+
+    <h4>10.2.13 Testes com autenticação no Swagger</h4>
+
+    <p>
+        Para endpoints que exigem autenticação, o Swagger UI pode ser utilizado
+        para informar o token JWT.
+    </p>
+
+    <pre><code>Bearer &lt;token&gt;</code></pre>
+
+
+    <h4>10.2.14 Critérios de aprovação</h4>
+
+    <ul>
+        <li>O endpoint deve estar acessível;</li>
+        <li>O método HTTP deve ser processado corretamente;</li>
+        <li>Os dados devem ser validados;</li>
+        <li>A operação deve produzir o resultado esperado;</li>
+        <li>O código de status HTTP deve ser compatível com o resultado;</li>
+        <li>Os dados devem ser corretamente persistidos ou consultados quando necessário;</li>
+        <li>Os erros devem ser tratados de maneira adequada.</li>
+    </ul>
+
+
+    <h4>10.2.15 Registro dos resultados</h4>
+
+    <p>
+        Os testes realizados durante o desenvolvimento permitiram identificar
+        problemas na implementação e confirmar posteriormente suas correções.
+    </p>
+
+    <p>
+        Um exemplo ocorreu durante uma operação de criação de usuário,
+        quando foi identificada uma inconsistência relacionada ao campo
+        <code>data_cadastro</code>. O erro foi retornado pelo banco de dados
+        e posteriormente corrigido.
+    </p>
+
+
+<!-- ========================================================= -->
+<!-- 10.3 TESTES DE INTEGRAÇÃO -->
+<!-- ========================================================= -->
+<section id="secao-10-3"></section>
+    <h3>10.3 Testes de Integração</h3>
+
+    <p>
+        Os testes de integração têm como objetivo verificar o funcionamento
+        conjunto dos principais componentes do sistema, principalmente a
+        comunicação entre a API desenvolvida com FastAPI, a camada de
+        persistência implementada com SQLAlchemy e o banco de dados PostgreSQL.
+    </p>
+
+    <h4>10.3.1 Componentes envolvidos</h4>
+
+    <pre><code>Cliente
+
+
+    ↓
+    FastAPI
+    ↓
+    Routers
+    ↓
+    Schemas / Pydantic
+    ↓
+    SQLAlchemy / Models
+    ↓
+    PostgreSQL</code></pre>
+
+
+    <h4>10.3.2 Comunicação entre API e banco de dados</h4>
+
+    <p>
+        A integração entre a aplicação e o PostgreSQL é realizada utilizando
+        o SQLAlchemy como ORM e o Psycopg como driver de comunicação.
+    </p>
+
+    <p>
+        As informações necessárias para a conexão são obtidas através de
+        variáveis de ambiente carregadas pelo <code>python-dotenv</code>.
+    </p>
+
+
+    <h4>10.3.3 Teste de persistência</h4>
+
+    <pre><code>Requisição HTTP
+    ↓
+
+
+    Router
+    ↓
+    Validação dos dados
+    ↓
+    Model SQLAlchemy
+    ↓
+    PostgreSQL
+    ↓
+    Registro persistido
+    ↓
+    Resposta da API</code></pre>
+
+
+    <p>
+        Após a criação de um registro, uma nova consulta pode ser realizada
+        para verificar se os dados foram realmente armazenados.
+    </p>
+
+
+    <h4>10.3.4 Teste de consulta</h4>
+
+    <pre><code>Requisição HTTP
+    ↓
+
+
+    Router
+    ↓
+    SQLAlchemy
+    ↓
+    PostgreSQL
+    ↓
+    Dados recuperados
+    ↓
+    Schema de resposta
+    ↓
+    Resposta HTTP</code></pre>
+
+
+    <h4>10.3.5 Teste de atualização</h4>
+
+    <pre><code>Registro existente
+    ↓
+
+
+    Requisição de atualização
+    ↓
+    Validação
+    ↓
+    SQLAlchemy
+    ↓
+    PostgreSQL
+    ↓
+    Registro atualizado
+    ↓
+    Consulta de confirmação</code></pre>
+
+
+    <h4>10.3.6 Teste de exclusão</h4>
+
+    <pre><code>Registro existente
+    ↓
+
+
+    DELETE
+    ↓
+    Router
+    ↓
+    SQLAlchemy
+    ↓
+    PostgreSQL
+    ↓
+    Registro removido
+    ↓
+    Consulta de confirmação</code></pre>
+
+
+    <h4>10.3.7 Teste dos relacionamentos</h4>
+
+    <p>
+        O BookHub possui diversas relações entre suas entidades, incluindo
+        usuários e livros, livros e autores, livros e gêneros, usuários e
+        avaliações, favoritos e resenhas.
+    </p>
+
+    <p>
+        Os testes de integração permitem verificar se essas relações são
+        corretamente utilizadas durante as operações da API.
+    </p>
+
+
+    <h4>10.3.8 Teste das tabelas associativas</h4>
+
+    <p>
+        As relações entre livros e autores e entre livros e gêneros são
+        implementadas através das tabelas:
+    </p>
+
+    <pre><code>livro_autor
+
+
+    livro_genero</code></pre>
+
+
+    <p>
+        Essas tabelas permitem estabelecer os relacionamentos muitos-para-muitos
+        entre livros, autores e gêneros.
+    </p>
+
+
+    <h4>10.3.9 Teste das regras de integridade</h4>
+
+    <ul>
+        <li>Chaves primárias;</li>
+        <li>Chaves estrangeiras;</li>
+        <li>Valores únicos;</li>
+        <li>Campos obrigatórios;</li>
+        <li>Restrições CHECK;</li>
+        <li>Relacionamentos entre tabelas.</li>
+    </ul>
+
+    <pre><code>CHECK (nota BETWEEN 1 AND 5)</code></pre>
+
+
+    <h4>10.3.10 Teste de autenticação e integração</h4>
+
+    <pre><code>Credenciais
+    ↓
+
+
+    Endpoint de autenticação
+    ↓
+    Consulta ao usuário
+    ↓
+    Verificação da senha
+    ↓
+    Geração do JWT
+    ↓
+    Token
+    ↓
+    Endpoint protegido</code></pre>
+
+
+    <h4>10.3.11 Teste de transações</h4>
+
+    <p>
+        As operações que modificam os dados utilizam uma sessão do SQLAlchemy
+        para controlar a comunicação com o banco.
+    </p>
+
+    <pre><code>Abertura da sessão
+    ↓
+
+
+    Execução da operação
+    ↓
+    Commit
+    ↓
+    Persistência no banco
+    ↓
+    Encerramento da sessão</code></pre>
+
+
+    <p>
+        A função <code>get_db()</code>, disponibilizada pela camada de conexão,
+        é responsável por fornecer a sessão e encerrá-la posteriormente.
+    </p>
+
+
+    <h4>10.3.12 Identificação de problemas de integração</h4>
+
+    <p>
+        Durante o desenvolvimento, os testes de integração também foram
+        utilizados para identificar problemas que poderiam não ser percebidos
+        apenas pela análise isolada do código.
+    </p>
+
+    <p>
+        Um exemplo foi o erro encontrado durante a criação de usuários
+        relacionado ao campo <code>data_cadastro</code>.
+    </p>
+
+
+    <h4>10.3.13 Critérios de aprovação</h4>
+
+    <ul>
+        <li>A requisição é recebida corretamente pela API;</li>
+        <li>Os dados são validados;</li>
+        <li>O Router executa a operação esperada;</li>
+        <li>O SQLAlchemy consegue interagir com o banco;</li>
+        <li>O PostgreSQL processa a operação;</li>
+        <li>Os dados são corretamente persistidos ou recuperados;</li>
+        <li>A resposta da API corresponde ao resultado da operação;</li>
+        <li>As regras de integridade são respeitadas.</li>
+    </ul>
+
+
+    <h4>10.3.14 Resultado dos testes de integração</h4>
+
+    <p>
+        Os testes realizados permitiram verificar a comunicação entre as
+        principais camadas do BookHub.
+    </p>
+
+    <pre><code>FastAPI
+
+
+    ↕
+    Routers
+    ↕
+    Schemas
+    ↕
+    SQLAlchemy
+    ↕
+    PostgreSQL</code></pre>
+
+
+    <p>
+        Os testes contribuíram para confirmar o funcionamento das operações
+        de persistência, consulta, atualização e exclusão, além da utilização
+        dos relacionamentos entre as entidades e das regras de integridade
+        definidas para o banco de dados.
+    </p>
+
+
+<!-- ========================================================= -->
+<!-- 10.4 VALIDAÇÃO DAS FUNCIONALIDADES -->
+<!-- ========================================================= -->
+<section id="secao-10-4"></section>
+    <h3>10.4 Validação das Funcionalidades</h3>
+
+    <p>
+        A validação das funcionalidades do BookHub foi realizada com o objetivo
+        de verificar se os recursos implementados no sistema atendem aos
+        requisitos definidos para o projeto.
+    </p>
+
+    <p>
+        Essa etapa complementa os testes do backend, da API e de integração,
+        considerando o comportamento das funcionalidades de forma mais próxima
+        da utilização real do sistema.
+    </p>
+
+
+    <h4>10.4.1 Cadastro e gerenciamento de usuários</h4>
+
+    <p>
+        A funcionalidade de usuários foi validada considerando as operações
+        de criação, consulta, atualização e exclusão de registros.
+    </p>
+
+    <ul>
+        <li>Nome;</li>
+        <li>Nome de usuário;</li>
+        <li>E-mail;</li>
+        <li>Senha;</li>
+        <li>Foto de perfil;</li>
+        <li>Biografia;</li>
+        <li>Tipo de usuário;</li>
+        <li>Situação da conta.</li>
+    </ul>
+
+    <p>
+        Também foram verificadas as regras de unicidade aplicadas ao nome
+        de usuário e ao e-mail.
+    </p>
+
+
+    <h4>10.4.2 Autenticação dos usuários</h4>
+
+    <p>
+        A autenticação foi validada através do processo de identificação
+        do usuário e geração do token JWT.
+    </p>
+
+    <pre><code>Usuário informa credenciais
+        ↓
+
+
+    API valida os dados
+    ↓
+    Usuário é localizado
+    ↓
+    Senha é verificada
+    ↓
+    JWT é gerado
+    ↓
+    Usuário pode acessar recursos protegidos</code></pre>
+
+
+    <h4>10.4.3 Cadastro e consulta de livros</h4>
+
+    <p>
+        A funcionalidade de gerenciamento de livros foi validada considerando
+        as informações associadas a cada obra.
+    </p>
+
+    <ul>
+        <li>Título;</li>
+        <li>Subtítulo;</li>
+        <li>ISBN;</li>
+        <li>Sinopse;</li>
+        <li>Ano de publicação;</li>
+        <li>Número de páginas;</li>
+        <li>Idioma;</li>
+        <li>Capa;</li>
+        <li>Editora;</li>
+        <li>Autores;</li>
+        <li>Gêneros.</li>
+    </ul>
+
+
+    <h4>10.4.4 Gerenciamento de autores</h4>
+
+    <p>
+        A funcionalidade de autores foi validada considerando o cadastro
+        e a consulta das informações relacionadas aos autores.
+    </p>
+
+    <ul>
+        <li>Nome;</li>
+        <li>Biografia;</li>
+        <li>Data de nascimento;</li>
+        <li>Foto.</li>
+    </ul>
+
+    <p>
+        Também é considerada a associação entre autores e livros.
+    </p>
+
+
+    <h4>10.4.5 Gerenciamento de gêneros</h4>
+
+    <p>
+        Os gêneros literários foram validados considerando seu cadastro
+        e sua associação aos livros.
+    </p>
+
+    <ul>
+        <li>Nome;</li>
+        <li>Descrição.</li>
+    </ul>
+
+
+    <h4>10.4.6 Estante de leitura</h4>
+
+    <p>
+        A funcionalidade de estante permite que o usuário mantenha livros
+        associados ao seu perfil e acompanhe seu estado de leitura.
+    </p>
+
+    <pre><code>QUERO_LER
+
+
+    LENDO
+    LIDO
+    ABANDONADO</code></pre>
+
+
+    <p>Também são armazenadas informações como:</p>
+
+    <ul>
+        <li>Página atual;</li>
+        <li>Data de adição;</li>
+        <li>Data de início;</li>
+        <li>Data de conclusão.</li>
+    </ul>
+
+
+    <h4>10.4.7 Avaliação de livros</h4>
+
+    <p>
+        A funcionalidade de avaliação permite que usuários atribuam uma
+        nota aos livros.
+    </p>
+
+    <p>
+        A nota deve ser um valor inteiro entre <strong>1 e 5</strong>.
+    </p>
+
+    <p>
+        Também é considerada a regra de que um usuário não deve possuir
+        mais de uma avaliação para o mesmo livro, sendo possível alterar
+        ou excluir sua avaliação.
+    </p>
+
+    <p>
+        As avaliações armazenadas são utilizadas para compor a média
+        apresentada para cada livro.
+    </p>
+
+
+    <h4>10.4.8 Favoritos</h4>
+
+    <p>
+        A funcionalidade de favoritos permite que um usuário marque livros
+        que deseja manter como favoritos.
+    </p>
+
+    <pre><code>Usuário ↔ Livro</code></pre>
+
+    <p>
+        A validação verifica a criação e a remoção dessa associação,
+        além da restrição de unicidade da combinação entre usuário e livro.
+    </p>
+
+
+    <h4>10.4.9 Resenhas</h4>
+
+    <p>
+        A funcionalidade de resenhas permite que os usuários publiquem
+        suas opiniões sobre os livros.
+    </p>
+
+    <p>Cada resenha possui:</p>
+
+    <ul>
+        <li>Usuário responsável;</li>
+        <li>Livro relacionado;</li>
+        <li>Título;</li>
+        <li>Conteúdo;</li>
+        <li>Data de publicação;</li>
+        <li>Data de atualização.</li>
+    </ul>
+
+    <p>
+        A validação verifica a criação, consulta e atualização das resenhas.
+    </p>
+
+
+    <h4>10.4.10 Integridade dos relacionamentos</h4>
+
+    <p>
+        Além das funcionalidades individuais, foram verificadas as relações
+        entre as entidades.
+    </p>
+
+    <pre><code>Usuário ─────── Livro
+
+
+    │              │
+    ├─ Avaliação ──┤
+    ├─ Favorito ───┤
+    ├─ Resenha ────┤
+    └─ Estante ────┘
+
+    Livro ───── Autor
+    │
+    └───── Gênero
+
+    Livro ───── Editora</code></pre>
+
+
+    <h4>10.4.11 Validação das regras de negócio</h4>
+
+    <ul>
+        <li>Notas de avaliação entre 1 e 5;</li>
+        <li>Nome de usuário único;</li>
+        <li>E-mail único;</li>
+        <li>ISBN único quando informado;</li>
+        <li>Gênero com nome único;</li>
+        <li>Editora com nome único;</li>
+        <li>Estados de leitura previamente definidos;</li>
+        <li>Página atual não podendo assumir valores negativos;</li>
+        <li>Relacionamentos válidos entre usuários e livros.</li>
+    </ul>
+
+
+    <h4>10.4.12 Validação das operações CRUD</h4>
+
+    <p>
+        As principais entidades que possuem operações de gerenciamento
+        foram verificadas através do ciclo CRUD:
+    </p>
+
+    <pre><code>CREATE
+
+
+    ↓
+    READ
+    ↓
+    UPDATE
+    ↓
+    DELETE</code></pre>
+
+
+    <ol>
+        <li>Criar ou inserir um registro;</li>
+        <li>Consultar o registro;</li>
+        <li>Verificar seus dados;</li>
+        <li>Alterar alguma informação;</li>
+        <li>Consultar novamente;</li>
+        <li>Confirmar a alteração;</li>
+        <li>Excluir o registro quando aplicável;</li>
+        <li>Confirmar sua remoção.</li>
+    </ol>
+
+
+    <h4>10.4.13 Resultado da validação</h4>
+
+    <p>
+        A validação realizada durante o desenvolvimento permitiu confirmar
+        o funcionamento das principais funcionalidades implementadas no
+        backend do BookHub.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Funcionalidade</th>
+                <th>Validação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Usuários</td>
+                <td>Cadastro e gerenciamento</td>
+            </tr>
+            <tr>
+                <td>Autenticação</td>
+                <td>JWT e proteção de recursos</td>
+            </tr>
+            <tr>
+                <td>Livros</td>
+                <td>Cadastro e consultas</td>
+            </tr>
+            <tr>
+                <td>Autores</td>
+                <td>Cadastro e relacionamento com livros</td>
+            </tr>
+            <tr>
+                <td>Gêneros</td>
+                <td>Cadastro e relacionamento com livros</td>
+            </tr>
+            <tr>
+                <td>Estante</td>
+                <td>Gerenciamento do status de leitura</td>
+            </tr>
+            <tr>
+                <td>Avaliações</td>
+                <td>Notas de 1 a 5</td>
+            </tr>
+            <tr>
+                <td>Favoritos</td>
+                <td>Associação entre usuários e livros</td>
+            </tr>
+            <tr>
+                <td>Resenhas</td>
+                <td>Publicação e gerenciamento</td>
+            </tr>
+            <tr>
+                <td>Integridade</td>
+                <td>Regras e relacionamentos</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h4>10.4.14 Considerações finais da seção de testes</h4>
+
+    <p>
+        A combinação dos testes do backend, dos testes da API, dos testes
+        de integração e da validação das funcionalidades proporciona uma
+        avaliação abrangente do funcionamento do BookHub.
+    </p>
+
+    <pre><code>10.1 Testes do Backend
+        ↓
+
+
+    10.2 Testes da API
+    ↓
+    10.3 Testes de Integração
+    ↓
+    10.4 Validação das Funcionalidades</code></pre>
+
+
+    <p>
+        Dessa forma, os testes abrangem desde os componentes internos do
+        backend até o comportamento das funcionalidades do sistema,
+        contribuindo para verificar a consistência e o atendimento aos
+        requisitos definidos para o projeto.
+    </p>
+
+
+</section>
+
+
+
 </main>
     
 </body>
