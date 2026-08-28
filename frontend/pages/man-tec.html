@@ -127,17 +127,17 @@
     </li>
 
     <li>
-        <a href="#manutencao-evolucao">Manutenção e Evolução</a>
+        <a href="#secao-11">Manutenção e Evolução</a>
         <ol>
-            <li><a href="#organizacao-manutencao">Organização para manutenção</a></li>
-            <li><a href="#novas-funcionalidades">Adição de novas funcionalidades</a></li>
-            <li><a href="#alteracoes-banco">Alterações no banco de dados</a></li>
-            <li><a href="#boas-praticas">Boas práticas para continuidade do projeto</a></li>
+            <li><a href="#secao-11-1">Organização para manutenção</a></li>
+            <li><a href="#secao-11-2">Adição de novas funcionalidades</a></li>
+            <li><a href="#secao-11-3">Alterações no banco de dados</a></li>
+            <li><a href="#secao-11-4">Boas práticas para continuidade do projeto</a></li>
         </ol>
     </li>
 
     <li>
-        <a href="#consideracoes-finais">Considerações Finais</a>
+        <a href="#secao-12">Considerações Finais</a>
     </li>
 </ol>
 
@@ -6884,6 +6884,492 @@ Exibição dos livros </code></pre>
         contribuindo para verificar a consistência e o atendimento aos
         requisitos definidos para o projeto.
     </p>
+
+</section>
+
+
+<section id="secao-11">
+    <h2>11. Manutenção e Evolução</h2>
+
+
+<p>
+    A manutenção e evolução do BookHub devem ser realizadas de maneira organizada,
+    garantindo que novas funcionalidades possam ser adicionadas sem comprometer
+    os recursos já existentes. A estrutura adotada no projeto permite que os
+    diferentes componentes sejam modificados de forma independente, facilitando
+    a continuidade do desenvolvimento.
+</p>
+
+<section id="secao-11-1">
+    <h3>11.1 Organização para manutenção</h3>
+
+    <p>
+        A organização do projeto BookHub foi definida de forma a facilitar a
+        manutenção, a identificação dos componentes e a evolução do sistema.
+        A separação das responsabilidades entre os diferentes diretórios e
+        arquivos permite que alterações sejam realizadas de maneira mais
+        controlada, reduzindo o risco de afetar funcionalidades que não estão
+        diretamente relacionadas à mudança.
+    </p>
+
+    <p>
+        No backend, a aplicação está organizada principalmente dentro do
+        diretório <code>backend</code>, que concentra os componentes responsáveis
+        pelo funcionamento da API. Dentro dele, os <strong>models</strong>
+        representam as entidades e relacionamentos do banco de dados, enquanto
+        os <strong>schemas</strong> são utilizados para definir e validar os
+        dados recebidos e enviados pela API. Os <strong>routers</strong>
+        concentram as rotas e operações relacionadas às diferentes
+        funcionalidades do sistema.
+    </p>
+
+    <p>
+        A comunicação com o banco de dados também possui uma organização própria,
+        permitindo que a configuração da conexão e o gerenciamento das sessões
+        sejam mantidos separados da lógica das demais funcionalidades. Essa
+        estrutura facilita futuras alterações na configuração do banco sem a
+        necessidade de modificar diretamente os componentes responsáveis pelas
+        regras da aplicação.
+    </p>
+
+    <p>
+        O arquivo <code>main.py</code> permanece como ponto de entrada da
+        aplicação FastAPI, sendo responsável pela criação da aplicação e pelo
+        registro dos routers utilizados pelo sistema. Dessa forma, novas
+        funcionalidades podem ser incorporadas através da criação ou alteração
+        de seus respectivos componentes, mantendo o arquivo principal organizado.
+    </p>
+
+    <p>
+        O projeto também utiliza um ambiente virtual Python
+        (<code>.venv</code>) para isolar as dependências da aplicação. O arquivo
+        <code>requirements.txt</code> mantém registradas as bibliotecas
+        necessárias para execução do backend, permitindo que um novo ambiente
+        seja configurado de maneira padronizada.
+    </p>
+
+    <p>
+        As configurações relacionadas ao banco de dados são obtidas por meio de
+        variáveis de ambiente, evitando que informações sensíveis, como
+        credenciais de acesso, sejam diretamente inseridas no código-fonte.
+        Essa prática também facilita a utilização do sistema em diferentes
+        ambientes, como desenvolvimento, testes e, futuramente, o ambiente
+        baseado em Docker.
+    </p>
+
+    <p>
+        Além disso, os scripts SQL são mantidos de forma organizada para permitir
+        a criação, exclusão e inserção de dados no banco de dados. Dessa maneira,
+        a estrutura do banco pode ser reproduzida e utilizada como referência
+        durante atividades de manutenção e desenvolvimento.
+    </p>
+
+    <p>
+        A organização adotada busca manter cada componente com uma responsabilidade
+        bem definida. Assim, quando uma alteração for necessária, o desenvolvedor
+        pode identificar com maior facilidade quais arquivos e camadas precisam
+        ser modificados, mantendo a estrutura do projeto compreensível e
+        facilitando a continuidade do desenvolvimento por outros integrantes.
+    </p>
+
+    <h4>Estrutura relacionada à manutenção</h4>
+
+    <p>
+        De forma simplificada, a organização do backend segue o princípio:
+    </p>
+
+    <pre><code>BookHub/
+
+
+│
+├── backend/
+│   ├── models/
+│   ├── schemas/
+│   ├── routers/
+│   ├── database/
+│   └── main.py
+│
+├── scripts SQL/
+│   ├── 00_drop_tables.sql
+│   ├── 01_create_tables.sql
+│   └── 02_insert_data.sql
+│
+├── .venv/
+├── .env
+└── requirements.txt</code></pre> </section>
+
+
+<section id="secao-11-2">
+    <h3>11.2 Adição de novas funcionalidades</h3>
+
+    <p>
+        A arquitetura do BookHub foi organizada de maneira a permitir a inclusão
+        de novas funcionalidades sem exigir alterações extensas nos componentes
+        já existentes. A separação entre modelos, schemas, routers, banco de
+        dados e demais componentes facilita a implementação gradual de novos
+        recursos.
+    </p>
+
+    <p>
+        Para adicionar uma nova funcionalidade, recomenda-se inicialmente definir
+        o requisito e identificar quais partes do sistema serão afetadas. A
+        partir disso, devem ser realizadas as alterações necessárias em cada
+        camada da aplicação.
+    </p>
+
+    <p>
+        De modo geral, o desenvolvimento de uma nova funcionalidade pode seguir
+        o seguinte fluxo:
+    </p>
+
+    <pre><code>Requisito
+
+
+↓
+Modelos e banco de dados
+↓
+Schemas
+↓
+Router
+↓
+Testes
+↓
+Frontend
+↓
+Documentação</code></pre>
+
+
+    <p>
+        Quando a nova funcionalidade exigir informações que ainda não existem no
+        banco de dados, devem ser realizadas as alterações correspondentes na
+        estrutura das tabelas e nos modelos SQLAlchemy. Também devem ser
+        atualizados os scripts SQL utilizados pelo projeto, quando necessário.
+    </p>
+
+    <p>
+        Em seguida, os <strong>schemas</strong> devem ser criados ou modificados
+        para representar corretamente os dados que serão recebidos e retornados
+        pela API. Essa etapa é importante para garantir a validação das
+        informações e manter um padrão consistente de comunicação.
+    </p>
+
+    <p>
+        As operações da nova funcionalidade devem então ser implementadas nos
+        <strong>routers</strong> correspondentes. Sempre que possível,
+        recomenda-se manter cada conjunto de operações relacionado ao seu
+        respectivo recurso, evitando concentrar muitas responsabilidades em um
+        único arquivo.
+    </p>
+
+    <p>
+        Após a implementação, a funcionalidade deve ser submetida a testes para
+        verificar seu comportamento esperado e identificar possíveis impactos
+        sobre recursos já existentes. Alterações que envolvam diferentes
+        componentes também devem ser verificadas por meio de testes de integração.
+    </p>
+
+    <p>
+        Com a conclusão do backend, a funcionalidade poderá ser integrada ao
+        frontend. Nesse momento, devem ser implementadas as páginas, componentes
+        e comportamentos necessários para que o usuário consiga utilizar o novo
+        recurso através da interface do BookHub.
+    </p>
+
+    <p>
+        Por fim, a documentação técnica e o Manual de Usuário devem ser
+        atualizados sempre que a nova funcionalidade alterar o funcionamento da
+        aplicação ou introduzir novos procedimentos para os usuários.
+    </p>
+
+    <p>
+        Esse processo permite que o crescimento do BookHub ocorra de maneira
+        organizada, mantendo a separação de responsabilidades e reduzindo a
+        possibilidade de alterações em uma funcionalidade causarem problemas em
+        outras partes do sistema.
+    </p>
+</section>
+
+<section id="secao-11-3">
+    <h3>11.3 Alterações no banco de dados</h3>
+
+    <p>
+        As alterações no banco de dados devem ser realizadas de maneira
+        controlada, considerando que a estrutura utilizada pelo PostgreSQL está
+        diretamente relacionada aos modelos SQLAlchemy e às funcionalidades
+        disponibilizadas pela API.
+    </p>
+
+    <p>
+        Sempre que for necessário criar uma nova tabela, adicionar uma coluna,
+        modificar um relacionamento ou alterar uma restrição, a mudança deve ser
+        planejada antes de ser aplicada ao banco de dados utilizado pela
+        aplicação.
+    </p>
+
+    <p>
+        O primeiro passo consiste em identificar o impacto da alteração sobre as
+        funcionalidades existentes. Deve-se verificar quais
+        <strong>models</strong>, <strong>schemas</strong>, <strong>routers</strong>
+        e operações da API utilizam a estrutura que será modificada.
+    </p>
+
+    <p>
+        Quando a alteração envolver a criação ou modificação de uma tabela, o
+        respectivo <strong>model SQLAlchemy</strong> também deverá ser atualizado
+        para manter a correspondência entre a aplicação e o banco de dados.
+    </p>
+
+    <p>
+        Os scripts SQL do projeto devem igualmente ser atualizados quando a
+        alteração modificar a estrutura utilizada na criação do banco. Dessa
+        forma, os scripts permanecem como uma referência reproduzível da estrutura
+        do banco de dados.
+    </p>
+
+    <p>
+        As alterações devem ser testadas preferencialmente em um ambiente de
+        desenvolvimento antes de serem aplicadas a um ambiente definitivo.
+        Após a modificação, devem ser executados testes para verificar:
+    </p>
+
+    <ul>
+        <li>Criação e alteração dos registros;</li>
+        <li>Cumprimento das chaves primárias e estrangeiras;</li>
+        <li>Cumprimento das restrições (<code>CHECK</code>, <code>UNIQUE</code>,
+            <code>NOT NULL</code>, entre outras);</li>
+        <li>Funcionamento dos relacionamentos;</li>
+        <li>Comportamento dos endpoints que utilizam os dados modificados;</li>
+        <li>Possíveis impactos sobre funcionalidades existentes.</li>
+    </ul>
+
+    <p>
+        É importante também evitar alterações diretas e não documentadas no banco
+        de dados. Sempre que uma modificação estrutural for realizada, ela deve
+        ser registrada nos arquivos ou mecanismos de controle utilizados pelo
+        projeto, permitindo que os demais integrantes da equipe compreendam o que
+        foi alterado.
+    </p>
+
+    <p>
+        Outro cuidado importante está relacionado aos dados existentes. Alterações
+        que envolvam exclusão ou modificação de colunas, tabelas e relacionamentos
+        podem causar perda ou inconsistência de informações. Por esse motivo,
+        operações desse tipo devem ser realizadas somente após verificar suas
+        consequências e, quando necessário, realizar uma cópia de segurança dos
+        dados.
+    </p>
+
+    <p>
+        No ambiente futuro baseado em <strong>Docker</strong>, a configuração do
+        banco de dados também deverá ser considerada. As alterações realizadas na
+        estrutura do banco precisam ser compatíveis com o processo de inicialização
+        e configuração dos containers, garantindo que o ambiente possa ser
+        reproduzido corretamente.
+    </p>
+
+    <p>
+        Dessa maneira, a manutenção do banco de dados deve ocorrer em conjunto
+        com a evolução do backend, mantendo sincronizadas a estrutura do
+        PostgreSQL, os modelos SQLAlchemy, os scripts SQL e as funcionalidades
+        disponibilizadas pela API.
+    </p>
+</section>
+
+<section id="secao-11-4">
+    <h3>11.4 Boas práticas para continuidade do projeto</h3>
+
+    <p>
+        A continuidade do desenvolvimento do BookHub depende da manutenção de uma
+        estrutura organizada e de práticas que permitam que novos integrantes
+        possam compreender o funcionamento do sistema e realizar alterações com
+        segurança. Para isso, recomenda-se manter algumas práticas durante as
+        próximas etapas do projeto.
+    </p>
+
+    <h4>Organização do código</h4>
+
+    <p>
+        Cada componente deve permanecer em seu respectivo diretório e possuir uma
+        responsabilidade bem definida. Alterações devem ser realizadas
+        preferencialmente no componente responsável pela funcionalidade, evitando
+        a concentração de diferentes responsabilidades em um único arquivo.
+    </p>
+
+    <h4>Gerenciamento das dependências</h4>
+
+    <p>
+        As dependências utilizadas pelo backend devem ser mantidas no arquivo
+        <code>requirements.txt</code>. Sempre que uma nova biblioteca for
+        adicionada ao projeto, o arquivo deve ser atualizado para que outros
+        ambientes possam reproduzir a mesma configuração.
+    </p>
+
+    <p>
+        O ambiente virtual <code>.venv</code> deve permanecer separado das
+        dependências do projeto e não deve ser utilizado como forma de
+        compartilhamento entre os integrantes da equipe.
+    </p>
+
+    <h4>Configuração por variáveis de ambiente</h4>
+
+    <p>
+        Informações de configuração e credenciais, especialmente aquelas
+        relacionadas ao banco de dados, devem permanecer em variáveis de ambiente.
+        O arquivo <code>.env</code> não deve conter informações que precisem ser
+        compartilhadas publicamente no repositório.
+    </p>
+
+    <p>
+        Essa abordagem também facilitará a configuração do sistema quando o
+        projeto passar a utilizar Docker.
+    </p>
+
+    <h4>Controle de versão</h4>
+
+    <p>
+        As alterações devem continuar sendo registradas no Git de maneira
+        organizada. Recomenda-se utilizar commits que descrevam claramente a
+        alteração realizada, facilitando a identificação do histórico do projeto
+        e a recuperação de versões anteriores quando necessário.
+    </p>
+
+    <p>
+        Antes de realizar alterações maiores, é recomendável verificar o estado
+        atual da aplicação e garantir que as funcionalidades existentes estejam
+        funcionando corretamente.
+    </p>
+
+    <h4>Testes antes das alterações</h4>
+
+    <p>
+        Novas funcionalidades e modificações em funcionalidades existentes devem
+        ser acompanhadas de testes. Antes de considerar uma alteração concluída,
+        deve-se verificar se os endpoints envolvidos continuam funcionando e se
+        não foram introduzidos problemas em outras partes do sistema.
+    </p>
+
+    <p>
+        Alterações relacionadas ao banco de dados também devem ser testadas para
+        garantir que os relacionamentos, restrições e operações existentes
+        continuam funcionando corretamente.
+    </p>
+
+    <h4>Atualização da documentação</h4>
+
+    <p>
+        A documentação deve acompanhar a evolução do sistema. Sempre que uma nova
+        funcionalidade for adicionada ou uma funcionalidade existente sofrer uma
+        alteração significativa, as informações correspondentes devem ser
+        atualizadas no Manual Técnico e, quando necessário, no Manual de Usuário.
+    </p>
+
+    <p>
+        Isso evita que a documentação fique desatualizada em relação ao
+        comportamento real da aplicação.
+    </p>
+
+    <h4>Integração entre as partes do sistema</h4>
+
+    <p>
+        À medida que o desenvolvimento avançar, deve-se manter a comunicação entre
+        as diferentes partes do projeto. Alterações no backend podem exigir
+        modificações no frontend, nos scripts do banco de dados ou na documentação.
+    </p>
+
+    <p>
+        Por isso, mudanças que afetem a comunicação entre frontend e API, a
+        estrutura dos dados ou os endpoints existentes devem ser comunicadas e
+        testadas antes da integração definitiva.
+    </p>
+
+    <h4>Preparação para o Docker</h4>
+
+    <p>
+        A futura implementação do Docker deve ser incorporada mantendo a
+        organização já estabelecida no projeto. A configuração dos containers
+        deverá considerar o backend, suas dependências, as variáveis de ambiente
+        e o banco de dados, permitindo que o sistema seja executado de maneira
+        padronizada em diferentes ambientes.
+    </p>
+
+    <p>
+        Seguindo essas práticas, o BookHub poderá continuar sendo desenvolvido de
+        maneira colaborativa, reduzindo problemas de manutenção e facilitando a
+        implementação de novas funcionalidades. A organização atual também fornece
+        uma base adequada para as próximas etapas do projeto, especialmente a
+        finalização do frontend, a criação dos containers Docker e a preparação
+        da versão final do sistema.
+    </p>
+</section>
+</section>
+
+
+<section id="secao-12">
+    <h2>12. Considerações Finais</h2>
+
+
+<p>
+    O desenvolvimento do BookHub possibilitou a aplicação prática de diferentes
+    conceitos relacionados ao desenvolvimento de sistemas, banco de dados,
+    desenvolvimento de APIs e organização de aplicações web. Ao longo do projeto,
+    foram definidas a estrutura do sistema, o modelo de dados, o backend e os
+    mecanismos necessários para a comunicação entre seus diferentes componentes.
+</p>
+
+<p>
+    A utilização do <strong>PostgreSQL</strong> como sistema gerenciador de banco
+    de dados permitiu estruturar as informações do sistema de forma organizada,
+    utilizando relacionamentos, chaves primárias e estrangeiras, restrições de
+    integridade e demais recursos necessários para garantir a consistência dos
+    dados.
+</p>
+
+<p>
+    O backend foi desenvolvido utilizando <strong>Python e FastAPI</strong>,
+    adotando uma organização baseada na separação de responsabilidades entre
+    models, schemas, routers e componentes relacionados à comunicação com o banco
+    de dados. Essa estrutura proporciona maior organização ao código e facilita
+    sua manutenção e evolução.
+</p>
+
+<p>
+    A API REST desenvolvida representa a principal camada de comunicação entre o
+    backend e o frontend, disponibilizando os recursos necessários para o
+    funcionamento do sistema. A utilização do padrão OpenAPI e da documentação
+    automática fornecida pelo FastAPI também facilita o processo de desenvolvimento,
+    testes e compreensão dos endpoints disponíveis.
+</p>
+
+<p>
+    Os procedimentos de testes e validação realizados durante o desenvolvimento
+    permitiram verificar o funcionamento das principais funcionalidades e
+    identificar problemas que foram corrigidos ao longo da implementação. A
+    preocupação com testes também contribui para maior segurança durante futuras
+    alterações no sistema.
+</p>
+
+<p>
+    O projeto foi estruturado considerando ainda sua evolução futura. A finalização
+    do frontend permitirá disponibilizar as funcionalidades da API por meio de uma
+    interface destinada aos usuários, enquanto a implementação do
+    <strong>Docker</strong> proporcionará um ambiente de execução mais padronizado
+    e facilitará a configuração e distribuição da aplicação.
+</p>
+
+<p>
+    A documentação apresentada neste Manual Técnico tem como objetivo registrar
+    as principais decisões, estruturas e procedimentos relacionados ao
+    desenvolvimento do BookHub. Dessa forma, o documento pode servir tanto como
+    referência para os integrantes atuais da equipe quanto como material de apoio
+    para futuras manutenções e evoluções do sistema.
+</p>
+
+<p>
+    Por fim, o BookHub permanece preparado para receber novas funcionalidades e
+    melhorias. A organização adotada durante seu desenvolvimento estabelece uma
+    base que permite a continuidade do projeto de maneira estruturada,
+    possibilitando sua expansão conforme novas necessidades sejam identificadas.
+</p>
 
 
 </section>
