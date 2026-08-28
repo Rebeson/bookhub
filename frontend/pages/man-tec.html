@@ -80,12 +80,27 @@
     </li>
 
     <li>
-        <a href="#api">API</a>
+        <a href="#secao-7">Detalhamento do Backend</a>
         <ol>
-            <li><a href="#funcionamento-api">Funcionamento da API</a></li>
-            <li><a href="#padrao-comunicacao">Padrão de comunicação</a></li>
-            <li><a href="#documentacao-automatica">Documentação automática</a></li>
-            <li><a href="#swagger">Acesso ao Swagger/OpenAPI</a></li>
+            <li><a href="#secao-7-1">Estrutura da aplicação FastAPI</a></li>
+            <li><a href="#secao-7-2">Arquivo principal (main.py)</a></li>
+            <li><a href="#secao-7-3">Models</a></li>
+            <li><a href="#secao-7-4">Schemas</a></li>
+            <li><a href="#secao-7-5">Routers</a></li>
+            <li><a href="#secao-7-6">Autenticação e segurança</a></li>
+            <li><a href="#secao-7-7">Comunicação com o banco de dados</a></li>
+            <li><a href="#secao-7-8">Tratamento e validação de dados</a></li>
+            <li><a href="#secao-7-conclusao">Conclusão da Seção 7</a></li>
+        </ol>
+    </li>
+
+    <li>
+        <a href="#secao-8">Detalhamento da API</a>
+        <ol>
+            <li><a href="#secao-8-1">Funcionamento da API</a></li>
+            <li><a href="#secao-8-2">Padrão de comunicação</a></li>
+            <li><a href="#secao-8-3">Documentação automática</a></li>
+            <li><a href="#secao-8-4">Acesso ao Swagger/OpenAPI</a></li>
         </ol>
     </li>
 
@@ -282,7 +297,7 @@
     </p>
 
 </article>
-
+</section>
 
 <!-- =========================================================
      2. VISÃO GERAL DA ARQUITETURA
@@ -3909,9 +3924,1651 @@ Fechar sessão</code></pre>
 </section>
 
 
+<section id="secao-7">
+    <h2>7. Detalhamento do Backend</h2>
 
+    <p>
+        O backend do BookHub foi desenvolvido utilizando Python e FastAPI,
+        adotando uma arquitetura modular para organizar as diferentes
+        responsabilidades da aplicação. A estrutura é composta por
+        componentes responsáveis pelas rotas, validação de dados,
+        persistência, autenticação e comunicação com o banco de dados.
+    </p>
+
+    <!-- 7.1 -->
+    <section id="secao-7-1">
+        <h3>7.1 Estrutura da aplicação FastAPI</h3>
+
+        <p>
+            A aplicação backend do BookHub foi estruturada de forma modular,
+            utilizando o FastAPI como framework principal para construção da
+            API REST.
+        </p>
+
+        <p>
+            Os principais componentes da aplicação estão organizados dentro
+            do diretório <code>backend/</code>:
+        </p>
+
+        <pre><code>backend/
+├── __init__.py
+├── main.py
+├── core/
+│   ├── __init__.py
+│   └── security.py
+├── database/
+│   ├── __init__.py
+│   ├── connection.py
+│   └── scripts/
+├── models/
+├── routers/
+└── schemas/</code></pre>
+
+        <p>
+            Cada diretório possui uma responsabilidade específica. O arquivo
+            <code>main.py</code> inicializa a aplicação, enquanto os diretórios
+            <code>models</code>, <code>schemas</code>, <code>routers</code>,
+            <code>core</code> e <code>database</code> concentram as diferentes
+            partes da implementação.
+        </p>
+
+        <p>
+            Essa organização permite separar as responsabilidades da aplicação,
+            facilitando a manutenção, compreensão e evolução do sistema.
+        </p>
+    </section>
+
+    <!-- 7.2 -->
+    <section id="secao-7-2">
+        <h3>7.2 Arquivo principal (main.py)</h3>
+
+        <p>
+            O arquivo <code>main.py</code> é o ponto de entrada da aplicação
+            FastAPI. Nele é criada a instância principal da aplicação e são
+            registrados os routers responsáveis pelos diferentes recursos
+            disponibilizados pela API.
+        </p>
+
+        <pre><code>from fastapi import FastAPI
+
+from backend.routers.auth import router as auth_router
+from backend.routers.usuarios import router as usuarios_router
+from backend.routers.livros import router as livros_router
+from backend.routers.estante import router as estante_router
+from backend.routers.autores import router as autores_router
+from backend.routers.generos import router as generos_router
+from backend.routers.avaliacoes import router as avaliacoes_router
+from backend.routers.favoritos import router as favoritos_router
+from backend.routers.resenhas import router as resenhas_router
+
+app = FastAPI(
+    title="API do BookHub",
+    description="API REST criada para o sistema do BookHub",
+    version="1.0.0"
+)</code></pre>
+
+        <p>
+            Após a criação da aplicação, os routers são registrados utilizando
+            <code>include_router()</code>. Isso permite que cada conjunto de
+            endpoints permaneça organizado em seu próprio módulo.
+        </p>
+
+        <pre><code>app.include_router(usuarios_router)
+app.include_router(auth_router)
+app.include_router(livros_router)
+app.include_router(autores_router)
+app.include_router(generos_router)
+app.include_router(estante_router)
+app.include_router(avaliacoes_router)
+app.include_router(favoritos_router)
+app.include_router(resenhas_router)</code></pre>
+
+        <p>
+            O arquivo também possui uma rota inicial utilizada para verificar
+            se a API está funcionando corretamente:
+        </p>
+
+        <pre><code>@app.get("/")
+def raiz():
+    return {
+        "mensagem": "BookHub API funcionando!"
+    }</code></pre>
+    </section>
+
+    <!-- 7.3 -->
+    <section id="secao-7-3">
+        <h3>7.3 Models</h3>
+
+        <p>
+            Os Models representam, dentro da aplicação, as entidades
+            persistidas no banco de dados. No BookHub, essa camada utiliza
+            o SQLAlchemy ORM para realizar o mapeamento entre classes Python
+            e tabelas do PostgreSQL.
+        </p>
+
+        <p>
+            Os Models estão localizados em:
+        </p>
+
+        <pre><code>backend/
+└── models/
+    ├── __init__.py
+    ├── associations.py
+    ├── autor.py
+    ├── avaliacao.py
+    ├── base.py
+    ├── editora.py
+    ├── favorito.py
+    ├── genero.py
+    ├── livro.py
+    ├── resenha.py
+    ├── usuario_livro.py
+    └── usuario.py</code></pre>
+
+        <p>
+            Entre as principais entidades estão <code>Usuario</code>,
+            <code>Livro</code>, <code>Autor</code>, <code>Editora</code>,
+            <code>Genero</code>, <code>Avaliacao</code>,
+            <code>Resenha</code>, <code>Favorito</code> e
+            <code>UsuarioLivro</code>.
+        </p>
+
+        <p>
+            Todos os Models utilizam uma classe base declarativa definida
+            em <code>base.py</code>:
+        </p>
+
+        <pre><code>from sqlalchemy.orm import DeclarativeBase
+
+class Base(DeclarativeBase):
+    pass</code></pre>
+
+        <p>
+            As classes utilizam <code>Mapped</code> e
+            <code>mapped_column</code> para representar as colunas das
+            tabelas e <code>relationship()</code> para estabelecer os
+            relacionamentos entre as entidades.
+        </p>
+
+        <p>
+            O projeto também possui tabelas associativas para representar
+            os relacionamentos muitos-para-muitos entre livros e autores e
+            entre livros e gêneros.
+        </p>
+
+        <pre><code>livro_autor
+livro_genero</code></pre>
+
+        <p>
+            Dessa forma, os Models constituem a camada responsável pela
+            representação das entidades e relacionamentos utilizados na
+            persistência dos dados.
+        </p>
+    </section>
+
+    <!-- 7.4 -->
+    <section id="secao-7-4">
+        <h3>7.4 Schemas</h3>
+
+        <p>
+            Os Schemas definem a estrutura dos dados utilizados nas
+            requisições e respostas da API. No BookHub, essa camada utiliza
+            o Pydantic, integrado ao FastAPI para realizar a validação e
+            serialização dos dados.
+        </p>
+
+        <p>
+            Os Schemas estão organizados no diretório:
+        </p>
+
+        <pre><code>backend/
+└── schemas/
+    ├── __init__.py
+    ├── auth.py
+    ├── autor.py
+    ├── avaliacao.py
+    ├── estante.py
+    ├── favorito.py
+    ├── generos.py
+    ├── livro.py
+    ├── resenha.py
+    └── usuario.py</code></pre>
+
+        <p>
+            Os Schemas são utilizados para definir quais dados são esperados
+            pela API, quais campos são obrigatórios ou opcionais e quais
+            tipos de dados devem ser utilizados.
+        </p>
+
+        <p>
+            Além da validação, eles também controlam a estrutura das respostas
+            disponibilizadas pela API, evitando que a estrutura interna dos
+            Models seja necessariamente exposta ao cliente.
+        </p>
+
+        <p>
+            Essa separação estabelece uma distinção importante:
+            <strong>Models representam os dados persistidos no banco,
+            enquanto Schemas representam os dados utilizados pela API.</strong>
+        </p>
+
+        <p>
+            Os Schemas também contribuem para a documentação automática
+            da API, uma vez que suas definições são utilizadas pelo FastAPI
+            na geração da especificação OpenAPI.
+        </p>
+    </section>
+
+    <!-- 7.5 -->
+    <section id="secao-7-5">
+        <h3>7.5 Routers</h3>
+
+        <p>
+            Os Routers são responsáveis pela organização dos endpoints da
+            API. Cada módulo agrupa as rotas relacionadas a uma determinada
+            funcionalidade do BookHub.
+        </p>
+
+        <pre><code>backend/
+└── routers/
+    ├── __init__.py
+    ├── auth.py
+    ├── autores.py
+    ├── avaliacoes.py
+    ├── estante.py
+    ├── favoritos.py
+    ├── generos.py
+    ├── livros.py
+    ├── resenhas.py
+    └── usuarios.py</code></pre>
+
+        <p>
+            Os principais routers e suas responsabilidades são:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Router</th>
+                    <th>Responsabilidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>auth.py</code></td>
+                    <td>Autenticação</td>
+                </tr>
+                <tr>
+                    <td><code>usuarios.py</code></td>
+                    <td>Operações relacionadas aos usuários</td>
+                </tr>
+                <tr>
+                    <td><code>livros.py</code></td>
+                    <td>Operações relacionadas aos livros</td>
+                </tr>
+                <tr>
+                    <td><code>autores.py</code></td>
+                    <td>Operações relacionadas aos autores</td>
+                </tr>
+                <tr>
+                    <td><code>generos.py</code></td>
+                    <td>Operações relacionadas aos gêneros</td>
+                </tr>
+                <tr>
+                    <td><code>estante.py</code></td>
+                    <td>Gerenciamento da estante</td>
+                </tr>
+                <tr>
+                    <td><code>avaliacoes.py</code></td>
+                    <td>Gerenciamento das avaliações</td>
+                </tr>
+                <tr>
+                    <td><code>favoritos.py</code></td>
+                    <td>Gerenciamento dos favoritos</td>
+                </tr>
+                <tr>
+                    <td><code>resenhas.py</code></td>
+                    <td>Gerenciamento das resenhas</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Os routers trabalham em conjunto com os Schemas, Models,
+            mecanismos de autenticação e sessão do banco de dados.
+        </p>
+
+        <p>
+            De forma geral, uma requisição chega ao router, passa pelas
+            validações necessárias, é processada utilizando os Models e,
+            quando necessário, acessa o banco de dados através da sessão
+            SQLAlchemy.
+        </p>
+    </section>
+
+    <!-- 7.6 -->
+    <section id="secao-7-6">
+        <h3>7.6 Autenticação e segurança</h3>
+
+        <p>
+            O BookHub possui uma camada específica para autenticação e
+            segurança, localizada principalmente em
+            <code>backend/core/security.py</code>.
+        </p>
+
+        <p>
+            O router responsável pela autenticação está localizado em:
+        </p>
+
+        <pre><code>backend/routers/auth.py</code></pre>
+
+        <p>
+            As senhas dos usuários não são armazenadas diretamente no banco
+            de dados. O Model <code>Usuario</code> utiliza o campo
+            <code>senha_hash</code> para armazenar o resultado do processo
+            de hash da senha.
+        </p>
+
+        <pre><code>senha_hash: Mapped[str] = mapped_column(
+    String(255),
+    nullable=False
+)</code></pre>
+
+        <p>
+            Após a autenticação bem-sucedida, a aplicação utiliza
+            <strong>JSON Web Token (JWT)</strong> para representar a
+            autenticação do usuário.
+        </p>
+
+        <p>
+            Os tokens são criados e posteriormente validados pela camada
+            de segurança. Endpoints que exigem autenticação podem verificar
+            a validade do token antes de permitir a execução da operação.
+        </p>
+
+        <p>
+            Informações sensíveis utilizadas pela aplicação também são
+            mantidas através de variáveis de ambiente. O arquivo
+            <code>.env</code> é carregado utilizando a biblioteca
+            <code>python-dotenv</code>.
+        </p>
+
+        <p>
+            Essa organização permite separar as funções de segurança dos
+            demais componentes da aplicação e evita a exposição direta de
+            credenciais e outras informações sensíveis no código-fonte.
+        </p>
+    </section>
+
+    <!-- 7.7 -->
+    <section id="secao-7-7">
+        <h3>7.7 Comunicação com o banco de dados</h3>
+
+        <p>
+            A comunicação entre o backend e o PostgreSQL é realizada por
+            meio do SQLAlchemy, utilizando o driver psycopg.
+        </p>
+
+        <p>
+            A configuração da conexão está centralizada em:
+        </p>
+
+        <pre><code>backend/database/connection.py</code></pre>
+
+        <p>
+            As informações de conexão são carregadas através de variáveis
+            de ambiente:
+        </p>
+
+        <pre><code>DB_HOST
+DB_PORT
+DB_NAME
+DB_USER
+DB_PASSWORD</code></pre>
+
+        <p>
+            Essas informações são utilizadas para construir a URL de conexão:
+        </p>
+
+        <pre><code>DATABASE_URL = (
+    f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}"
+    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)</code></pre>
+
+        <p>
+            A partir dessa URL é criado o <code>Engine</code> do SQLAlchemy:
+        </p>
+
+        <pre><code>engine = create_engine(DATABASE_URL)</code></pre>
+
+        <p>
+            As sessões são criadas através do <code>sessionmaker</code>:
+        </p>
+
+        <pre><code>SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)</code></pre>
+
+        <p>
+            Para disponibilizar essas sessões aos endpoints, o projeto utiliza
+            a função <code>get_db()</code>:
+        </p>
+
+        <pre><code>def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()</code></pre>
+
+        <p>
+            O FastAPI utiliza essa função através de seu mecanismo de
+            injeção de dependências. Dessa maneira, cada operação pode
+            receber uma sessão para realizar consultas e alterações no
+            banco, garantindo também que a sessão seja encerrada ao final
+            do processamento.
+        </p>
+
+        <p>
+            Além da comunicação em tempo de execução, o projeto possui
+            scripts SQL responsáveis pela criação e população inicial do
+            banco de dados:
+        </p>
+
+        <pre><code>backend/database/scripts/
+├── 00_drop_tables.sql
+├── 01_create_tables.sql
+└── 02_insert_data.sql</code></pre>
+    </section>
+
+    <!-- 7.8 -->
+    <section id="secao-7-8">
+        <h3>7.8 Tratamento e validação de dados</h3>
+
+        <p>
+            O tratamento e a validação dos dados são realizados em diferentes
+            camadas do backend. O FastAPI e o Pydantic validam os dados
+            relacionados às requisições e respostas, enquanto o SQLAlchemy
+            representa os dados persistidos e o PostgreSQL aplica as
+            restrições de integridade definidas no banco.
+        </p>
+
+        <p>
+            Os Schemas Pydantic são utilizados para verificar a estrutura,
+            os tipos e os campos obrigatórios ou opcionais das informações
+            recebidas pela API.
+        </p>
+
+        <p>
+            Além da validação realizada pela aplicação, o PostgreSQL possui
+            restrições que garantem a integridade dos dados.
+        </p>
+
+        <ul>
+            <li><code>NOT NULL</code> — impede valores nulos em campos obrigatórios;</li>
+            <li><code>UNIQUE</code> — impede duplicidade em campos específicos;</li>
+            <li><code>PRIMARY KEY</code> — identifica unicamente os registros;</li>
+            <li><code>FOREIGN KEY</code> — mantém a integridade dos relacionamentos;</li>
+            <li><code>CHECK</code> — estabelece condições para os valores armazenados.</li>
+        </ul>
+
+        <p>
+            Um exemplo é a validação da nota das avaliações, que deve estar
+            entre 1 e 5:
+        </p>
+
+        <pre><code>CONSTRAINT ck_avaliacao_nota
+    CHECK (nota BETWEEN 1 AND 5)</code></pre>
+
+        <p>
+            Outro exemplo é o status de leitura da estante, que possui um
+            conjunto definido de valores permitidos:
+        </p>
+
+        <pre><code>CHECK (
+    status_leitura IN (
+        'QUERO_LER',
+        'LENDO',
+        'LIDO',
+        'ABANDONADO'
+    )
+)</code></pre>
+
+        <p>
+            Quando ocorre algum problema durante o processamento de uma
+            requisição, o FastAPI permite utilizar exceções HTTP para
+            retornar ao cliente informações adequadas sobre o erro.
+        </p>
+
+        <pre><code>raise HTTPException(
+    status_code=404,
+    detail="Recurso não encontrado"
+)</code></pre>
+
+        <p>
+            Entre os códigos HTTP utilizados para representar diferentes
+            situações estão:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Significado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>Requisição processada com sucesso</td>
+                </tr>
+                <tr>
+                    <td>201</td>
+                    <td>Recurso criado com sucesso</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>Requisição inválida</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>Usuário não autenticado</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>Acesso não permitido</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>Recurso não encontrado</td>
+                </tr>
+                <tr>
+                    <td>422</td>
+                    <td>Dados não passaram pela validação</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>Erro interno do servidor</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Dessa forma, o BookHub utiliza múltiplas camadas de validação:
+            os Schemas controlam a estrutura dos dados, os Routers processam
+            as operações e o PostgreSQL garante a integridade dos dados
+            persistidos.
+        </p>
+    </section>
+
+    <!-- Conclusão -->
+    <section id="secao-7-conclusao">
+        <h3>Conclusão da Seção 7</h3>
+
+        <p>
+            O backend do BookHub foi estruturado de maneira modular, separando
+            as responsabilidades relacionadas à aplicação FastAPI, Models,
+            Schemas, Routers, autenticação, banco de dados e validação.
+        </p>
+
+        <p>
+            Essa organização facilita a manutenção do sistema e permite que
+            novas funcionalidades sejam incorporadas sem comprometer a
+            estrutura existente.
+        </p>
+
+        <p>
+            A arquitetura também estabelece uma comunicação organizada entre
+            o cliente, a API, as regras de processamento e o banco de dados,
+            fornecendo a base técnica necessária para o funcionamento do
+            BookHub.
+        </p>
+    </section>
 
 </section>
+
+
+<section id="secao-8">
+    <h2>8. Detalhamento da API</h2>
+
+
+<p>
+    A API do BookHub foi desenvolvida utilizando o framework FastAPI e segue
+    o padrão de uma API REST. Sua função é estabelecer a comunicação entre
+    o frontend do sistema e o backend, permitindo que as funcionalidades
+    do BookHub sejam acessadas por meio de requisições HTTP.
+</p>
+
+<p>
+    Esta seção apresenta o funcionamento da API, o padrão utilizado para a
+    comunicação entre cliente e servidor, o mecanismo de documentação
+    automática e as formas de acesso à documentação através do Swagger UI
+    e da especificação OpenAPI.
+</p>
+
+<!-- 8.1 -->
+<section id="secao-8-1"></section>
+    <h3>8.1 Funcionamento da API</h3>
+
+    <p>
+        A API do BookHub atua como uma camada intermediária entre o frontend e
+        o banco de dados. O cliente realiza uma requisição HTTP para um
+        determinado endpoint, a API processa a solicitação e, quando necessário,
+        realiza operações no banco de dados PostgreSQL antes de retornar uma
+        resposta ao cliente.
+    </p>
+
+    <h4>8.1.1 Arquitetura de comunicação</h4>
+
+    <pre><code>
+
+
+    ┌──────────────┐
+    │   Frontend   │
+    │   BookHub    │
+    └──────┬───────┘
+    │
+    │ Requisição HTTP
+    ▼
+    ┌──────────────┐
+    │     API      │
+    │   FastAPI    │
+    └──────┬───────┘
+    │
+    ▼
+    ┌──────────────┐
+    │    Router    │
+    └──────┬───────┘
+    │
+    ▼
+    ┌──────────────┐
+    │   Schemas /  │
+    │   Validação  │
+    └──────┬───────┘
+    │
+    ▼
+    ┌──────────────┐
+    │   SQLAlchemy │
+    │      ORM     │
+    └──────┬───────┘
+    │
+    ▼
+    ┌──────────────┐
+    │  PostgreSQL  │
+    └──────┬───────┘
+    │
+    │ Resultado
+    ▼
+    ┌──────────────┐
+    │     API      │
+    │   FastAPI    │
+    └──────┬───────┘
+    │
+    │ Resposta HTTP
+    ▼
+    ┌──────────────┐
+    │   Frontend   │
+    │   BookHub    │
+    └──────────────┘ </code></pre>
+
+
+    <p>
+        O frontend não acessa diretamente o banco de dados. Toda comunicação
+        com os dados persistidos ocorre através da API.
+    </p>
+
+    <h4>8.1.2 Requisições HTTP</h4>
+
+    <p>
+        Cada operação realizada pela API ocorre através de uma requisição HTTP
+        direcionada a um determinado endpoint. Os métodos HTTP utilizados
+        representam diferentes tipos de operações sobre os recursos.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Utilização</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>Consultar informações</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>Criar novos registros</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>Atualizar informações</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>Excluir registros</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre><code>GET /livros</code></pre>
+
+    <p>
+        A requisição acima representa uma solicitação para consultar livros.
+        Para criar um novo livro, por exemplo, pode ser utilizada uma requisição
+        POST:
+    </p>
+
+    <pre><code>POST /livros</code></pre>
+
+    <h4>8.1.3 Processamento de uma requisição</h4>
+
+    <ol>
+        <li>O cliente envia uma requisição HTTP para um endpoint.</li>
+        <li>O FastAPI identifica a rota responsável pela solicitação.</li>
+        <li>Os dados recebidos são validados quando necessário.</li>
+        <li>O Router processa a operação solicitada.</li>
+        <li>O SQLAlchemy realiza a comunicação com o banco de dados.</li>
+        <li>A API prepara a resposta correspondente.</li>
+        <li>A resposta HTTP é enviada de volta ao cliente.</li>
+    </ol>
+
+    <h4>8.1.4 Exemplo de consulta</h4>
+
+    <p>
+        Uma consulta de um livro específico pode ser realizada através do
+        endpoint:
+    </p>
+
+    <pre><code>GET /livros/1</code></pre>
+
+    <pre><code>
+
+
+    Cliente
+    │
+    │ GET /livros/1
+    ▼
+    FastAPI
+    │
+    ▼
+    Router de livros
+    │
+    ▼
+    SQLAlchemy
+    │
+    ▼
+    PostgreSQL
+    │
+    │ Livro encontrado
+    ▼
+    SQLAlchemy
+    │
+    ▼
+    Schema de resposta
+    │
+    ▼
+    FastAPI
+    │
+    │ HTTP 200
+    ▼
+    Cliente </code></pre>
+
+
+    <p>
+        Caso o livro solicitado não exista, a API pode retornar o código
+        HTTP <code>404 Not Found</code>.
+    </p>
+
+    <h4>8.1.5 Exemplo de criação de recurso</h4>
+
+    <p>
+        Para criar um novo recurso, o cliente envia uma requisição POST contendo
+        os dados necessários no corpo da requisição.
+    </p>
+
+    <pre><code>POST /livros
+
+
+    Content-Type: application/json</code></pre>
+
+
+    <pre><code>{
+    "titulo": "Exemplo de Livro",
+    "ano_publicacao": 2026,
+    "numero_paginas": 250,
+    "idioma": "Português",
+    "editora_id": 1
+
+
+    }</code></pre>
+
+
+    <p>
+        Os dados são recebidos pelo Schema correspondente, validados e,
+        posteriormente, processados pelo Router. O SQLAlchemy é utilizado
+        para persistir as informações no PostgreSQL.
+    </p>
+
+    <h4>8.1.6 Respostas da API</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200 OK</td>
+                <td>Operação realizada com sucesso</td>
+            </tr>
+            <tr>
+                <td>201 Created</td>
+                <td>Recurso criado com sucesso</td>
+            </tr>
+            <tr>
+                <td>400 Bad Request</td>
+                <td>Requisição inválida</td>
+            </tr>
+            <tr>
+                <td>401 Unauthorized</td>
+                <td>Autenticação necessária ou inválida</td>
+            </tr>
+            <tr>
+                <td>403 Forbidden</td>
+                <td>Operação não permitida</td>
+            </tr>
+            <tr>
+                <td>404 Not Found</td>
+                <td>Recurso não encontrado</td>
+            </tr>
+            <tr>
+                <td>422 Unprocessable Entity</td>
+                <td>Dados não passaram pela validação</td>
+            </tr>
+            <tr>
+                <td>500 Internal Server Error</td>
+                <td>Erro interno da aplicação</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>8.1.7 Formato dos dados</h4>
+
+    <p>
+        As informações transmitidas pela API são estruturadas principalmente
+        no formato JSON (JavaScript Object Notation).
+    </p>
+
+    <pre><code>{
+    "id": 1,
+    "titulo": "1984",
+    "isbn": "9780451524935",
+    "ano_publicacao": 1949,
+    "numero_paginas": 328,
+    "idioma": "Português"
+
+
+    }</code></pre>
+
+
+    <h4>8.1.8 Autenticação nas requisições</h4>
+
+    <p>
+        Algumas funcionalidades da API exigem que o usuário esteja autenticado.
+        Após o processo de autenticação, o cliente recebe um token JWT que pode
+        ser utilizado nas requisições protegidas.
+    </p>
+
+    <pre><code>
+
+
+    Cliente
+    │
+    │ Credenciais
+    ▼
+    /auth
+    │
+    ▼
+    API valida usuário
+    │
+    ▼
+    Token JWT
+    │
+    ▼
+    Cliente
+    │
+    │ Authorization: Bearer <token>
+    ▼
+    Endpoint protegido
+    │
+    ▼
+    Validação do token
+    │
+    ▼
+    Processamento </code></pre>
+
+
+    <h4>8.1.9 Independência entre cliente e servidor</h4>
+
+    <p>
+        O frontend é responsável pela interface e interação com o usuário,
+        enquanto o backend é responsável pelo processamento das informações,
+        regras da aplicação, autenticação e acesso ao banco de dados.
+    </p>
+
+    <p>
+        Essa separação permite que diferentes clientes possam consumir a mesma
+        API, desde que respeitem seus endpoints e formatos de comunicação.
+    </p>
+
+    <h4>8.1.10 Resumo do funcionamento</h4>
+
+    <pre><code>
+
+
+    1. Cliente envia requisição HTTP
+    ↓
+    2. FastAPI identifica o endpoint
+    ↓
+    3. Dados são validados
+    ↓
+    4. Router processa a operação
+    ↓
+    5. SQLAlchemy acessa o banco
+    ↓
+    6. PostgreSQL retorna ou modifica os dados
+    ↓
+    7. API prepara a resposta
+    ↓
+    8. Cliente recebe resposta HTTP </code></pre>
+
+    <!-- 8.2 -->
+<section id="secao-8-2"></section>
+    <h3>8.2 Padrão de comunicação</h3>
+
+    <p>
+        A comunicação entre o cliente e a API do BookHub segue os padrões
+        utilizados por aplicações web baseadas em REST, utilizando o protocolo
+        HTTP para o envio e recebimento de informações.
+    </p>
+
+    <p>
+        A API recebe requisições, processa as informações e retorna respostas
+        estruturadas, normalmente utilizando o formato JSON.
+    </p>
+
+    <h4>8.2.1 Comunicação através do protocolo HTTP</h4>
+
+    <p>
+        Uma requisição HTTP possui, de forma geral, método HTTP, endereço do
+        endpoint, parâmetros quando necessários, cabeçalhos HTTP e corpo da
+        requisição quando aplicável.
+    </p>
+
+    <h4>8.2.2 Métodos HTTP</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Finalidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>Consultar recursos</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>Criar recursos</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>Atualizar recursos</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>Excluir recursos</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>8.2.3 Endpoints</h4>
+
+    <p>
+        Os endpoints representam os caminhos disponibilizados pela API para
+        acesso aos recursos do BookHub.
+    </p>
+
+    <pre><code>
+
+/usuarios
+/auth
+/livros
+/autores
+/generos
+/estante
+/avaliacoes
+/favoritos
+/resenhas </code></pre>
+
+
+<h4>8.2.4 Parâmetros de rota</h4>
+
+<p>
+    Parâmetros de rota permitem identificar especificamente um recurso.
+    Por exemplo:
+</p>
+
+<pre><code>GET /livros/1</code></pre>
+
+<p>
+    Nesse caso, o valor <code>1</code> representa o identificador do livro
+    que será consultado.
+</p>
+
+<h4>8.2.5 Parâmetros de consulta</h4>
+
+<p>
+    Query parameters podem ser utilizados para complementar uma requisição.
+    Eles são adicionados à URL após o caractere <code>?</code>.
+</p>
+
+<pre><code>GET /livros?titulo=1984</code></pre>
+
+<p>
+    Quando existem vários parâmetros, eles podem ser combinados utilizando
+    o caractere <code>&amp;</code>.
+</p>
+
+<pre><code>GET /livros?titulo=1984&amp;ano_publicacao=1949</code></pre>
+
+<h4>8.2.6 Corpo da requisição</h4>
+
+<p>
+    Operações de criação ou atualização podem utilizar o corpo da
+    requisição para transmitir informações à API.
+</p>
+
+<pre><code>POST /livros
+
+
+Content-Type: application/json</code></pre>
+
+
+<pre><code>{
+"titulo": "Exemplo de Livro",
+"ano_publicacao": 2026,
+"numero_paginas": 250,
+"idioma": "Português",
+"editora_id": 1
+
+
+}</code></pre>
+
+
+<h4>8.2.7 Cabeçalhos HTTP</h4>
+
+<p>
+    Os cabeçalhos HTTP fornecem informações adicionais sobre uma requisição
+    ou resposta.
+</p>
+
+<pre><code>Content-Type: application/json</code></pre>
+
+<p>
+    Nas operações que exigem autenticação, também pode ser utilizado:
+</p>
+
+<pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+<h4>8.2.8 Autenticação através de Bearer Token</h4>
+
+<p>
+    Nas operações protegidas, o cliente deve enviar o token de autenticação
+    através do cabeçalho <code>Authorization</code>.
+</p>
+
+<pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+<h4>8.2.9 Formato JSON</h4>
+
+<p>
+    O formato principal utilizado para transmissão dos dados da API é o
+    JSON.
+</p>
+
+<pre><code>{
+"id": 1,
+"titulo": "1984",
+"ano_publicacao": 1949,
+"numero_paginas": 328,
+"idioma": "Português"
+
+
+}</code></pre>
+
+
+<h4>8.2.10 Respostas HTTP</h4>
+
+<p>
+    Após processar uma requisição, a API retorna uma resposta HTTP contendo
+    o código de status e, quando aplicável, os dados solicitados.
+</p>
+
+<pre><code>HTTP/1.1 200 OK
+
+
+Content-Type: application/json</code></pre>
+
+
+<pre><code>{
+"id": 1,
+"titulo": "1984"
+
+
+}</code></pre>
+
+
+<h4>8.2.11 Comunicação entre frontend e backend</h4>
+
+<p>
+    O frontend atua como consumidor da API. Ele realiza requisições aos
+    endpoints disponibilizados pelo backend e utiliza as respostas para
+    apresentar as informações ao usuário.
+</p>
+
+<pre><code>
+
+
+Frontend
+│
+│ GET /livros
+▼
+BookHub API
+│
+│ Consulta
+▼
+PostgreSQL
+│
+│ Dados dos livros
+▼
+BookHub API
+│
+│ JSON
+▼
+Frontend
+│
+▼
+Exibição dos livros </code></pre>
+
+
+<h4>8.2.12 Padronização da comunicação</h4>
+
+<p>
+    A utilização de HTTP e JSON proporciona uma interface de comunicação
+    padronizada, permitindo que a API seja consumida pelo frontend do
+    BookHub ou por outras aplicações capazes de realizar requisições HTTP.
+</p>
+
+<h4>8.2.13 Resumo</h4>
+
+<pre><code>
+
+
+┌─────────────────────────────┐
+│          CLIENTE            │
+└──────────────┬──────────────┘
+│
+│ HTTP
+▼
+┌─────────────────────────────┐
+│        ENDPOINT REST        │
+│       /livros, /autores...  │
+└──────────────┬──────────────┘
+│
+│ JSON
+▼
+┌─────────────────────────────┐
+│        FASTAPI              │
+│  Validação + Processamento  │
+└──────────────┬──────────────┘
+│
+│ SQLAlchemy
+▼
+┌─────────────────────────────┐
+│        POSTGRESQL           │
+└──────────────┬──────────────┘
+│
+│ Resultado
+▼
+┌─────────────────────────────┐
+│        FASTAPI              │
+└──────────────┬──────────────┘
+│
+│ HTTP + JSON
+▼
+┌─────────────────────────────┐
+│          CLIENTE            │
+└─────────────────────────────┘ </code></pre>
+
+
+<!-- 8.3 -->
+<section id="secao-8-3"></section>
+    <h3>8.3 Documentação automática</h3>
+
+    <p>
+        Uma das características do FastAPI utilizadas no desenvolvimento do
+        BookHub é a capacidade de gerar automaticamente a documentação da API.
+        Esse recurso permite visualizar os endpoints disponíveis, os métodos
+        HTTP, os parâmetros aceitos, os modelos de dados e as respostas
+        esperadas.
+    </p>
+
+    <h4>8.3.1 Especificação OpenAPI</h4>
+
+    <p>
+        O FastAPI utiliza o padrão OpenAPI para descrever a estrutura da API.
+        A especificação apresenta informações sobre endpoints, métodos HTTP,
+        parâmetros, estruturas de dados, respostas, códigos de status e
+        requisitos de autenticação.
+    </p>
+
+    <h4>8.3.2 Geração automática</h4>
+
+    <p>
+        A documentação não precisa ser escrita manualmente para cada endpoint.
+        Quando uma nova rota é adicionada ao sistema utilizando FastAPI, suas
+        informações são incorporadas automaticamente à especificação OpenAPI.
+    </p>
+
+    <pre><code>@app.get("/")
+
+
+    def raiz():
+    return {
+    "mensagem": "BookHub API funcionando!"
+    }</code></pre>
+
+
+    <h4>8.3.3 Documentação dos Schemas</h4>
+
+    <p>
+        Os Schemas utilizados pelo BookHub também contribuem para a documentação
+        automática. Como são definidos utilizando Pydantic, o FastAPI consegue
+        identificar campos, tipos de dados e determinadas regras de validação.
+    </p>
+
+    <h4>8.3.4 Visualização dos endpoints</h4>
+
+    <p>
+        A documentação automática apresenta os endpoints organizados de acordo
+        com os recursos disponíveis na aplicação.
+    </p>
+
+    <pre><code>
+
+
+    Usuários
+    Autenticação
+    Livros
+    Autores
+    Gêneros
+    Estante
+    Avaliações
+    Favoritos
+    Resenhas </code></pre>
+
+
+    <h4>8.3.5 Testes através da documentação</h4>
+
+    <p>
+        A documentação gerada pelo FastAPI permite realizar requisições
+        diretamente pela interface gráfica disponibilizada pelo Swagger UI.
+        Isso permite testar os endpoints sem a necessidade de criar previamente
+        uma aplicação cliente específica.
+    </p>
+
+    <h4>8.3.6 Benefícios para o desenvolvimento</h4>
+
+    <ul>
+        <li>Redução do trabalho manual de documentação;</li>
+        <li>Maior consistência entre código e documentação;</li>
+        <li>Facilidade de testes dos endpoints;</li>
+        <li>Facilidade de integração com o frontend;</li>
+        <li>Melhor manutenção da documentação.</li>
+    </ul>
+
+    <h4>8.3.7 Relação entre código e documentação</h4>
+
+    <pre><code>
+
+
+    ┌─────────────────────┐
+    │ Código da API       │
+    │ FastAPI + Routers   │
+    └──────────┬──────────┘
+    │
+    │ Informações dos endpoints
+    ▼
+    ┌─────────────────────┐
+    │      OpenAPI        │
+    │ Especificação da API│
+    └──────────┬──────────┘
+    │
+    ▼
+    ┌─────────────────────┐
+    │     Swagger UI      │
+    │ Documentação visual │
+    └─────────────────────┘ </code></pre>
+
+
+    <h4>8.3.8 Documentação como ferramenta de integração</h4>
+
+    <p>
+        A documentação automática funciona como referência para o
+        desenvolvimento do frontend, permitindo consultar endpoints, métodos,
+        parâmetros, dados necessários, respostas e requisitos de autenticação.
+    </p>
+
+    <h4>8.3.9 Atualização da documentação</h4>
+
+    <p>
+        Como a documentação é gerada automaticamente, alterações realizadas
+        na API são refletidas na especificação OpenAPI quando a aplicação é
+        executada.
+    </p>
+
+    <h4>8.3.10 Importância para o projeto BookHub</h4>
+
+    <p>
+        A documentação automática é importante para o BookHub porque o projeto
+        possui uma separação entre frontend, backend e banco de dados. Ela
+        funciona como uma referência central para a comunicação entre essas
+        camadas.
+    </p>
+
+    <h4>8.3.11 Resumo</h4>
+
+    <pre><code>
+
+
+    FastAPI
+    ↓
+    Endpoints + Schemas
+    ↓
+    Especificação OpenAPI
+    ↓
+    Swagger UI
+    ↓
+    Visualização e testes da API </code></pre>
+
+
+<!-- 8.4 -->
+<section id="secao-8-4"></section>
+    <h3>8.4 Acesso ao Swagger/OpenAPI</h3>
+
+    <p>
+        Quando o servidor do BookHub está em execução, o FastAPI disponibiliza
+        interfaces próprias para consulta e interação com a API. A principal
+        delas é o Swagger UI, que apresenta os endpoints de forma visual e
+        permite realizar requisições diretamente pelo navegador.
+    </p>
+
+    <h4>8.4.1 Acesso ao Swagger UI</h4>
+
+    <p>
+        Considerando a execução local padrão do servidor, o Swagger UI pode ser
+        acessado através de:
+    </p>
+
+    <pre><code>http://127.0.0.1:8000/docs</code></pre>
+
+    <p>Também pode ser utilizado:</p>
+
+    <pre><code>http://localhost:8000/docs</code></pre>
+
+    <h4>8.4.2 Interface do Swagger UI</h4>
+
+    <p>
+        A página apresenta automaticamente os endpoints registrados na
+        aplicação, organizados de acordo com os recursos disponíveis.
+    </p>
+
+    <pre><code>
+
+
+    AUTH
+    USUÁRIOS
+    LIVROS
+    AUTORES
+    GÊNEROS
+    ESTANTE
+    AVALIAÇÕES
+    FAVORITOS
+    RESENHAS </code></pre>
+
+
+    <h4>8.4.3 Visualização de um endpoint</h4>
+
+    <p>
+        Ao selecionar um endpoint, o Swagger UI apresenta informações como
+        método HTTP, caminho, parâmetros, corpo da requisição, campos
+        obrigatórios, respostas possíveis e códigos de status.
+    </p>
+
+    <pre><code>GET /livros/{livro_id}</code></pre>
+
+    <h4>8.4.4 Utilização do botão "Try it out"</h4>
+
+    <p>
+        O Swagger UI permite testar os endpoints diretamente pela interface.
+        Para isso, o usuário pode selecionar um endpoint, clicar em
+        <strong>Try it out</strong>, preencher os dados necessários e utilizar
+        a opção <strong>Execute</strong>.
+    </p>
+
+    <h4>8.4.5 Exemplo de teste de consulta</h4>
+
+    <pre><code>
+
+
+    1. Acessar /docs
+    ↓
+    2. Localizar o recurso de livros
+    ↓
+    3. Selecionar GET /livros
+    ↓
+    4. Clicar em "Try it out"
+    ↓
+    5. Clicar em "Execute"
+    ↓
+    6. A API processa a requisição
+    ↓
+    7. Swagger apresenta a resposta </code></pre>
+
+        <h4>8.4.6 Teste de endpoints protegidos</h4>
+
+        <p>
+            Endpoints que exigem autenticação podem utilizar o token JWT através
+            do mecanismo de autenticação disponibilizado pela documentação.
+        </p>
+
+        <pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+        <h4>8.4.7 Especificação OpenAPI</h4>
+
+        <p>
+            Além do Swagger UI, o FastAPI disponibiliza diretamente a especificação
+            OpenAPI da aplicação.
+        </p>
+
+        <pre><code>http://127.0.0.1:8000/openapi.json</code></pre>
+
+        <p>
+            Esse endereço retorna a especificação da API em formato JSON.
+        </p>
+
+        <h4>8.4.8 Relação entre Swagger e OpenAPI</h4>
+
+        <p>
+            OpenAPI é a especificação utilizada para descrever a estrutura da API,
+            enquanto o Swagger UI é uma interface gráfica que utiliza essa
+            especificação para apresentar a documentação de maneira visual e
+            interativa.
+        </p>
+
+        <pre><code>
+                    FASTAPI
+                        │
+                        ▼
+                Especificação
+                    OpenAPI
+                        │
+            ┌─────────┴─────────┐
+            ▼                   ▼
+        /openapi.json          /docs
+            │                   │
+            │                   ▼
+            │             Swagger UI
+            │                   │
+            │                   ▼
+            │             Visualização
+            │              e testes
+            │
+            ▼
+        Outras ferramentas
+        </code></pre>
+
+        <h4>8.4.9 Acesso durante o desenvolvimento</h4>
+
+        <p>
+            Durante o desenvolvimento, o servidor pode ser iniciado utilizando o
+            Uvicorn:
+        </p>
+
+        <pre><code>uvicorn backend.main:app --reload</code></pre>
+
+        <p>
+            Com o servidor em execução, os principais endereços locais são:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Recurso</th>
+                    <th>Endereço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>API</td>
+                    <td><code>http://127.0.0.1:8000</code></td>
+                </tr>
+                <tr>
+                    <td>Swagger UI</td>
+                    <td><code>http://127.0.0.1:8000/docs</code></td>
+                </tr>
+                <tr>
+                    <td>OpenAPI</td>
+                    <td><code>http://127.0.0.1:8000/openapi.json</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            A URL pode variar caso o servidor seja executado utilizando uma porta
+            diferente.
+        </p>
+
+        <h4>8.4.10 Utilização durante a integração com o frontend</h4>
+
+        <p>
+            Durante a integração entre frontend e backend, o Swagger pode ser
+            utilizado como referência para identificar endpoints, métodos HTTP,
+            dados necessários e respostas esperadas.
+        </p>
+
+        <pre><code>
+
+    Funcionalidade no frontend
+    ↓
+    Consultar Swagger
+    ↓
+    Identificar endpoint
+    ↓
+    Verificar método HTTP
+    ↓
+    Verificar dados necessários
+    ↓
+    Realizar requisição
+    ↓
+    Processar resposta
+    ↓
+    Exibir resultado no frontend </code></pre>
+
+
+    <h4>8.4.11 Vantagens da utilização do Swagger</h4>
+
+    <ul>
+        <li>Facilita a compreensão dos endpoints;</li>
+        <li>Permite testar requisições diretamente pelo navegador;</li>
+        <li>Apresenta os modelos de entrada e saída;</li>
+        <li>Facilita a identificação de parâmetros obrigatórios;</li>
+        <li>Auxilia na integração com o frontend;</li>
+        <li>Permite testar endpoints protegidos;</li>
+        <li>Mantém a documentação relacionada diretamente ao código da API.</li>
+    </ul>
+
+    <h4>8.4.12 Resumo</h4>
+
+    <pre><code>
+
+
+    ┌───────────────────────────────┐
+    │          FASTAPI              │
+    └───────────────┬───────────────┘
+    │
+    ▼
+    ┌────────────────┐
+    │    OpenAPI     │
+    └───────┬────────┘
+    │
+    ┌───────┴────────┐
+    ▼                ▼
+    /docs           /openapi.json
+    │                │
+    ▼                ▼
+    Swagger UI       Especificação
+    │            em JSON
+    ▼
+    Visualização
+    e testes </code></pre>
+
+
+    <p>
+        O endereço <code>/docs</code> fornece uma interface interativa através
+        do Swagger UI, enquanto <code>/openapi.json</code> disponibiliza
+        diretamente a especificação OpenAPI.
+    </p>
+
+    <p>
+        Esses recursos tornam a API do BookHub mais fácil de compreender,
+        testar e integrar ao frontend, além de fornecerem uma referência
+        técnica para futuros desenvolvedores que venham a trabalhar no projeto.
+    </p>
+
+</section>
+
+
+
 
     
 </main>
