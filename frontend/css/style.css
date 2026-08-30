@@ -1,154 +1,115 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
-header {
-    background-color: #2c3e50;
-    padding: 15px 40px;
+/* Navbar */
+.navbar-nav .nav-link {
+    color: #6c757d;
+    padding-bottom: 0.5rem;
+}
+.navbar-nav .nav-link.active {
+    color: #4834d4 !important;
+    font-weight: 600;
+    border-bottom: 2px solid #4834d4;
 }
 
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo a {
-    color: white;
+.auth-link {
+    color: #4834d4;
     text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
+    font-weight: 600;
 }
-
-.menu {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-.menu a,
-.auth a {
-    color: white;
-    text-decoration: none;
-}
-
-.menu a:hover,
-.auth a:hover {
+.auth-link:hover {
     text-decoration: underline;
 }
 
-.auth {
-    display: flex;
-    gap: 15px;
+/* Campos de Busca e Filtro */
+.input-group-text, .form-control, .form-select {
+    border-color: #e0e0e0;
 }
 
-main {
-    padding: 40px;
-}
-
-
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-.hero h1 {
-    font-size: 42px;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-.search-form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.search-form input {
-    width: 400px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.search-form button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
-.featured-books,
-.featured-authors {
-    padding: 40px;
-}
-
-.featured-books h2,
-.featured-authors h2 {
-    margin-bottom: 25px;
-}
-
-
-.books-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
-
-
+/* Cards */
 .book-card {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    background-color: #fff;
+    height: 100%;
+}
+.book-card:hover {
+    transform: translateY(-5px);
 }
 
-.book-cover {
-    height: 220px;
-    background-color: #eee;
+.book-card-top {
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    position: relative;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.book-emoji {
+    font-size: 5rem;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
 }
 
-.book-card h3 {
-    margin-bottom: 8px;
-}
-
-.book-card p {
-    margin-bottom: 10px;
-}
-
-
-.authors-container {
-    display: flex;
-    gap: 30px;
-}
-
-
-.author-card {
-    text-align: center;
-}
-
-.author-photo {
-    width: 120px;
-    height: 120px;
-    background-color: #eee;
+/* Botão Favoritar (Coração) */
+.fav-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    border: none;
     border-radius: 50%;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #ccc;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+.fav-btn.active {
+    color: #ff4757;
+}
+
+/* Informações do Livro */
+.book-info {
+    padding: 1.25rem;
+}
+.book-genre {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+.book-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #2d3436;
+}
+.book-author {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    margin-bottom: 0.75rem;
+}
+.book-rating {
+    font-size: 0.85rem;
+    color: #636e72;
+}
+.star-icon {
+    color: #f1c40f;
+}
+
+/* Controle da Estante */
+.shelf-control {
+    font-size: 0.85rem;
+    margin-top: 10px;
 }
