@@ -29,3 +29,21 @@ class AvaliacaoResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class AvaliacaoLivroResponse(BaseModel):
+
+    id: int
+
+    usuario_id: int
+
+    usuario_nome: str
+
+    livro_id: int
+
+    nota: int
+
+    data_avaliacao: datetime
+
+    data_atualizacao: datetime
+

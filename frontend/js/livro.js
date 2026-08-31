@@ -46,6 +46,8 @@ async function carregarLivro() {
 
         await carregarGeneros(livroId);
 
+        await carregarAvaliacoes(livroId);
+
     } catch (error) {
 
         console.error('Erro ao carregar livro:', error);
@@ -200,8 +202,6 @@ ratingElement.innerHTML = `
 `;
 
 
-
-
 // -----------------------------------------------------
 // Carrega autores
 // -----------------------------------------------------
@@ -333,6 +333,236 @@ function mostrarErro(mensagem) {
             ${mensagem}
         </p>
     `;
+
+}
+
+
+// =====================================================
+// CARREGA AVALIAÇÕES
+// =====================================================
+
+async function carregarAvaliacoes(livroId) {
+
+    const ratingElement =
+        document.getElementById('book-rating');
+
+    const reviewsContainer =
+        document.getElementById('book-reviews');
+
+    const reviewsCount =
+        document.getElementById('reviews-count');
+
+
+    try {
+
+        // Busca a média
+
+        const resumo =
+            await getMediaAvaliacoes(livroId);
+
+
+        // ---------------------------------------------
+        // Média
+        // ---------------------------------------------
+
+        if (resumo.media !== null) {
+
+            ratingElement.innerHTML = `
+
+                <i class="fa-solid fa-star star-icon"></i>
+
+                <strong>
+                    ${resumo.media.toFixed(1)}
+                </strong>
+
+                <span class="text-muted">
+                    (${resumo.quantidade_avaliacoes}
+                    avaliações)
+                </span>
+
+            `;
+
+        } else {
+
+            ratingElement.innerHTML = `
+
+                <span class="text-muted">
+
+                    <i class="fa-regular fa-star"></i>
+
+                    Este livro ainda não possui avaliações.
+
+                </span>
+
+            `;
+
+        }
+
+
+        // ---------------------------------------------
+        // Quantidade no título da seção
+        // ---------------------------------------------
+
+        reviewsCount.innerText =
+            `${resumo.quantidade_avaliacoes} avaliação(ões)`;
+
+
+        // ---------------------------------------------
+        // Busca as avaliações
+        // ---------------------------------------------
+
+        const avaliacoes =
+            await getAvaliacoesDoLivro(livroId);
+
+
+        if (!avaliacoes || avaliacoes.length === 0) {
+
+            reviewsContainer.innerHTML = `
+
+                <div class="text-muted">
+
+                    <i class="fa-regular fa-comment-dots me-2"></i>
+
+                    Ainda não existem avaliações para este livro.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        // ---------------------------------------------
+        // Renderiza as avaliações
+        // ---------------------------------------------
+
+        reviewsContainer.innerHTML =
+            avaliacoes.map(avaliacao => {
+
+                return `
+
+                    <div class="review-card">
+
+                        <div class="review-header">
+
+                            <div class="review-user">
+
+                                <div class="review-user-icon">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                </div>
+
+                                <strong>
+                                    ${avaliacao.usuario_nome}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="review-rating">
+
+                                ${gerarEstrelas(avaliacao.nota)}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="review-date">
+
+                            Avaliado em
+                            ${formatarData(
+                                avaliacao.data_avaliacao
+                            )}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join('');
+
+
+    } catch (error) {
+
+        console.error(
+            'Erro ao carregar avaliações:',
+            error
+        );
+
+
+        ratingElement.innerHTML = `
+
+            <span class="text-muted">
+                Avaliações indisponíveis.
+            </span>
+
+        `;
+
+
+        reviewsContainer.innerHTML = `
+
+            <p class="text-danger">
+
+                Não foi possível carregar as avaliações.
+
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+// =====================================================
+// GERA ESTRELAS
+// =====================================================
+
+function gerarEstrelas(nota) {
+
+    let estrelas = '';
+
+    for (let i = 1; i <= 5; i++) {
+
+        if (i <= nota) {
+
+            estrelas +=
+                '<i class="fa-solid fa-star"></i>';
+
+        } else {
+
+            estrelas +=
+                '<i class="fa-regular fa-star"></i>';
+
+        }
+
+    }
+
+    return estrelas;
+
+}
+
+
+// =====================================================
+// FORMATA DATA
+// =====================================================
+
+function formatarData(data) {
+
+    if (!data) {
+
+        return 'Data não informada';
+
+    }
+
+
+    return new Date(data)
+        .toLocaleDateString('pt-BR');
 
 }
 

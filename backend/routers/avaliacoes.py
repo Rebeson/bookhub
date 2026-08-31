@@ -7,7 +7,8 @@ from sqlalchemy.orm import Session
 from backend.database.connection import get_db
 from backend.models.avaliacao import Avaliacao
 from backend.models.livro import Livro
-from backend.schemas.avaliacao import AvaliacaoCreate, AvaliacaoResponse, AvaliacaoUpdate
+from backend.models.usuario import Usuario
+from backend.schemas.avaliacao import AvaliacaoCreate, AvaliacaoResponse, AvaliacaoUpdate, AvaliacaoLivroResponse
 from backend.core.security import get_current_user
 
 
@@ -79,28 +80,71 @@ def criar_avaliacao(
 
 @router.get(
     "/livro/{livro_id}",
-    response_model=list[AvaliacaoResponse]
+    response_model=list[AvaliacaoLivroResponse]
 )
 def listar_avaliacoes_livro(
+
     livro_id: int,
+
     db: Session = Depends(get_db)
+
 ):
+
     livro = db.get(Livro, livro_id)
 
     if not livro:
+
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Livro não encontrado."
         )
 
-    avaliacoes = (
-        db.query(Avaliacao)
-        .filter(Avaliacao.livro_id == livro_id)
-        .order_by(Avaliacao.data_avaliacao.desc())
+
+    resultados = (
+
+        db.query(Avaliacao, Usuario.nome)
+
+        .join(
+            Usuario,
+            Avaliacao.usuario_id == Usuario.id
+        )
+
+        .filter(
+            Avaliacao.livro_id == livro_id
+        )
+
+        .order_by(
+            Avaliacao.data_avaliacao.desc()
+        )
+
         .all()
+
     )
 
-    return avaliacoes
+
+    return [
+
+        {
+            "id": avaliacao.id,
+
+            "usuario_id": avaliacao.usuario_id,
+
+            "usuario_nome": nome,
+
+            "livro_id": avaliacao.livro_id,
+
+            "nota": avaliacao.nota,
+
+            "data_avaliacao": avaliacao.data_avaliacao,
+
+            "data_atualizacao": avaliacao.data_atualizacao
+        }
+
+        for avaliacao, nome in resultados
+
+    ]
+
+
 
 
 @router.get(

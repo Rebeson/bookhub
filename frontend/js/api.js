@@ -85,3 +85,96 @@ async function getGenerosDoLivro(id) {
 
 }
 
+
+// =====================================================
+// AVALIAÇÕES DO LIVRO
+// =====================================================
+
+async function getAvaliacoesDoLivro(id) {
+
+    const response = await fetch(
+        `${API_URL}/avaliacoes/livro/${id}`
+    );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            `Erro ao buscar avaliações: ${response.status}`
+        );
+
+    }
+
+
+    return await response.json();
+
+}
+
+
+// =====================================================
+// MÉDIA DAS AVALIAÇÕES
+// =====================================================
+
+async function getMediaAvaliacoes(id) {
+
+    const response = await fetch(
+        `${API_URL}/avaliacoes/livro/${id}/media`
+    );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            `Erro ao buscar média das avaliações: ${response.status}`
+        );
+
+    }
+
+
+    return await response.json();
+
+}
+
+
+// =====================================================
+// USUÁRIO AUTENTICADO
+// =====================================================
+
+async function getUsuarioAtual() {
+
+    const token = localStorage.getItem('bookhub_token');
+
+    if (!token) {
+        return null;
+    }
+
+
+    const response = await fetch(
+        `${API_URL}/usuarios/me`,
+        {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+
+
+    if (!response.ok) {
+
+        // Token inválido ou expirado
+
+        if (response.status === 401) {
+
+            localStorage.removeItem('bookhub_token');
+
+        }
+
+        return null;
+
+    }
+
+
+    return await response.json();
+
+}
+
