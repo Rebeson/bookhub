@@ -1,1 +1,205 @@
-/* Fazer o visual da página man-tec.html - página responsável pelo manuel técnico
+/* =========================================
+MANUAL TÉCNICO
+========================================= */
+
+/* Cabeçalho */
+
+.manual-header {
+padding: 1rem 0;
+}
+
+.manual-icon {
+font-size: 3rem;
+color: #4834d4;
+margin-bottom: 1rem;
+}
+
+.manual-header h1 {
+color: #2d3436;
+}
+
+.manual-header p {
+font-size: 1.05rem;
+}
+
+/* =========================================
+SUMÁRIO
+========================================= */
+
+.toc-card {
+background-color: #fff;
+border-radius: 12px;
+padding: 1.5rem;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+
+position: sticky;
+top: 1.5rem;
+
+
+}
+
+.toc-title {
+font-size: 1.15rem;
+font-weight: 700;
+color: #2d3436;
+
+
+padding-bottom: 1rem;
+margin-bottom: 1rem;
+
+border-bottom: 1px solid #e0e0e0;
+
+
+}
+
+.toc {
+font-size: 0.9rem;
+}
+
+.toc ol {
+padding-left: 1.25rem;
+margin-bottom: 0;
+}
+
+.toc li {
+margin-bottom: 0.65rem;
+}
+
+.toc a {
+color: #6c757d;
+text-decoration: none;
+
+
+transition: color 0.2s;
+
+
+}
+
+.toc a:hover {
+color: #4834d4;
+}
+
+/* =========================================
+ÁREA DE CONTEÚDO
+========================================= */
+
+.manual-content {
+background-color: #fff;
+
+
+border-radius: 12px;
+
+padding: 2.5rem;
+
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+
+}
+
+/* Conteúdo provisório */
+
+.content-placeholder {
+min-height: 450px;
+
+
+display: flex;
+flex-direction: column;
+
+align-items: center;
+justify-content: center;
+
+text-align: center;
+
+
+}
+
+.content-placeholder > i {
+font-size: 3rem;
+color: #4834d4;
+margin-bottom: 1rem;
+}
+
+.content-placeholder h2 {
+color: #2d3436;
+}
+
+/* =========================================
+RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 991px) {
+
+
+.toc-card {
+    position: static;
+}
+
+.manual-content {
+    padding: 2rem;
+}
+
+
+}
+
+@media (max-width: 576px) {
+
+
+.manual-content {
+    padding: 1.5rem;
+}
+
+.manual-header h1 {
+    font-size: 1.8rem;
+}
+
+
+}
+
+
+/* =========================================
+SEÇÕES DO MANUAL
+========================================= */
+
+.manual-secao {
+scroll-margin-top: 2rem;
+margin-bottom: 3rem;
+}
+
+.manual-secao h1 {
+color: #2d3436;
+font-size: 1.8rem;
+font-weight: 700;
+
+
+padding-bottom: 0.75rem;
+margin-bottom: 2rem;
+
+border-bottom: 2px solid #4834d4;
+
+
+}
+
+.manual-subsecao {
+scroll-margin-top: 2rem;
+margin-bottom: 2rem;
+}
+
+.manual-subsecao h2 {
+color: #4834d4;
+font-size: 1.35rem;
+font-weight: 700;
+
+
+margin-top: 1.75rem;
+margin-bottom: 1rem;
+
+
+}
+
+.manual-subsecao p {
+color: #4a4a4a;
+font-size: 0.95rem;
+line-height: 1.8;
+margin-bottom: 1rem;
+}

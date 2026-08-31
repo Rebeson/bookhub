@@ -1,1 +1,101 @@
-/* Fazer o visual da página docs.html - página responsável por disponibilizar os links das documentações
+/* Fazer o visual da página docs.html - página responsável por disponibilizar os links das documentações/* =========================================
+Página de Documentação
+========================================= */
+
+/* Introdução */
+
+.docs-icon {
+font-size: 3rem;
+color: #4834d4;
+}
+
+.docs-intro {
+max-width: 700px;
+margin: 0 auto;
+line-height: 1.7;
+}
+
+/* Cards de documentação */
+
+.documentation-card {
+background-color: #fff;
+border: none;
+border-radius: 12px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+padding: 2rem;
+display: flex;
+flex-direction: column;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.documentation-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Ícones dos documentos */
+
+.documentation-icon {
+width: 65px;
+height: 65px;
+border-radius: 50%;
+background-color: #f0edff;
+color: #4834d4;
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 1.6rem;
+margin-bottom: 1.25rem;
+
+
+}
+
+/* Conteúdo dos cards */
+
+.documentation-content {
+display: flex;
+flex-direction: column;
+flex-grow: 1;
+}
+
+.documentation-content h3 {
+color: #2d3436;
+margin-bottom: 0.75rem;
+}
+
+.documentation-content p {
+line-height: 1.6;
+flex-grow: 1;
+}
+
+/* Botões */
+
+.docs-btn {
+background-color: #4834d4;
+border-color: #4834d4;
+margin-top: 1rem;
+}
+
+.docs-btn:hover {
+background-color: #3726b8;
+border-color: #3726b8;
+}
+
+/* Responsividade */
+
+@media (max-width: 768px) {
+
+
+.docs-intro {
+    padding: 0 1rem;
+}
+
+.documentation-card {
+    padding: 1.5rem;
+}
+
+
+}
