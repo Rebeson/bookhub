@@ -1,1269 +1,1968 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico | BookHub</title>
 
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-<title>Manual Técnico | BookHub</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-<!-- Bootstrap -->
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet">
+    <!-- CSS do projeto -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/man-tec.css" />
+  </head>
 
-<!-- Font Awesome -->
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- CSS do projeto -->
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/man-tec.css">
-
-
-</head>
-
-<body class="bg-light">
-
-
-<!-- =========================================
+  <body class="bg-light">
+    <!-- =========================================
      NAVBAR
      ========================================= -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-
-    <div class="container">
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+      <div class="container">
         <a
-            class="navbar-brand fw-bold d-flex align-items-center"
-            href="../index.html">
-
-            <span class="fs-3 me-2">📚</span>
-            BookHub
-
+          class="navbar-brand fw-bold d-flex align-items-center"
+          href="../index.html"
+        >
+          <span class="fs-3 me-2">📚</span>
+          BookHub
         </a>
 
         <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Alternar navegação">
-
-            <span class="navbar-toggler-icon"></span>
-
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Alternar navegação"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
 
         <div
-            class="collapse navbar-collapse justify-content-center"
-            id="navbarNav">
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav fs-6 fw-medium">
+            <li class="nav-item px-2">
+              <a class="nav-link" href="../index.html"> Explorar </a>
+            </li>
 
-            <ul class="navbar-nav fs-6 fw-medium">
-
-                <li class="nav-item px-2">
-                    <a
-                        class="nav-link"
-                        href="../index.html">
-
-                        Explorar
-
-                    </a>
-                </li>
-
-                <li class="nav-item px-2">
-                    <a
-                        class="nav-link active"
-                        href="docs.html">
-
-                        Documentação
-
-                    </a>
-                </li>
-
-            </ul>
-
+            <li class="nav-item px-2">
+              <a class="nav-link active" href="docs.html"> Documentação </a>
+            </li>
+          </ul>
         </div>
+      </div>
+    </nav>
 
-    </div>
-
-</nav>
-
-
-<!-- =========================================
+    <!-- =========================================
      CABEÇALHO DO MANUAL
      ========================================= -->
 
-<header class="container mt-5">
-
-    <div class="manual-header text-center">
-
+    <header class="container mt-5">
+      <div class="manual-header text-center">
         <div class="manual-icon">
-
-            <i class="fa-solid fa-code"></i>
-
+          <i class="fa-solid fa-code"></i>
         </div>
 
-        <h1 class="fw-bold">
-            Manual Técnico
-        </h1>
+        <h1 class="fw-bold">Manual Técnico</h1>
 
-        <p class="text-muted">
-            Documentação técnica do sistema BookHub
-        </p>
+        <p class="text-muted">Documentação técnica do sistema BookHub</p>
 
-        <a
-            href="docs.html"
-            class="btn btn-outline-primary mt-2">
-
-            <i class="fa-solid fa-arrow-left me-2"></i>
-            Voltar para documentação
-
+        <a href="docs.html" class="btn btn-outline-primary mt-2">
+          <i class="fa-solid fa-arrow-left me-2"></i>
+          Voltar para documentação
         </a>
+      </div>
+    </header>
 
-    </div>
-
-</header>
-
-
-<!-- =========================================
+    <!-- =========================================
      ÁREA PRINCIPAL
      ========================================= -->
 
-<main class="container my-5">
-
-    <div class="row g-4">
-
-
+    <main class="container my-5">
+      <div class="row g-4">
         <!-- =====================================
              SUMÁRIO
              ===================================== -->
 
         <aside class="col-lg-3">
+          <div class="toc-card">
+            <h2 class="toc-title">
+              <i class="fa-solid fa-list me-2"></i>
+              Sumário
+            </h2>
 
-            <div class="toc-card">
+            <nav class="toc">
+              <ol>
+                <li>
+                  <a href="#introducao"> 1. Introdução </a>
+                </li>
 
-                <h2 class="toc-title">
+                <li>
+                  <a href="#arquitetura-sistema">
+                    2. Visão Geral da Arquitetura
+                  </a>
+                </li>
 
-                    <i class="fa-solid fa-list me-2"></i>
-                    Sumário
+                <li>
+                  <a href="#tecnologias-utilizadas">
+                    3. Ambiente e Dependências
+                  </a>
+                </li>
 
-                </h2>
+                <li>
+                  <a href="#estrutura-projeto"> 4. Arquitetura do Sistema </a>
+                </li>
 
-                <nav class="toc">
+                <li>
+                  <a href="#secao-5"> 5. Configuração do Ambiente </a>
+                </li>
 
-                    <ol>
+                <li>
+                  <a href="#secao-6"> 6. Banco de Dados </a>
+                </li>
 
-                        <li>
-                            <a href="#introducao">
-                                1. Introdução
-                            </a>
-                        </li>
+                <li>
+                  <a href="#secao-7"> 7. Detalhamento do Backend </a>
+                </li>
 
-                        <li>
-                            <a href="#arquitetura-sistema">
-                                2. Visão Geral da Arquitetura
-                            </a>
-                        </li>
+                <li>
+                  <a href="#secao-8"> 8. Detalhamento da API </a>
+                </li>
 
-                        <li>
-                            <a href="#tecnologias-utilizadas">
-                                3. Ambiente e Dependências
-                            </a>
-                        </li>
+                <li>
+                  <a href="#secao-9"> 9. Detalhamento do Frontend </a>
+                </li>
 
-                        <li>
-                            <a href="#secao-4">
-                                4. Arquitetura do Sistema
-                            </a>
-                        </li>
+                <li>
+                  <a href="#secao-10"> 10. Testes e Validações </a>
+                </li>
 
-                        <li>
-                            <a href="#secao-5">
-                                5. Configuração do Ambiente
-                            </a>
-                        </li>
+                <li>
+                  <a href="#secao-11"> 11. Manutenção e Evolução </a>
+                </li>
 
-                        <li>
-                            <a href="#secao-6">
-                                6. Banco de Dados
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#secao-7">
-                                7. Detalhamento do Backend
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#secao-8">
-                                8. Detalhamento da API
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#secao-9">
-                                9. Detalhamento do Frontend
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#secao-10">
-                                10. Testes e Validações
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#secao-11">
-                                11. Manutenção e Evolução
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#secao-12">
-                                12. Considerações Finais
-                            </a>
-                        </li>
-
-                    </ol>
-
-                </nav>
-
-            </div>
-
+                <li>
+                  <a href="#secao-12"> 12. Considerações Finais </a>
+                </li>
+              </ol>
+            </nav>
+          </div>
         </aside>
-
 
         <!-- =====================================
              CONTEÚDO
              ===================================== -->
 
         <section class="col-lg-9">
+          <article class="manual-content">
+            <section id="introducao" class="manual-secao">
+              <h1>1. Introdução</h1>
 
-            <article class="manual-content">
+              <article id="sobre-bookhub" class="manual-subsecao">
+                <h2>1.1. Sobre o BookHub</h2>
 
+                <p>
+                  O <strong>BookHub</strong> é uma aplicação web desenvolvida
+                  para proporcionar aos usuários um espaço centralizado para
+                  descoberta, organização e interação com livros. O sistema
+                  permite consultar informações sobre obras literárias e oferece
+                  recursos para que cada usuário possa registrar suas
+                  preferências e interagir com os livros disponíveis na
+                  plataforma.
+                </p>
 
-                <section id="introducao" class="manual-secao">
+                <p>
+                  A aplicação foi desenvolvida seguindo uma arquitetura composta
+                  por
+                  <strong>frontend, backend e banco de dados</strong>,
+                  permitindo a separação entre a interface utilizada pelos
+                  usuários, as regras e funcionalidades da aplicação e o
+                  armazenamento das informações.
+                </p>
 
-                    <h1>1. Introdução</h1>
+                <p>
+                  Entre as principais funcionalidades disponibilizadas pelo
+                  sistema estão o gerenciamento de usuários, consulta de livros,
+                  autores e gêneros, avaliações, resenhas, favoritos e
+                  organização de livros em uma estante pessoal. O sistema também
+                  possui mecanismos de autenticação e controle das operações
+                  realizadas pelos usuários.
+                </p>
 
-                    <article id="sobre-bookhub" class="manual-subsecao">
+                <p>
+                  O BookHub foi desenvolvido utilizando tecnologias voltadas ao
+                  desenvolvimento de aplicações web, com
+                  <strong>HTML, CSS e JavaScript</strong> no frontend,
+                  <strong>Python e FastAPI</strong> no backend e
+                  <strong>PostgreSQL</strong> como sistema gerenciador de banco
+                  de dados. A comunicação entre a interface e o backend ocorre
+                  por meio da API desenvolvida com FastAPI.
+                </p>
 
-                        <h2>1.1. Sobre o BookHub</h2>
+                <p>
+                  O projeto foi estruturado de forma modular, buscando facilitar
+                  a manutenção, a organização do código e a futura inclusão de
+                  novas funcionalidades. A documentação técnica apresentada
+                  neste manual tem como finalidade apresentar essa estrutura e
+                  orientar a configuração, execução, manutenção e evolução do
+                  sistema.
+                </p>
+              </article>
 
-                        <p>
-                            O <strong>BookHub</strong> é uma aplicação web desenvolvida para
-                            proporcionar aos usuários um espaço centralizado para descoberta,
-                            organização e interação com livros. O sistema permite consultar
-                            informações sobre obras literárias e oferece recursos para que cada
-                            usuário possa registrar suas preferências e interagir com os livros
-                            disponíveis na plataforma.
-                        </p>
+              <article id="objetivo-sistema" class="manual-subsecao">
+                <h2>1.2. Objetivo do sistema</h2>
 
-                        <p>
-                            A aplicação foi desenvolvida seguindo uma arquitetura composta por
-                            <strong>frontend, backend e banco de dados</strong>, permitindo a
-                            separação entre a interface utilizada pelos usuários, as regras e
-                            funcionalidades da aplicação e o armazenamento das informações.
-                        </p>
+                <p>
+                  O principal objetivo do <strong>BookHub</strong> é
+                  disponibilizar uma plataforma web que permita aos usuários
+                  <strong
+                    >descobrir, consultar, organizar e registrar informações
+                    relacionadas às suas leituras</strong
+                  >, reunindo diferentes recursos em um único ambiente.
+                </p>
 
-                        <p>
-                            Entre as principais funcionalidades disponibilizadas pelo sistema
-                            estão o gerenciamento de usuários, consulta de livros, autores e
-                            gêneros, avaliações, resenhas, favoritos e organização de livros em
-                            uma estante pessoal. O sistema também possui mecanismos de
-                            autenticação e controle das operações realizadas pelos usuários.
-                        </p>
+                <p>
+                  Por meio do sistema, o usuário pode consultar livros
+                  disponíveis na plataforma, conhecer informações relacionadas a
+                  autores e gêneros e registrar suas próprias interações com as
+                  obras. Entre essas interações estão a atribuição de
+                  avaliações, a publicação de resenhas, a adição de livros aos
+                  favoritos e a organização das obras em sua estante pessoal.
+                </p>
 
-                        <p>
-                            O BookHub foi desenvolvido utilizando tecnologias voltadas ao
-                            desenvolvimento de aplicações web, com <strong>HTML, CSS e
-                            JavaScript</strong> no frontend, <strong>Python e FastAPI</strong>
-                            no backend e <strong>PostgreSQL</strong> como sistema gerenciador
-                            de banco de dados. A comunicação entre a interface e o backend
-                            ocorre por meio da API desenvolvida com FastAPI.
-                        </p>
+                <p>
+                  Além das funcionalidades voltadas à experiência do usuário, o
+                  projeto tem como objetivo aplicar, de forma integrada,
+                  conceitos de
+                  <strong
+                    >desenvolvimento web, desenvolvimento de APIs, modelagem e
+                    gerenciamento de bancos de dados e arquitetura de
+                    software</strong
+                  >. A separação entre frontend, backend e banco de dados busca
+                  proporcionar uma estrutura organizada e facilitar a manutenção
+                  e a evolução da aplicação.
+                </p>
 
-                        <p>
-                            O projeto foi estruturado de forma modular, buscando facilitar a
-                            manutenção, a organização do código e a futura inclusão de novas
-                            funcionalidades. A documentação técnica apresentada neste manual
-                            tem como finalidade apresentar essa estrutura e orientar a
-                            configuração, execução, manutenção e evolução do sistema.
-                        </p>
+                <p>
+                  Dessa forma, o BookHub procura oferecer uma solução que
+                  combine
+                  <strong
+                    >organização de informações bibliográficas e interação dos
+                    usuários</strong
+                  >, ao mesmo tempo em que serve como aplicação prática dos
+                  conhecimentos técnicos utilizados em seu desenvolvimento.
+                </p>
+              </article>
 
-                    </article>
+              <article id="publico-alvo" class="manual-subsecao">
+                <h2>1.3. Público-alvo do sistema</h2>
 
+                <p>
+                  O BookHub é destinado principalmente a pessoas que possuem
+                  interesse em livros e que desejam utilizar uma plataforma para
+                  consultar, organizar e registrar suas experiências de leitura.
+                  O sistema foi desenvolvido para atender usuários que buscam
+                  centralizar informações sobre as obras que conhecem ou
+                  pretendem ler, além de registrar avaliações, resenhas,
+                  favoritos e organizar livros em sua estante pessoal.
+                </p>
 
-                    <article id="objetivo-sistema" class="manual-subsecao">
+                <p>
+                  A aplicação também considera diferentes níveis de
+                  familiaridade dos usuários com ferramentas digitais, buscando
+                  disponibilizar uma interface simples e intuitiva para a
+                  realização das principais operações do sistema.
+                </p>
 
-                        <h2>1.2. Objetivo do sistema</h2>
+                <p>
+                  Embora o público-alvo da aplicação seja composto pelos
+                  usuários finais interessados em livros, este Manual Técnico é
+                  direcionado principalmente a
+                  <strong
+                    >desenvolvedores, estudantes e responsáveis pela manutenção
+                    ou evolução do projeto</strong
+                  >. O documento apresenta informações sobre a arquitetura,
+                  tecnologias, estrutura de arquivos, configuração, execução e
+                  funcionamento dos principais componentes do BookHub.
+                </p>
 
-                        <p>
-                            O principal objetivo do <strong>BookHub</strong> é disponibilizar
-                            uma plataforma web que permita aos usuários
-                            <strong>descobrir, consultar, organizar e registrar informações
-                            relacionadas às suas leituras</strong>, reunindo diferentes
-                            recursos em um único ambiente.
-                        </p>
+                <p>
+                  Dessa forma, o manual serve como uma referência técnica para
+                  compreender a implementação atual do sistema e fornecer
+                  suporte para futuras correções, manutenções e implementações
+                  de novas funcionalidades.
+                </p>
+              </article>
+            </section>
 
-                        <p>
-                            Por meio do sistema, o usuário pode consultar livros disponíveis na
-                            plataforma, conhecer informações relacionadas a autores e gêneros e
-                            registrar suas próprias interações com as obras. Entre essas
-                            interações estão a atribuição de avaliações, a publicação de
-                            resenhas, a adição de livros aos favoritos e a organização das
-                            obras em sua estante pessoal.
-                        </p>
+            <section id="visao-arquitetura" class="manual-secao">
+              <h1>2. Visão Geral da Arquitetura</h1>
 
-                        <p>
-                            Além das funcionalidades voltadas à experiência do usuário, o
-                            projeto tem como objetivo aplicar, de forma integrada, conceitos de
-                            <strong>desenvolvimento web, desenvolvimento de APIs, modelagem e
-                            gerenciamento de bancos de dados e arquitetura de software</strong>.
-                            A separação entre frontend, backend e banco de dados busca
-                            proporcionar uma estrutura organizada e facilitar a manutenção e a
-                            evolução da aplicação.
-                        </p>
-
-                        <p>
-                            Dessa forma, o BookHub procura oferecer uma solução que combine
-                            <strong>organização de informações bibliográficas e interação dos
-                            usuários</strong>, ao mesmo tempo em que serve como aplicação
-                            prática dos conhecimentos técnicos utilizados em seu
-                            desenvolvimento.
-                        </p>
-
-                    </article>
-
-
-                    <article id="publico-alvo" class="manual-subsecao">
-
-                        <h2>1.3. Público-alvo do sistema</h2>
-
-                        <p>
-                            O BookHub é destinado principalmente a pessoas que possuem interesse
-                            em livros e que desejam utilizar uma plataforma para consultar,
-                            organizar e registrar suas experiências de leitura. O sistema foi
-                            desenvolvido para atender usuários que buscam centralizar
-                            informações sobre as obras que conhecem ou pretendem ler, além de
-                            registrar avaliações, resenhas, favoritos e organizar livros em sua
-                            estante pessoal.
-                        </p>
-
-                        <p>
-                            A aplicação também considera diferentes níveis de familiaridade dos
-                            usuários com ferramentas digitais, buscando disponibilizar uma
-                            interface simples e intuitiva para a realização das principais
-                            operações do sistema.
-                        </p>
-
-                        <p>
-                            Embora o público-alvo da aplicação seja composto pelos usuários
-                            finais interessados em livros, este Manual Técnico é direcionado
-                            principalmente a <strong>desenvolvedores, estudantes e responsáveis
-                            pela manutenção ou evolução do projeto</strong>. O documento
-                            apresenta informações sobre a arquitetura, tecnologias, estrutura
-                            de arquivos, configuração, execução e funcionamento dos principais
-                            componentes do BookHub.
-                        </p>
-
-                        <p>
-                            Dessa forma, o manual serve como uma referência técnica para
-                            compreender a implementação atual do sistema e fornecer suporte
-                            para futuras correções, manutenções e implementações de novas
-                            funcionalidades.
-                        </p>
-
-                    </article>
-
-                </section>
-
-
-                <section id="visao-arquitetura" class="manual-secao">
-
-
-                    <h1>2. Visão Geral da Arquitetura</h1>
-
-
-                    <!-- =====================================================
+              <!-- =====================================================
                         2.1. ARQUITETURA DO SISTEMA
                         ===================================================== -->
 
-                    <article id="arquitetura-sistema" class="manual-subsecao">
+              <article id="arquitetura-sistema" class="manual-subsecao">
+                <h2>2.1. Arquitetura do sistema</h2>
 
-                        <h2>2.1. Arquitetura do sistema</h2>
+                <p>
+                  O BookHub utiliza uma arquitetura dividida em três camadas
+                  principais:
+                  <strong>frontend, backend e banco de dados</strong>. Essa
+                  organização permite separar as responsabilidades da aplicação,
+                  facilitando o desenvolvimento, a manutenção e a evolução do
+                  sistema.
+                </p>
 
-                        <p>
-                            O BookHub utiliza uma arquitetura dividida em três camadas
-                            principais: <strong>frontend, backend e banco de dados</strong>.
-                            Essa organização permite separar as responsabilidades da aplicação,
-                            facilitando o desenvolvimento, a manutenção e a evolução do sistema.
-                        </p>
+                <p>
+                  A primeira camada corresponde ao <strong>frontend</strong>,
+                  responsável pela interface com a qual o usuário interage. Essa
+                  camada foi desenvolvida utilizando
+                  <strong>HTML, CSS e JavaScript</strong>, sendo responsável
+                  pela apresentação das informações, pela interação com o
+                  usuário e pelo envio de solicitações ao backend.
+                </p>
 
-                        <p>
-                            A primeira camada corresponde ao <strong>frontend</strong>,
-                            responsável pela interface com a qual o usuário interage. Essa
-                            camada foi desenvolvida utilizando <strong>HTML, CSS e
-                            JavaScript</strong>, sendo responsável pela apresentação das
-                            informações, pela interação com o usuário e pelo envio de
-                            solicitações ao backend.
-                        </p>
+                <p>
+                  A segunda camada corresponde ao <strong>backend</strong>,
+                  desenvolvido em
+                  <strong>Python utilizando o framework FastAPI</strong>. Essa
+                  camada concentra as regras e funcionalidades da aplicação,
+                  recebe as requisições realizadas pelo frontend, realiza as
+                  validações necessárias, processa as operações solicitadas e
+                  retorna as respostas ao cliente.
+                </p>
 
-                        <p>
-                            A segunda camada corresponde ao <strong>backend</strong>,
-                            desenvolvido em <strong>Python utilizando o framework
-                            FastAPI</strong>. Essa camada concentra as regras e funcionalidades
-                            da aplicação, recebe as requisições realizadas pelo frontend,
-                            realiza as validações necessárias, processa as operações solicitadas
-                            e retorna as respostas ao cliente.
-                        </p>
+                <p>
+                  O backend apresenta uma organização modular. Os
+                  <strong>routers</strong> são responsáveis pela definição e
+                  organização dos endpoints da API de acordo com suas
+                  funcionalidades. Os <strong>schemas</strong> são utilizados
+                  para definir e validar os dados recebidos e enviados pela API.
+                  Os <strong>models</strong> representam as entidades utilizadas
+                  pela aplicação e sua relação com as estruturas do banco de
+                  dados. A comunicação com o banco é realizada por meio do
+                  <strong>SQLAlchemy</strong>, utilizado como ferramenta de
+                  mapeamento objeto-relacional (ORM).
+                </p>
 
-                        <p>
-                            O backend apresenta uma organização modular. Os
-                            <strong>routers</strong> são responsáveis pela definição e
-                            organização dos endpoints da API de acordo com suas funcionalidades.
-                            Os <strong>schemas</strong> são utilizados para definir e validar os
-                            dados recebidos e enviados pela API. Os <strong>models</strong>
-                            representam as entidades utilizadas pela aplicação e sua relação
-                            com as estruturas do banco de dados. A comunicação com o banco é
-                            realizada por meio do <strong>SQLAlchemy</strong>, utilizado como
-                            ferramenta de mapeamento objeto-relacional (ORM).
-                        </p>
+                <p>
+                  A aplicação também possui uma camada relacionada à
+                  <strong>segurança e autenticação</strong>, concentrada
+                  principalmente no módulo <code>security.py</code>. Essa
+                  estrutura é responsável pelos mecanismos utilizados para
+                  proteger o acesso às funcionalidades que exigem autenticação.
+                </p>
 
-                        <p>
-                            A aplicação também possui uma camada relacionada à
-                            <strong>segurança e autenticação</strong>, concentrada
-                            principalmente no módulo <code>security.py</code>. Essa estrutura
-                            é responsável pelos mecanismos utilizados para proteger o acesso às
-                            funcionalidades que exigem autenticação.
-                        </p>
+                <p>
+                  A terceira camada corresponde ao
+                  <strong>banco de dados</strong>, implementado utilizando o
+                  <strong>PostgreSQL</strong>. É nessa camada que são
+                  armazenadas as informações persistentes do sistema, incluindo
+                  dados relacionados a usuários, livros, autores, gêneros,
+                  avaliações, resenhas, favoritos e organização da estante.
+                </p>
 
-                        <p>
-                            A terceira camada corresponde ao <strong>banco de dados</strong>,
-                            implementado utilizando o <strong>PostgreSQL</strong>. É nessa
-                            camada que são armazenadas as informações persistentes do sistema,
-                            incluindo dados relacionados a usuários, livros, autores, gêneros,
-                            avaliações, resenhas, favoritos e organização da estante.
-                        </p>
+                <p>
+                  A comunicação entre frontend e backend ocorre por meio de
+                  requisições HTTP, utilizando a API. O backend, por sua vez,
+                  realiza as operações necessárias no banco de dados e devolve
+                  ao frontend as informações resultantes da solicitação.
+                </p>
 
-                        <p>
-                            A comunicação entre frontend e backend ocorre por meio de
-                            requisições HTTP, utilizando a API. O backend, por sua vez, realiza
-                            as operações necessárias no banco de dados e devolve ao frontend as
-                            informações resultantes da solicitação.
-                        </p>
+                <p>
+                  A separação dessas responsabilidades permite que cada camada
+                  seja desenvolvida e mantida de maneira mais independente,
+                  contribuindo para uma estrutura organizada e facilitando
+                  futuras alterações ou ampliações do BookHub.
+                </p>
 
-                        <p>
-                            A separação dessas responsabilidades permite que cada camada seja
-                            desenvolvida e mantida de maneira mais independente, contribuindo
-                            para uma estrutura organizada e facilitando futuras alterações ou
-                            ampliações do BookHub.
-                        </p>
+                <!-- Diagrama arquitetural -->
 
+                <div class="diagrama-arquitetura">
+                  <div class="camada arquitetura-frontend">
+                    <h3>Frontend</h3>
 
-                        <!-- Diagrama arquitetural -->
+                    <p>HTML &bull; CSS &bull; JavaScript</p>
 
-                        <div class="diagrama-arquitetura">
+                    <span> Interface e interação do usuário </span>
+                  </div>
 
-                            <div class="camada arquitetura-frontend">
+                  <div class="fluxo-arquitetura">
+                    <span>HTTP / JSON</span>
+                    <span>&darr;</span>
+                  </div>
 
-                                <h3>Frontend</h3>
+                  <div class="camada arquitetura-backend">
+                    <h3>Backend</h3>
 
-                                <p>
-                                    HTML &bull; CSS &bull; JavaScript
-                                </p>
+                    <p>Python &bull; FastAPI</p>
 
-                                <span>
-                                    Interface e interação do usuário
-                                </span>
+                    <ul>
+                      <li>Routers</li>
+                      <li>Schemas</li>
+                      <li>Models / SQLAlchemy</li>
+                      <li>Security / JWT</li>
+                    </ul>
+                  </div>
 
-                            </div>
+                  <div class="fluxo-arquitetura">
+                    <span>SQL / ORM</span>
+                    <span>&darr;</span>
+                  </div>
 
+                  <div class="camada arquitetura-banco">
+                    <h3>Banco de Dados</h3>
 
-                            <div class="fluxo-arquitetura">
+                    <p>PostgreSQL</p>
 
-                                <span>HTTP / JSON</span>
-                                <span>&darr;</span>
+                    <span>
+                      Usuários &bull; Livros &bull; Autores &bull; Gêneros
+                      &bull; Avaliações &bull; Resenhas &bull; Favoritos &bull;
+                      Estante
+                    </span>
+                  </div>
+                </div>
+              </article>
 
-                            </div>
-
-
-                            <div class="camada arquitetura-backend">
-
-                                <h3>Backend</h3>
-
-                                <p>
-                                    Python &bull; FastAPI
-                                </p>
-
-                                <ul>
-                                    <li>Routers</li>
-                                    <li>Schemas</li>
-                                    <li>Models / SQLAlchemy</li>
-                                    <li>Security / JWT</li>
-                                </ul>
-
-                            </div>
-
-
-                            <div class="fluxo-arquitetura">
-
-                                <span>SQL / ORM</span>
-                                <span>&darr;</span>
-
-                            </div>
-
-
-                            <div class="camada arquitetura-banco">
-
-                                <h3>Banco de Dados</h3>
-
-                                <p>
-                                    PostgreSQL
-                                </p>
-
-                                <span>
-                                    Usuários &bull; Livros &bull; Autores &bull; Gêneros
-                                    &bull; Avaliações &bull; Resenhas &bull; Favoritos
-                                    &bull; Estante
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- =====================================================
+              <!-- =====================================================
                         2.2. COMUNICAÇÃO ENTRE AS CAMADAS
                         ===================================================== -->
 
-                    <article id="comunicacao-camadas" class="manual-subsecao">
+              <article id="comunicacao-camadas" class="manual-subsecao">
+                <h2>2.2. Comunicação entre as camadas</h2>
 
-                        <h2>2.2. Comunicação entre as camadas</h2>
+                <p>
+                  A comunicação entre as camadas do BookHub ocorre de forma
+                  sequencial, tendo o <strong>frontend</strong> como ponto de
+                  interação com o usuário e o <strong>backend</strong> como
+                  intermediário entre a interface e o banco de dados. Essa
+                  organização permite que o frontend não acesse diretamente o
+                  banco, mantendo as regras de negócio e o controle das
+                  operações concentrados no backend.
+                </p>
 
-                        <p>
-                            A comunicação entre as camadas do BookHub ocorre de forma
-                            sequencial, tendo o <strong>frontend</strong> como ponto de
-                            interação com o usuário e o <strong>backend</strong> como
-                            intermediário entre a interface e o banco de dados. Essa
-                            organização permite que o frontend não acesse diretamente o banco,
-                            mantendo as regras de negócio e o controle das operações
-                            concentrados no backend.
-                        </p>
+                <p>
+                  Quando o usuário realiza uma ação na interface, como consultar
+                  um livro, registrar uma avaliação ou adicionar uma obra aos
+                  favoritos, o <strong>JavaScript do frontend</strong> prepara e
+                  envia uma requisição HTTP para o endpoint correspondente da
+                  API. Os dados necessários para a operação são enviados de
+                  acordo com o formato esperado pelo endpoint.
+                </p>
 
-                        <p>
-                            Quando o usuário realiza uma ação na interface, como consultar um
-                            livro, registrar uma avaliação ou adicionar uma obra aos favoritos,
-                            o <strong>JavaScript do frontend</strong> prepara e envia uma
-                            requisição HTTP para o endpoint correspondente da API. Os dados
-                            necessários para a operação são enviados de acordo com o formato
-                            esperado pelo endpoint.
-                        </p>
+                <p>
+                  Ao receber a requisição, o <strong>FastAPI</strong> identifica
+                  o endpoint responsável pela operação e encaminha a solicitação
+                  para o componente correspondente dentro do backend. Os
+                  <strong>schemas</strong> participam desse processo realizando
+                  a validação e a estruturação dos dados recebidos, garantindo
+                  que as informações estejam de acordo com os formatos definidos
+                  pela aplicação.
+                </p>
 
-                        <p>
-                            Ao receber a requisição, o <strong>FastAPI</strong> identifica o
-                            endpoint responsável pela operação e encaminha a solicitação para o
-                            componente correspondente dentro do backend. Os
-                            <strong>schemas</strong> participam desse processo realizando a
-                            validação e a estruturação dos dados recebidos, garantindo que as
-                            informações estejam de acordo com os formatos definidos pela
-                            aplicação.
-                        </p>
+                <p>
+                  Após a validação, o backend executa a lógica necessária para
+                  realizar a operação solicitada. Quando a operação envolve
+                  informações armazenadas no banco de dados, os
+                  <strong>models</strong> e o <strong>SQLAlchemy</strong> são
+                  utilizados para consultar, inserir, atualizar ou remover os
+                  registros necessários no <strong>PostgreSQL</strong>.
+                </p>
 
-                        <p>
-                            Após a validação, o backend executa a lógica necessária para
-                            realizar a operação solicitada. Quando a operação envolve
-                            informações armazenadas no banco de dados, os
-                            <strong>models</strong> e o <strong>SQLAlchemy</strong> são
-                            utilizados para consultar, inserir, atualizar ou remover os
-                            registros necessários no <strong>PostgreSQL</strong>.
-                        </p>
+                <p>
+                  Depois que a operação é concluída, o backend constrói uma
+                  resposta e a envia de volta ao frontend, normalmente
+                  utilizando o formato
+                  <strong>JSON</strong>. O JavaScript recebe essa resposta,
+                  interpreta os dados retornados e atualiza a interface de
+                  acordo com o resultado da operação.
+                </p>
 
-                        <p>
-                            Depois que a operação é concluída, o backend constrói uma resposta
-                            e a envia de volta ao frontend, normalmente utilizando o formato
-                            <strong>JSON</strong>. O JavaScript recebe essa resposta, interpreta
-                            os dados retornados e atualiza a interface de acordo com o
-                            resultado da operação.
-                        </p>
+                <div class="fluxo-comunicacao">
+                  <p>
+                    <strong>
+                      Usuário &rarr; Frontend &rarr; API / FastAPI &rarr;
+                      Routers &rarr; Schemas / Validação &rarr; Models /
+                      SQLAlchemy &rarr; PostgreSQL &rarr; Backend &rarr;
+                      Frontend &rarr; Usuário
+                    </strong>
+                  </p>
+                </div>
 
+                <p>
+                  Essa estrutura estabelece uma comunicação organizada entre as
+                  diferentes partes do sistema e evita que as responsabilidades
+                  sejam concentradas em uma única camada. O frontend fica
+                  responsável pela apresentação e interação, o backend pelo
+                  processamento das operações e o banco de dados pelo
+                  armazenamento persistente das informações.
+                </p>
 
-                        <div class="fluxo-comunicacao">
+                <p>
+                  Além disso, a utilização de uma API como intermediária permite
+                  que o backend possa ser consumido por diferentes clientes no
+                  futuro, sem que seja necessário modificar diretamente a
+                  estrutura do banco de dados para cada nova interface.
+                </p>
+              </article>
 
-                            <p>
-                                <strong>
-                                    Usuário
-                                    &rarr;
-                                    Frontend
-                                    &rarr;
-                                    API / FastAPI
-                                    &rarr;
-                                    Routers
-                                    &rarr;
-                                    Schemas / Validação
-                                    &rarr;
-                                    Models / SQLAlchemy
-                                    &rarr;
-                                    PostgreSQL
-                                    &rarr;
-                                    Backend
-                                    &rarr;
-                                    Frontend
-                                    &rarr;
-                                    Usuário
-                                </strong>
-                            </p>
-
-                        </div>
-
-
-                        <p>
-                            Essa estrutura estabelece uma comunicação organizada entre as
-                            diferentes partes do sistema e evita que as responsabilidades sejam
-                            concentradas em uma única camada. O frontend fica responsável pela
-                            apresentação e interação, o backend pelo processamento das
-                            operações e o banco de dados pelo armazenamento persistente das
-                            informações.
-                        </p>
-
-                        <p>
-                            Além disso, a utilização de uma API como intermediária permite que
-                            o backend possa ser consumido por diferentes clientes no futuro,
-                            sem que seja necessário modificar diretamente a estrutura do banco
-                            de dados para cada nova interface.
-                        </p>
-
-                    </article>
-
-
-                    <!-- =====================================================
+              <!-- =====================================================
                         2.3. FLUXO GERAL DA APLICAÇÃO
                         ===================================================== -->
 
-                    <article id="fluxo-aplicacao" class="manual-subsecao">
+              <article id="fluxo-aplicacao" class="manual-subsecao">
+                <h2>2.3. Fluxo geral da aplicação</h2>
 
-                        <h2>2.3. Fluxo geral da aplicação</h2>
+                <p>
+                  O funcionamento do BookHub segue um fluxo baseado na interação
+                  entre o usuário, o frontend, a API, o backend e o banco de
+                  dados. A partir de uma ação realizada na interface, a
+                  solicitação percorre as diferentes camadas do sistema até que
+                  a operação seja processada e o resultado seja apresentado
+                  novamente ao usuário.
+                </p>
 
-                        <p>
-                            O funcionamento do BookHub segue um fluxo baseado na interação entre
-                            o usuário, o frontend, a API, o backend e o banco de dados. A
-                            partir de uma ação realizada na interface, a solicitação percorre
-                            as diferentes camadas do sistema até que a operação seja processada
-                            e o resultado seja apresentado novamente ao usuário.
-                        </p>
+                <p>
+                  De forma geral, o fluxo de uma operação pode ser representado
+                  pelas seguintes etapas:
+                </p>
 
-                        <p>
-                            De forma geral, o fluxo de uma operação pode ser representado pelas
-                            seguintes etapas:
-                        </p>
+                <ol class="fluxo-etapas">
+                  <li>
+                    <strong>Interação do usuário:</strong>
+                    o usuário realiza uma ação no frontend, como consultar um
+                    livro, realizar uma avaliação, publicar uma resenha,
+                    adicionar um favorito ou organizar uma obra em sua estante.
+                  </li>
 
-                        <ol class="fluxo-etapas">
+                  <li>
+                    <strong>Envio da requisição:</strong>
+                    o JavaScript do frontend identifica a ação realizada e envia
+                    uma requisição HTTP para o endpoint correspondente da API.
+                  </li>
 
-                            <li>
-                                <strong>Interação do usuário:</strong>
-                                o usuário realiza uma ação no frontend, como consultar um livro,
-                                realizar uma avaliação, publicar uma resenha, adicionar um
-                                favorito ou organizar uma obra em sua estante.
-                            </li>
+                  <li>
+                    <strong>Recebimento pelo backend:</strong>
+                    o FastAPI recebe a requisição e direciona a solicitação para
+                    o router responsável pela funcionalidade.
+                  </li>
 
-                            <li>
-                                <strong>Envio da requisição:</strong>
-                                o JavaScript do frontend identifica a ação realizada e envia uma
-                                requisição HTTP para o endpoint correspondente da API.
-                            </li>
+                  <li>
+                    <strong>Validação dos dados:</strong>
+                    os dados recebidos são analisados de acordo com os schemas
+                    definidos para a operação. Quando necessário, também são
+                    verificadas as informações relacionadas à autenticação e
+                    autorização do usuário.
+                  </li>
 
-                            <li>
-                                <strong>Recebimento pelo backend:</strong>
-                                o FastAPI recebe a requisição e direciona a solicitação para o
-                                router responsável pela funcionalidade.
-                            </li>
+                  <li>
+                    <strong>Processamento da operação:</strong>
+                    após as validações, o backend executa as regras necessárias
+                    para realizar a operação solicitada.
+                  </li>
 
-                            <li>
-                                <strong>Validação dos dados:</strong>
-                                os dados recebidos são analisados de acordo com os schemas
-                                definidos para a operação. Quando necessário, também são
-                                verificadas as informações relacionadas à autenticação e
-                                autorização do usuário.
-                            </li>
+                  <li>
+                    <strong>Acesso ao banco de dados:</strong>
+                    quando a operação necessita consultar ou modificar
+                    informações persistentes, o SQLAlchemy realiza a comunicação
+                    com o PostgreSQL por meio dos models correspondentes.
+                  </li>
 
-                            <li>
-                                <strong>Processamento da operação:</strong>
-                                após as validações, o backend executa as regras necessárias para
-                                realizar a operação solicitada.
-                            </li>
+                  <li>
+                    <strong>Retorno da operação:</strong>
+                    após o processamento, o backend gera uma resposta contendo o
+                    resultado da solicitação e a envia ao frontend, utilizando o
+                    formato JSON.
+                  </li>
 
-                            <li>
-                                <strong>Acesso ao banco de dados:</strong>
-                                quando a operação necessita consultar ou modificar informações
-                                persistentes, o SQLAlchemy realiza a comunicação com o
-                                PostgreSQL por meio dos models correspondentes.
-                            </li>
+                  <li>
+                    <strong>Atualização da interface:</strong>
+                    o JavaScript recebe a resposta da API, processa as
+                    informações retornadas e atualiza a interface de acordo com
+                    o resultado da operação.
+                  </li>
 
-                            <li>
-                                <strong>Retorno da operação:</strong>
-                                após o processamento, o backend gera uma resposta contendo o
-                                resultado da solicitação e a envia ao frontend, utilizando o
-                                formato JSON.
-                            </li>
+                  <li>
+                    <strong>Apresentação ao usuário:</strong>
+                    o resultado final da operação é apresentado na interface do
+                    BookHub, permitindo que o usuário tenha conhecimento do
+                    resultado de sua ação.
+                  </li>
+                </ol>
 
-                            <li>
-                                <strong>Atualização da interface:</strong>
-                                o JavaScript recebe a resposta da API, processa as informações
-                                retornadas e atualiza a interface de acordo com o resultado da
-                                operação.
-                            </li>
+                <p>Esse fluxo pode ser resumido da seguinte maneira:</p>
 
-                            <li>
-                                <strong>Apresentação ao usuário:</strong>
-                                o resultado final da operação é apresentado na interface do
-                                BookHub, permitindo que o usuário tenha conhecimento do
-                                resultado de sua ação.
-                            </li>
+                <div class="fluxo-aplicacao-resumo">
+                  <p>
+                    <strong>
+                      Usuário &rarr; Frontend &rarr; Requisição HTTP &rarr;
+                      FastAPI &rarr; Router &rarr; Schema / Validação &rarr;
+                      Processamento &rarr; SQLAlchemy / Model &rarr; PostgreSQL
+                      &rarr; Resposta JSON &rarr; Frontend &rarr; Usuário
+                    </strong>
+                  </p>
+                </div>
 
-                        </ol>
+                <p>
+                  Por exemplo, quando um usuário registra uma avaliação para um
+                  livro, a ação é realizada na interface do frontend. O
+                  JavaScript envia os dados da avaliação para o endpoint
+                  correspondente da API. O backend recebe e valida essas
+                  informações, verifica os requisitos necessários para a
+                  operação e utiliza os componentes responsáveis pelo acesso aos
+                  dados para registrar a avaliação no PostgreSQL. Após a
+                  conclusão da operação, uma resposta é enviada ao frontend, que
+                  apresenta ao usuário o resultado da ação.
+                </p>
 
+                <p>
+                  Esse fluxo é utilizado como base para as diferentes
+                  funcionalidades do sistema, variando apenas os endpoints,
+                  dados e operações envolvidos em cada caso. A separação das
+                  responsabilidades permite que o processamento das informações
+                  ocorra de maneira organizada e que cada camada desempenhe uma
+                  função específica dentro da aplicação.
+                </p>
+              </article>
+            </section>
 
-                        <p>
-                            Esse fluxo pode ser resumido da seguinte maneira:
-                        </p>
+            <section id="tecnologias-ferramentas" class="manual-secao">
+              <h1>3. Tecnologias e Ferramentas</h1>
 
-
-                        <div class="fluxo-aplicacao-resumo">
-
-                            <p>
-                                <strong>
-                                    Usuário
-                                    &rarr;
-                                    Frontend
-                                    &rarr;
-                                    Requisição HTTP
-                                    &rarr;
-                                    FastAPI
-                                    &rarr;
-                                    Router
-                                    &rarr;
-                                    Schema / Validação
-                                    &rarr;
-                                    Processamento
-                                    &rarr;
-                                    SQLAlchemy / Model
-                                    &rarr;
-                                    PostgreSQL
-                                    &rarr;
-                                    Resposta JSON
-                                    &rarr;
-                                    Frontend
-                                    &rarr;
-                                    Usuário
-                                </strong>
-                            </p>
-
-                        </div>
-
-
-                        <p>
-                            Por exemplo, quando um usuário registra uma avaliação para um livro,
-                            a ação é realizada na interface do frontend. O JavaScript envia os
-                            dados da avaliação para o endpoint correspondente da API. O backend
-                            recebe e valida essas informações, verifica os requisitos
-                            necessários para a operação e utiliza os componentes responsáveis
-                            pelo acesso aos dados para registrar a avaliação no PostgreSQL.
-                            Após a conclusão da operação, uma resposta é enviada ao frontend,
-                            que apresenta ao usuário o resultado da ação.
-                        </p>
-
-                        <p>
-                            Esse fluxo é utilizado como base para as diferentes funcionalidades
-                            do sistema, variando apenas os endpoints, dados e operações
-                            envolvidos em cada caso. A separação das responsabilidades permite
-                            que o processamento das informações ocorra de maneira organizada e
-                            que cada camada desempenhe uma função específica dentro da
-                            aplicação.
-                        </p>
-
-                    </article>
-
-
-                </section>
-
-
-                <section id="tecnologias-ferramentas" class="manual-secao">
-
-
-                    <h1>3. Tecnologias e Ferramentas</h1>
-
-                    <!-- =====================================================
+              <!-- =====================================================
                         3.1. TECNOLOGIAS UTILIZADAS
                         ===================================================== -->
 
-                    <article id="tecnologias-utilizadas" class="manual-subsecao">
+              <article id="tecnologias-utilizadas" class="manual-subsecao">
+                <h2>3.1. Tecnologias utilizadas</h2>
 
-                        <h2>3.1. Tecnologias utilizadas</h2>
+                <p>
+                  O BookHub foi desenvolvido utilizando um conjunto de
+                  tecnologias voltadas à construção de aplicações web,
+                  abrangendo a camada de apresentação, o processamento das
+                  funcionalidades e o armazenamento dos dados.
+                </p>
 
-                        <p>
-                            O BookHub foi desenvolvido utilizando um conjunto de tecnologias
-                            voltadas à construção de aplicações web, abrangendo a camada de
-                            apresentação, o processamento das funcionalidades e o
-                            armazenamento dos dados.
-                        </p>
+                <p>
+                  As principais tecnologias utilizadas no projeto são
+                  apresentadas a seguir.
+                </p>
 
-                        <p>
-                            As principais tecnologias utilizadas no projeto são apresentadas
-                            a seguir.
-                        </p>
+                <div class="tabela-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tecnologia</th>
+                        <th>Versão</th>
+                        <th>Utilização</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>HTML5</strong></td>
+                        <td>—</td>
+                        <td>
+                          Estruturação das páginas e dos elementos da interface
+                          do frontend.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>CSS3</strong></td>
+                        <td>—</td>
+                        <td>
+                          Estilização, organização visual e definição da
+                          apresentação das páginas.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>JavaScript</strong></td>
+                        <td>—</td>
+                        <td>
+                          Implementação da interatividade do frontend e
+                          comunicação com a API.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Python</strong></td>
+                        <td>3.12.10</td>
+                        <td>
+                          Linguagem utilizada no desenvolvimento do backend.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>FastAPI</strong></td>
+                        <td>0.141.1</td>
+                        <td>
+                          Framework utilizado para desenvolvimento da API e dos
+                          endpoints do sistema.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>PostgreSQL</strong></td>
+                        <td>—</td>
+                        <td>
+                          Sistema gerenciador de banco de dados utilizado para
+                          armazenamento das informações do BookHub.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-                        <div class="tabela-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tecnologia</th>
-                                        <th>Versão</th>
-                                        <th>Utilização</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>HTML5</strong></td>
-                                        <td>—</td>
-                                        <td>
-                                            Estruturação das páginas e dos elementos da
-                                            interface do frontend.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>CSS3</strong></td>
-                                        <td>—</td>
-                                        <td>
-                                            Estilização, organização visual e definição da
-                                            apresentação das páginas.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>JavaScript</strong></td>
-                                        <td>—</td>
-                                        <td>
-                                            Implementação da interatividade do frontend e
-                                            comunicação com a API.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Python</strong></td>
-                                        <td>3.12.10</td>
-                                        <td>
-                                            Linguagem utilizada no desenvolvimento do backend.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>FastAPI</strong></td>
-                                        <td>0.141.1</td>
-                                        <td>
-                                            Framework utilizado para desenvolvimento da API e
-                                            dos endpoints do sistema.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>PostgreSQL</strong></td>
-                                        <td>—</td>
-                                        <td>
-                                            Sistema gerenciador de banco de dados utilizado
-                                            para armazenamento das informações do BookHub.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <p>
+                  O <strong>HTML5</strong> é utilizado como base estrutural das
+                  páginas do frontend, enquanto o <strong>CSS3</strong> é
+                  responsável pela apresentação visual dos elementos. O
+                  <strong>JavaScript</strong> complementa essa camada,
+                  permitindo implementar comportamentos dinâmicos e realizar a
+                  comunicação com o backend.
+                </p>
 
-                        <p>
-                            O <strong>HTML5</strong> é utilizado como base estrutural das
-                            páginas do frontend, enquanto o <strong>CSS3</strong> é responsável
-                            pela apresentação visual dos elementos. O
-                            <strong>JavaScript</strong> complementa essa camada, permitindo
-                            implementar comportamentos dinâmicos e realizar a comunicação com
-                            o backend.
-                        </p>
+                <p>
+                  No backend, o projeto utiliza
+                  <strong>Python 3.12.10</strong> como linguagem de programação
+                  e o <strong>FastAPI 0.141.1</strong> como framework para
+                  construção da API. Essa combinação permite organizar os
+                  endpoints responsáveis pelas diferentes funcionalidades do
+                  BookHub e disponibilizar uma interface de comunicação entre o
+                  frontend e o backend.
+                </p>
 
-                        <p>
-                            No backend, o projeto utiliza <strong>Python 3.12.10</strong> como
-                            linguagem de programação e o <strong>FastAPI 0.141.1</strong> como
-                            framework para construção da API. Essa combinação permite organizar
-                            os endpoints responsáveis pelas diferentes funcionalidades do
-                            BookHub e disponibilizar uma interface de comunicação entre o
-                            frontend e o backend.
-                        </p>
+                <p>
+                  Para o armazenamento persistente das informações, o sistema
+                  utiliza o <strong>PostgreSQL</strong>. O banco de dados mantém
+                  os registros utilizados pelas funcionalidades da aplicação,
+                  incluindo usuários, livros, autores, gêneros, avaliações,
+                  resenhas, favoritos e estante.
+                </p>
 
-                        <p>
-                            Para o armazenamento persistente das informações, o sistema utiliza
-                            o <strong>PostgreSQL</strong>. O banco de dados mantém os registros
-                            utilizados pelas funcionalidades da aplicação, incluindo usuários,
-                            livros, autores, gêneros, avaliações, resenhas, favoritos e
-                            estante.
-                        </p>
+                <p>
+                  A combinação dessas tecnologias permite estruturar o BookHub
+                  em camadas independentes, mantendo a interface, a lógica da
+                  aplicação e a persistência dos dados separadas.
+                </p>
+              </article>
 
-                        <p>
-                            A combinação dessas tecnologias permite estruturar o BookHub em
-                            camadas independentes, mantendo a interface, a lógica da aplicação
-                            e a persistência dos dados separadas.
-                        </p>
-
-                    </article>
-
-
-                    <!-- =====================================================
+              <!-- =====================================================
                         3.2. FRAMEWORKS E BIBLIOTECAS
                         ===================================================== -->
 
-                    <article id="frameworks-bibliotecas" class="manual-subsecao">
+              <article id="frameworks-bibliotecas" class="manual-subsecao">
+                <h2>3.2. Frameworks e bibliotecas</h2>
 
-                        <h2>3.2. Frameworks e bibliotecas</h2>
+                <p>
+                  O backend do BookHub utiliza diferentes frameworks e
+                  bibliotecas para implementar a API, realizar a validação de
+                  dados, estabelecer a comunicação com o banco de dados e
+                  fornecer mecanismos de autenticação e segurança.
+                </p>
 
-                        <p>
-                            O backend do BookHub utiliza diferentes frameworks e bibliotecas
-                            para implementar a API, realizar a validação de dados, estabelecer
-                            a comunicação com o banco de dados e fornecer mecanismos de
-                            autenticação e segurança.
-                        </p>
+                <p>
+                  As principais dependências utilizadas diretamente pela
+                  aplicação são apresentadas a seguir.
+                </p>
 
-                        <p>
-                            As principais dependências utilizadas diretamente pela aplicação
-                            são apresentadas a seguir.
-                        </p>
+                <div class="tabela-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Framework/Biblioteca</th>
+                        <th>Versão</th>
+                        <th>Finalidade no BookHub</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>FastAPI</strong></td>
+                        <td>0.141.1</td>
+                        <td>
+                          Desenvolvimento da API e definição dos endpoints da
+                          aplicação.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>SQLAlchemy</strong></td>
+                        <td>2.0.52</td>
+                        <td>
+                          Mapeamento objeto-relacional (ORM) e interação com o
+                          banco de dados.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Pydantic</strong></td>
+                        <td>2.13.4</td>
+                        <td>
+                          Validação, estruturação e serialização dos dados
+                          utilizados pela API.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Psycopg</strong></td>
+                        <td>3.3.4</td>
+                        <td>
+                          Conexão e comunicação entre a aplicação Python e o
+                          PostgreSQL.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Uvicorn</strong></td>
+                        <td>0.52.3</td>
+                        <td>
+                          Servidor ASGI utilizado para executar a aplicação
+                          FastAPI.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>PyJWT</strong></td>
+                        <td>2.13.0</td>
+                        <td>
+                          Criação e validação de tokens utilizados no mecanismo
+                          de autenticação.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>pwdlib</strong></td>
+                        <td>0.3.1</td>
+                        <td>
+                          Gerenciamento seguro de senhas, incluindo operações
+                          relacionadas à geração e verificação de hashes.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Argon2-cffi</strong></td>
+                        <td>25.1.0</td>
+                        <td>
+                          Implementação do algoritmo Argon2 utilizado no
+                          processamento seguro de senhas.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>python-dotenv</strong></td>
+                        <td>1.2.3</td>
+                        <td>
+                          Carregamento de variáveis de ambiente utilizadas na
+                          configuração da aplicação.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>email-validator</strong></td>
+                        <td>2.3.0</td>
+                        <td>
+                          Validação de endereços de e-mail utilizados nos dados
+                          da aplicação.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-                        <div class="tabela-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Framework/Biblioteca</th>
-                                        <th>Versão</th>
-                                        <th>Finalidade no BookHub</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>FastAPI</strong></td>
-                                        <td>0.141.1</td>
-                                        <td>
-                                            Desenvolvimento da API e definição dos endpoints
-                                            da aplicação.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>SQLAlchemy</strong></td>
-                                        <td>2.0.52</td>
-                                        <td>
-                                            Mapeamento objeto-relacional (ORM) e interação
-                                            com o banco de dados.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Pydantic</strong></td>
-                                        <td>2.13.4</td>
-                                        <td>
-                                            Validação, estruturação e serialização dos dados
-                                            utilizados pela API.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Psycopg</strong></td>
-                                        <td>3.3.4</td>
-                                        <td>
-                                            Conexão e comunicação entre a aplicação Python
-                                            e o PostgreSQL.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Uvicorn</strong></td>
-                                        <td>0.52.3</td>
-                                        <td>
-                                            Servidor ASGI utilizado para executar a aplicação
-                                            FastAPI.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>PyJWT</strong></td>
-                                        <td>2.13.0</td>
-                                        <td>
-                                            Criação e validação de tokens utilizados no
-                                            mecanismo de autenticação.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>pwdlib</strong></td>
-                                        <td>0.3.1</td>
-                                        <td>
-                                            Gerenciamento seguro de senhas, incluindo operações
-                                            relacionadas à geração e verificação de hashes.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Argon2-cffi</strong></td>
-                                        <td>25.1.0</td>
-                                        <td>
-                                            Implementação do algoritmo Argon2 utilizado no
-                                            processamento seguro de senhas.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>python-dotenv</strong></td>
-                                        <td>1.2.3</td>
-                                        <td>
-                                            Carregamento de variáveis de ambiente utilizadas
-                                            na configuração da aplicação.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>email-validator</strong></td>
-                                        <td>2.3.0</td>
-                                        <td>
-                                            Validação de endereços de e-mail utilizados nos
-                                            dados da aplicação.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <p>
+                  O <strong>FastAPI</strong> constitui a principal estrutura do
+                  backend, sendo responsável pela criação da API e pela
+                  organização dos endpoints. A utilização desse framework também
+                  permite a geração automática da documentação da API por meio
+                  do padrão OpenAPI e da interface interativa Swagger.
+                </p>
 
-                        <p>
-                            O <strong>FastAPI</strong> constitui a principal estrutura do
-                            backend, sendo responsável pela criação da API e pela organização
-                            dos endpoints. A utilização desse framework também permite a
-                            geração automática da documentação da API por meio do padrão
-                            OpenAPI e da interface interativa Swagger.
-                        </p>
+                <p>
+                  O <strong>SQLAlchemy</strong> é utilizado como ORM, permitindo
+                  representar as entidades do sistema por meio de modelos Python
+                  e realizar operações no banco de dados sem a necessidade de
+                  escrever diretamente todas as consultas SQL utilizadas pela
+                  aplicação.
+                </p>
 
-                        <p>
-                            O <strong>SQLAlchemy</strong> é utilizado como ORM, permitindo
-                            representar as entidades do sistema por meio de modelos Python e
-                            realizar operações no banco de dados sem a necessidade de escrever
-                            diretamente todas as consultas SQL utilizadas pela aplicação.
-                        </p>
+                <p>
+                  O <strong>Pydantic</strong> participa da definição dos schemas
+                  utilizados pela API, permitindo validar e estruturar os dados
+                  recebidos nas requisições e os dados retornados nas respostas.
+                  Dessa forma, contribui para a consistência das informações que
+                  trafegam entre o frontend e o backend.
+                </p>
 
-                        <p>
-                            O <strong>Pydantic</strong> participa da definição dos schemas
-                            utilizados pela API, permitindo validar e estruturar os dados
-                            recebidos nas requisições e os dados retornados nas respostas.
-                            Dessa forma, contribui para a consistência das informações que
-                            trafegam entre o frontend e o backend.
-                        </p>
+                <p>
+                  A comunicação entre o backend e o
+                  <strong>PostgreSQL</strong> utiliza o
+                  <strong>Psycopg</strong>, responsável por fornecer o driver
+                  necessário para a conexão da aplicação Python com o banco de
+                  dados. O SQLAlchemy utiliza esse componente para realizar as
+                  operações de persistência dos dados.
+                </p>
 
-                        <p>
-                            A comunicação entre o backend e o <strong>PostgreSQL</strong>
-                            utiliza o <strong>Psycopg</strong>, responsável por fornecer o
-                            driver necessário para a conexão da aplicação Python com o banco
-                            de dados. O SQLAlchemy utiliza esse componente para realizar as
-                            operações de persistência dos dados.
-                        </p>
+                <p>
+                  O <strong>Uvicorn</strong> é utilizado como servidor ASGI para
+                  executar a aplicação FastAPI durante o desenvolvimento e a
+                  execução do sistema.
+                </p>
 
-                        <p>
-                            O <strong>Uvicorn</strong> é utilizado como servidor ASGI para
-                            executar a aplicação FastAPI durante o desenvolvimento e a
-                            execução do sistema.
-                        </p>
+                <p>
+                  Na área de segurança, o <strong>PyJWT</strong> é utilizado
+                  para trabalhar com tokens JWT relacionados à autenticação dos
+                  usuários. O <strong>pwdlib</strong>, juntamente com o
+                  <strong>Argon2-cffi</strong>, é utilizado para o processamento
+                  seguro das senhas, evitando que as senhas sejam armazenadas
+                  diretamente em texto simples.
+                </p>
 
-                        <p>
-                            Na área de segurança, o <strong>PyJWT</strong> é utilizado para
-                            trabalhar com tokens JWT relacionados à autenticação dos usuários.
-                            O <strong>pwdlib</strong>, juntamente com o
-                            <strong>Argon2-cffi</strong>, é utilizado para o processamento
-                            seguro das senhas, evitando que as senhas sejam armazenadas
-                            diretamente em texto simples.
-                        </p>
+                <p>
+                  O <strong>python-dotenv</strong> auxilia no carregamento das
+                  configurações armazenadas em variáveis de ambiente, permitindo
+                  manter informações de configuração separadas do código-fonte.
+                  Já o <strong>email-validator</strong> fornece validações
+                  específicas para endereços de e-mail utilizados pela
+                  aplicação.
+                </p>
 
-                        <p>
-                            O <strong>python-dotenv</strong> auxilia no carregamento das
-                            configurações armazenadas em variáveis de ambiente, permitindo
-                            manter informações de configuração separadas do código-fonte.
-                            Já o <strong>email-validator</strong> fornece validações específicas
-                            para endereços de e-mail utilizados pela aplicação.
-                        </p>
+                <p>
+                  A utilização conjunta dessas ferramentas permite que o backend
+                  seja desenvolvido de forma modular, com responsabilidades
+                  específicas distribuídas entre os diferentes componentes da
+                  aplicação.
+                </p>
+              </article>
 
-                        <p>
-                            A utilização conjunta dessas ferramentas permite que o backend seja
-                            desenvolvido de forma modular, com responsabilidades específicas
-                            distribuídas entre os diferentes componentes da aplicação.
-                        </p>
-
-                    </article>
-
-
-                    <!-- =====================================================
+              <!-- =====================================================
                         3.3. FERRAMENTAS DE DESENVOLVIMENTO
                         ===================================================== -->
 
-                    <article id="ferramentas-desenvolvimento" class="manual-subsecao">
+              <article id="ferramentas-desenvolvimento" class="manual-subsecao">
+                <h2>3.3. Ferramentas de desenvolvimento</h2>
 
-                        <h2>3.3. Ferramentas de desenvolvimento</h2>
+                <p>
+                  Além das tecnologias e bibliotecas utilizadas diretamente na
+                  implementação do sistema, o desenvolvimento do BookHub contou
+                  com diferentes ferramentas destinadas à programação,
+                  gerenciamento do banco de dados, testes, documentação e
+                  controle de versões.
+                </p>
 
-                        <p>
-                            Além das tecnologias e bibliotecas utilizadas diretamente na
-                            implementação do sistema, o desenvolvimento do BookHub contou com
-                            diferentes ferramentas destinadas à programação, gerenciamento do
-                            banco de dados, testes, documentação e controle de versões.
-                        </p>
+                <p>
+                  As principais ferramentas utilizadas são apresentadas a
+                  seguir.
+                </p>
 
-                        <p>
-                            As principais ferramentas utilizadas são apresentadas a seguir.
-                        </p>
+                <div class="tabela-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Ferramenta</th>
+                        <th>Utilização no projeto</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Visual Studio Code</strong></td>
+                        <td>
+                          Ambiente utilizado para desenvolvimento, edição e
+                          organização dos arquivos do projeto.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>pgAdmin</strong></td>
+                        <td>
+                          Ferramenta utilizada para administração do banco de
+                          dados PostgreSQL, execução de scripts SQL e
+                          verificação dos dados.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Git</strong></td>
+                        <td>
+                          Sistema de controle de versões utilizado para
+                          acompanhar as alterações realizadas no código-fonte.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>GitHub</strong></td>
+                        <td>
+                          Plataforma utilizada para hospedagem do repositório e
+                          colaboração entre os integrantes da equipe.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>Swagger UI / OpenAPI</strong></td>
+                        <td>
+                          Interface utilizada para visualizar e testar
+                          interativamente os endpoints disponibilizados pela
+                          API.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>Ambiente virtual Python (.venv)</strong>
+                        </td>
+                        <td>
+                          Ambiente isolado utilizado para instalar e gerenciar
+                          as dependências Python do projeto.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>PowerShell / Terminal</strong></td>
+                        <td>
+                          Utilizado para execução de comandos relacionados à
+                          configuração do ambiente, instalação de dependências e
+                          execução do backend.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-                        <div class="tabela-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Ferramenta</th>
-                                        <th>Utilização no projeto</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Visual Studio Code</strong></td>
-                                        <td>
-                                            Ambiente utilizado para desenvolvimento, edição e
-                                            organização dos arquivos do projeto.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>pgAdmin</strong></td>
-                                        <td>
-                                            Ferramenta utilizada para administração do banco
-                                            de dados PostgreSQL, execução de scripts SQL e
-                                            verificação dos dados.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Git</strong></td>
-                                        <td>
-                                            Sistema de controle de versões utilizado para
-                                            acompanhar as alterações realizadas no código-fonte.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>GitHub</strong></td>
-                                        <td>
-                                            Plataforma utilizada para hospedagem do repositório
-                                            e colaboração entre os integrantes da equipe.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Swagger UI / OpenAPI</strong></td>
-                                        <td>
-                                            Interface utilizada para visualizar e testar
-                                            interativamente os endpoints disponibilizados pela
-                                            API.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Ambiente virtual Python (.venv)</strong></td>
-                                        <td>
-                                            Ambiente isolado utilizado para instalar e gerenciar
-                                            as dependências Python do projeto.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>PowerShell / Terminal</strong></td>
-                                        <td>
-                                            Utilizado para execução de comandos relacionados à
-                                            configuração do ambiente, instalação de dependências
-                                            e execução do backend.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <p>
+                  O <strong>Visual Studio Code</strong> foi utilizado como
+                  principal ambiente de desenvolvimento, permitindo a edição dos
+                  arquivos Python, HTML, CSS, JavaScript e SQL, além da
+                  organização da estrutura de diretórios do projeto.
+                </p>
 
-                        <p>
-                            O <strong>Visual Studio Code</strong> foi utilizado como principal
-                            ambiente de desenvolvimento, permitindo a edição dos arquivos
-                            Python, HTML, CSS, JavaScript e SQL, além da organização da
-                            estrutura de diretórios do projeto.
-                        </p>
+                <p>
+                  O <strong>pgAdmin</strong> foi utilizado como ferramenta de
+                  administração do PostgreSQL. Por meio dele foram realizadas
+                  operações como criação e gerenciamento do banco de dados,
+                  execução dos scripts SQL, inserção e consulta de dados e
+                  verificação da estrutura das tabelas.
+                </p>
 
-                        <p>
-                            O <strong>pgAdmin</strong> foi utilizado como ferramenta de
-                            administração do PostgreSQL. Por meio dele foram realizadas
-                            operações como criação e gerenciamento do banco de dados, execução
-                            dos scripts SQL, inserção e consulta de dados e verificação da
-                            estrutura das tabelas.
-                        </p>
+                <p>
+                  O <strong>Git</strong> foi utilizado para o controle de
+                  versões do projeto, permitindo registrar as alterações
+                  realizadas durante o desenvolvimento. O
+                  <strong>GitHub</strong> complementa esse processo como
+                  plataforma de hospedagem do repositório, possibilitando o
+                  compartilhamento do código e a colaboração entre os
+                  integrantes da equipe.
+                </p>
 
-                        <p>
-                            O <strong>Git</strong> foi utilizado para o controle de versões do
-                            projeto, permitindo registrar as alterações realizadas durante o
-                            desenvolvimento. O <strong>GitHub</strong> complementa esse
-                            processo como plataforma de hospedagem do repositório,
-                            possibilitando o compartilhamento do código e a colaboração entre
-                            os integrantes da equipe.
-                        </p>
+                <p>
+                  Para a documentação e testes da API, o projeto utiliza a
+                  interface
+                  <strong>Swagger UI</strong>, disponibilizada automaticamente
+                  pelo FastAPI a partir da especificação OpenAPI. Essa interface
+                  permite visualizar os endpoints disponíveis, seus parâmetros,
+                  modelos de dados e respostas, além de possibilitar a
+                  realização de requisições diretamente pelo navegador.
+                </p>
 
-                        <p>
-                            Para a documentação e testes da API, o projeto utiliza a interface
-                            <strong>Swagger UI</strong>, disponibilizada automaticamente pelo
-                            FastAPI a partir da especificação OpenAPI. Essa interface permite
-                            visualizar os endpoints disponíveis, seus parâmetros, modelos de
-                            dados e respostas, além de possibilitar a realização de requisições
-                            diretamente pelo navegador.
-                        </p>
+                <p>
+                  O projeto também utiliza um
+                  <strong>ambiente virtual Python (<code>.venv</code>)</strong>,
+                  responsável por manter as dependências do backend isoladas do
+                  restante do sistema. Essa abordagem reduz conflitos entre
+                  diferentes projetos Python e facilita a reprodução do ambiente
+                  de desenvolvimento.
+                </p>
 
-                        <p>
-                            O projeto também utiliza um <strong>ambiente virtual Python
-                            (<code>.venv</code>)</strong>, responsável por manter as
-                            dependências do backend isoladas do restante do sistema. Essa
-                            abordagem reduz conflitos entre diferentes projetos Python e
-                            facilita a reprodução do ambiente de desenvolvimento.
-                        </p>
+                <p>
+                  Por fim, o <strong>PowerShell</strong> e o terminal integrado
+                  do Visual Studio Code foram utilizados para executar comandos
+                </p>
+              </article>
+            </section>
 
-                        <p>
-                            Por fim, o <strong>PowerShell</strong> e o terminal integrado do
-                            Visual Studio Code foram utilizados para executar comandos
-                        
+            <section id="estrutura-projeto" class="manual-secao">
+              <h1>4. Estrutura do Projeto</h1>
 
-                            
-                    </section>
+              <!-- =====================================================
+     4.1. ORGANIZAÇÃO DOS DIRETÓRIOS
+     ===================================================== -->
+
+              <article id="organizacao-diretorios" class="manual-subsecao">
+                <h2>4.1. Organização dos diretórios</h2>
+
+                <p>
+                  O projeto BookHub possui uma estrutura de diretórios
+                  organizada de acordo com as responsabilidades de cada
+                  componente da aplicação. A separação dos arquivos facilita a
+                  manutenção do código, a localização dos recursos e o
+                  desenvolvimento independente das diferentes partes do sistema.
+                </p>
+
+                <p>
+                  A estrutura geral do projeto é dividida principalmente entre
+                  os componentes do <strong>backend</strong>, responsáveis pela
+                  API e pelo processamento das operações, e os componentes do
+                  <strong>frontend</strong>, responsáveis pela interface e
+                  interação com o usuário.
+                </p>
+
+                <p>A estrutura geral do projeto é apresentada abaixo:</p>
+
+                <pre><code>BookHub/
 
 
+│
+├── .env
+├── .gitignore
+├── README.md
+│
+├── backend/
+│   ├── **init**.py
+│   ├── main.py
+│   ├── core/
+│   ├── database/
+│   ├── models/
+│   ├── routers/
+│   └── schemas/
+│
+└── frontend/
+├── index.html
+├── assets/
+├── css/
+├── js/
+└── pages/</code></pre>
 
-            </article>
+                <p>
+                  A pasta <strong>backend/</strong> concentra os componentes
+                  responsáveis pela execução da API e pelo processamento das
+                  requisições. Dentro dela encontram-se o arquivo principal da
+                  aplicação, os recursos relacionados à segurança, o acesso ao
+                  banco de dados, os modelos, as rotas e os schemas.
+                </p>
+
+                <p>
+                  A pasta <strong>frontend/</strong> reúne os arquivos
+                  responsáveis pela interface do BookHub, incluindo documentos
+                  HTML, folhas de estilo, scripts JavaScript e recursos
+                  gráficos.
+                </p>
+
+                <p>
+                  Na raiz do projeto encontram-se ainda arquivos utilizados para
+                  configuração, controle de versões e documentação, como
+                  <strong>.env</strong>, <strong>.gitignore</strong> e
+                  <strong>README.md</strong>.
+                </p>
+
+                <p>
+                  Essa organização busca manter cada componente em um local
+                  específico de acordo com sua responsabilidade, contribuindo
+                  para a modularidade e facilitando a manutenção e evolução do
+                  projeto.
+                </p>
+              </article>
+
+              <!-- =====================================================
+     4.2. BACKEND
+     ===================================================== -->
+
+              <article id="backend" class="manual-subsecao">
+                <h2>4.2. Backend</h2>
+
+                <p>
+                  O backend do BookHub é responsável pelo processamento das
+                  requisições realizadas pelo frontend, pela implementação das
+                  regras da aplicação, pela autenticação dos usuários e pela
+                  comunicação com o banco de dados.
+                </p>
+
+                <p>
+                  O backend foi desenvolvido utilizando
+                  <strong>Python e FastAPI</strong> e possui uma organização
+                  modular, na qual os componentes são separados de acordo com
+                  suas responsabilidades.
+                </p>
+
+                <p>A estrutura do backend é apresentada abaixo:</p>
+
+                <pre><code>backend/
 
 
+│
+├── **init**.py
+├── main.py
+│
+├── core/
+│   ├── **init**.py
+│   └── security.py
+│
+├── database/
+│   ├── **init**.py
+│   ├── connection.py
+│   │
+│   └── scripts/
+│       ├── 00_drop_tables.sql
+│       ├── 01_create_tables.sql
+│       └── 02_insert_data.sql
+│
+├── models/
+│   ├── **init**.py
+│   ├── associations.py
+│   ├── autor.py
+│   ├── avaliacao.py
+│   ├── base.py
+│   ├── editora.py
+│   ├── favorito.py
+│   ├── genero.py
+│   ├── livro.py
+│   ├── resenha.py
+│   ├── usuario.py
+│   └── usuario_livro.py
+│
+├── routers/
+│   ├── **init**.py
+│   ├── auth.py
+│   ├── autores.py
+│   ├── avaliacoes.py
+│   ├── estante.py
+│   ├── favoritos.py
+│   ├── generos.py
+│   ├── livros.py
+│   ├── resenhas.py
+│   └── usuarios.py
+│
+└── schemas/
+├── **init**.py
+├── auth.py
+├── autor.py
+├── avaliacao.py
+├── estante.py
+├── favorito.py
+├── generos.py
+├── livro.py
+├── resenha.py
+└── usuario.py</code></pre>
+
+                <h3>main.py</h3>
+
+                <p>
+                  O arquivo <strong>main.py</strong> é o ponto de entrada da
+                  aplicação FastAPI. Nele é criada a instância principal da
+                  aplicação e são registrados os routers responsáveis pelos
+                  diferentes conjuntos de endpoints da API.
+                </p>
+
+                <p>
+                  Dessa forma, o <strong>main.py</strong> funciona como um ponto
+                  de integração entre os diferentes componentes do backend,
+                  reunindo as rotas e disponibilizando-as por meio da aplicação
+                  FastAPI.
+                </p>
+
+                <h3>core/</h3>
+
+                <p>
+                  O diretório <strong>core/</strong> concentra componentes
+                  relacionados a funcionalidades centrais do backend.
+                </p>
+
+                <p>
+                  Atualmente, esse diretório contém o arquivo
+                  <strong>security.py</strong>, responsável pelas
+                  funcionalidades relacionadas à segurança e autenticação da
+                  aplicação.
+                </p>
+
+                <h3>security.py</h3>
+
+                <p>
+                  O arquivo <strong>security.py</strong> concentra mecanismos
+                  relacionados à autenticação e à proteção das informações
+                  utilizadas pelo sistema.
+                </p>
+
+                <p>
+                  Entre suas responsabilidades estão funcionalidades
+                  relacionadas ao processamento seguro de senhas e à utilização
+                  de tokens JWT para autenticação dos usuários.
+                </p>
+
+                <p>
+                  A centralização dessas funcionalidades permite que os
+                  mecanismos de segurança sejam reutilizados por diferentes
+                  partes da API.
+                </p>
+
+                <h3>database/</h3>
+
+                <p>
+                  O diretório <strong>database/</strong> reúne os componentes
+                  responsáveis pela configuração da comunicação com o banco de
+                  dados e pelos scripts utilizados para sua preparação.
+                </p>
+
+                <p>
+                  O arquivo <strong>connection.py</strong> contém a configuração
+                  necessária para estabelecer a conexão utilizada pelo backend
+                  com o PostgreSQL.
+                </p>
+
+                <p>
+                  A pasta <strong>scripts/</strong> contém os arquivos SQL
+                  utilizados para criar, remover e popular as estruturas do
+                  banco de dados.
+                </p>
+
+                <h3>connection.py</h3>
+
+                <p>
+                  O arquivo <strong>connection.py</strong> contém a configuração
+                  utilizada pelo backend para estabelecer a comunicação com o
+                  banco de dados PostgreSQL.
+                </p>
+
+                <p>
+                  Essa configuração fornece a infraestrutura necessária para que
+                  os componentes que utilizam o SQLAlchemy possam realizar
+                  operações de consulta e persistência dos dados.
+                </p>
+
+                <h3>database/scripts/</h3>
+
+                <p>
+                  A pasta <strong>scripts/</strong> contém os scripts SQL
+                  utilizados na preparação e configuração do banco de dados do
+                  BookHub.
+                </p>
+
+                <p>
+                  Os arquivos são organizados numericamente para indicar a ordem
+                  recomendada de execução:
+                </p>
+
+                <ul>
+                  <li>
+                    <strong>00_drop_tables.sql</strong> — remove as tabelas
+                    existentes quando necessário, permitindo recriar a estrutura
+                    do banco durante o desenvolvimento e os testes.
+                  </li>
+
+                  <li>
+                    <strong>01_create_tables.sql</strong> — cria as tabelas,
+                    restrições e demais estruturas necessárias ao funcionamento
+                    do banco.
+                  </li>
+
+                  <li>
+                    <strong>02_insert_data.sql</strong> — insere os dados
+                    iniciais utilizados pela aplicação e pelos testes.
+                  </li>
+                </ul>
+
+                <p>
+                  Essa organização facilita a preparação do banco de dados e
+                  permite reproduzir sua estrutura de maneira ordenada.
+                </p>
+
+                <h3>models/</h3>
+
+                <p>
+                  O diretório <strong>models/</strong> contém os modelos
+                  responsáveis por representar as principais entidades
+                  utilizadas pelo sistema.
+                </p>
+
+                <p>
+                  Os modelos são implementados utilizando
+                  <strong>SQLAlchemy</strong> e estabelecem o mapeamento entre
+                  os objetos utilizados no código Python e as estruturas
+                  correspondentes no banco de dados.
+                </p>
+
+                <p>Entre os principais modelos estão:</p>
+
+                <ul>
+                  <li>
+                    <strong>usuario.py</strong> — representa os usuários do
+                    sistema;
+                  </li>
+                  <li>
+                    <strong>livro.py</strong> — representa os livros
+                    cadastrados;
+                  </li>
+                  <li><strong>autor.py</strong> — representa os autores;</li>
+                  <li><strong>editora.py</strong> — representa as editoras;</li>
+                  <li>
+                    <strong>genero.py</strong> — representa os gêneros
+                    literários;
+                  </li>
+                  <li>
+                    <strong>avaliacao.py</strong> — representa as avaliações
+                    realizadas pelos usuários;
+                  </li>
+                  <li><strong>resenha.py</strong> — representa as resenhas;</li>
+                  <li>
+                    <strong>favorito.py</strong> — representa os livros
+                    adicionados aos favoritos;
+                  </li>
+                  <li>
+                    <strong>usuario_livro.py</strong> — representa relações
+                    entre usuários e livros;
+                  </li>
+                  <li>
+                    <strong>associations.py</strong> — concentra associações
+                    entre entidades;
+                  </li>
+                  <li>
+                    <strong>base.py</strong> — fornece a base utilizada pelos
+                    modelos SQLAlchemy.
+                  </li>
+                </ul>
+
+                <p>
+                  O arquivo <strong>__init__.py</strong> permite tratar o
+                  diretório como um pacote Python e organizar suas importações.
+                </p>
+
+                <h3>routers/</h3>
+
+                <p>
+                  O diretório <strong>routers/</strong> contém os módulos
+                  responsáveis pelas rotas e endpoints disponibilizados pela
+                  API.
+                </p>
+
+                <p>
+                  Os routers são organizados de acordo com as funcionalidades do
+                  BookHub, evitando que todos os endpoints sejam concentrados em
+                  um único arquivo.
+                </p>
+
+                <p>Entre os principais módulos estão:</p>
+
+                <ul>
+                  <li>
+                    <strong>auth.py</strong> — rotas relacionadas à
+                    autenticação;
+                  </li>
+                  <li>
+                    <strong>usuarios.py</strong> — operações relacionadas aos
+                    usuários;
+                  </li>
+                  <li>
+                    <strong>livros.py</strong> — operações relacionadas aos
+                    livros;
+                  </li>
+                  <li>
+                    <strong>autores.py</strong> — operações relacionadas aos
+                    autores;
+                  </li>
+                  <li>
+                    <strong>generos.py</strong> — operações relacionadas aos
+                    gêneros;
+                  </li>
+                  <li>
+                    <strong>avaliacoes.py</strong> — operações relacionadas às
+                    avaliações;
+                  </li>
+                  <li>
+                    <strong>resenhas.py</strong> — operações relacionadas às
+                    resenhas;
+                  </li>
+                  <li>
+                    <strong>favoritos.py</strong> — operações relacionadas aos
+                    favoritos;
+                  </li>
+                  <li>
+                    <strong>estante.py</strong> — operações relacionadas à
+                    estante do usuário.
+                  </li>
+                </ul>
+
+                <p>
+                  Essa divisão permite organizar os endpoints por domínio
+                  funcional e facilita a manutenção da API.
+                </p>
+
+                <h3>schemas/</h3>
+
+                <p>
+                  O diretório <strong>schemas/</strong> contém os schemas
+                  utilizados para definir, validar e estruturar os dados
+                  recebidos e retornados pela API.
+                </p>
+
+                <p>
+                  Os schemas são implementados utilizando
+                  <strong>Pydantic</strong> e são organizados de acordo com as
+                  funcionalidades correspondentes.
+                </p>
+
+                <p>
+                  Assim como nos routers, existem schemas específicos para
+                  diferentes recursos, incluindo autenticação, usuários, livros,
+                  autores, gêneros, avaliações, resenhas, favoritos e estante.
+                </p>
+
+                <p>
+                  A separação entre <strong>models</strong> e
+                  <strong>schemas</strong> possui uma função importante na
+                  arquitetura do backend. Os models representam as entidades
+                  persistidas no banco de dados, enquanto os schemas representam
+                  os formatos dos dados utilizados na comunicação da API.
+                </p>
+
+                <h3>Organização interna</h3>
+
+                <p>
+                  A relação entre os principais componentes do backend pode ser
+                  representada da seguinte maneira:
+                </p>
+
+                <pre><code>            ┌───────────────┐
+            │    main.py    │
+            └───────┬───────┘
+                    │
+     ┌──────────────┼──────────────┐
+     ▼              ▼              ▼
+┌─────────┐    ┌─────────┐    ┌─────────┐
+│ Routers │    │ Schemas │    │ Security│
+└────┬────┘    └─────────┘    └─────────┘
+     │
+     ▼
+┌─────────┐
+│ Models  │
+└────┬────┘
+     │
+     ▼
+┌─────────────┐
+│ SQLAlchemy  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ PostgreSQL  │
+└─────────────┘</code></pre>
+
+                <p>
+                  Essa organização permite que cada componente do backend possua
+                  uma responsabilidade específica. Os <strong>routers</strong>
+                  recebem e encaminham as requisições, os
+                  <strong>schemas</strong> estruturam e validam os dados, os
+                  <strong>models</strong> representam as entidades persistidas e
+                  o <strong>SQLAlchemy</strong> realiza a comunicação com o
+                  banco de dados.
+                </p>
+
+                <p>
+                  Os mecanismos relacionados à autenticação e segurança são
+                  centralizados no módulo correspondente.
+                </p>
+
+                <p>
+                  Como resultado, o backend apresenta uma estrutura modular,
+                  facilitando a manutenção, a identificação dos componentes e a
+                  evolução das funcionalidades do BookHub.
+                </p>
+              </article>
+
+              <!-- =====================================================
+     4.3. FRONTEND
+     ===================================================== -->
+
+              <article id="frontend" class="manual-subsecao">
+                <h2>4.3. Frontend</h2>
+
+                <p>
+                  O frontend do BookHub é responsável pela apresentação das
+                  informações e pela interação do usuário com o sistema. Essa
+                  camada utiliza <strong>HTML, CSS e JavaScript</strong>,
+                  organizando os arquivos de acordo com sua finalidade.
+                </p>
+
+                <p>A estrutura do frontend é apresentada abaixo:</p>
+
+                <pre><code>frontend/
+
+
+│
+├── index.html
+│
+├── assets/
+│   ├── icons/
+│   └── images/
+│
+├── css/
+│   ├── docs.css
+│   ├── man-tec.css
+│   ├── man-usu.css
+│   └── style.css
+│
+├── js/
+│   └── main.js
+│
+└── pages/
+├── docs.html
+├── man-tec.html
+└── man-usu.html</code></pre>
+
+                <p>
+                  A organização dos arquivos permite separar a estrutura das
+                  páginas, os recursos visuais, as folhas de estilo, os scripts
+                  JavaScript e as páginas complementares do sistema.
+                </p>
+
+                <h3>index.html</h3>
+
+                <p>
+                  O arquivo <strong>index.html</strong> corresponde à página
+                  principal do frontend do BookHub.
+                </p>
+
+                <p>
+                  Ele fornece a estrutura HTML da página inicial e serve como um
+                  dos principais pontos de entrada para a interface do sistema.
+                </p>
+
+                <p>
+                  A página utiliza os recursos de estilização e comportamento
+                  definidos nos diretórios <strong>css/</strong> e
+                  <strong>js/</strong>, respectivamente.
+                </p>
+
+                <h3>assets/</h3>
+
+                <p>
+                  O diretório <strong>assets/</strong> reúne recursos estáticos
+                  utilizados pela interface do BookHub.
+                </p>
+
+                <p>
+                  Esse diretório é dividido em subpastas destinadas a diferentes
+                  tipos de recursos visuais.
+                </p>
+
+                <h3>assets/icons/</h3>
+
+                <p>
+                  A pasta <strong>icons/</strong> armazena os ícones utilizados
+                  na interface da aplicação.
+                </p>
+
+                <p>
+                  A separação desses arquivos em um diretório específico
+                  facilita sua organização e reutilização em diferentes partes
+                  do frontend.
+                </p>
+
+                <h3>assets/images/</h3>
+
+                <p>
+                  A pasta <strong>images/</strong> contém as imagens utilizadas
+                  pelas páginas do BookHub.
+                </p>
+
+                <p>
+                  A organização dos arquivos gráficos separadamente dos
+                  documentos HTML e das folhas de estilo facilita a manutenção
+                  dos recursos visuais do projeto.
+                </p>
+
+                <h3>css/</h3>
+
+                <p>
+                  O diretório <strong>css/</strong> contém as folhas de estilo
+                  responsáveis pela apresentação visual das páginas do frontend.
+                </p>
+
+                <p>Atualmente, estão presentes os seguintes arquivos:</p>
+
+                <ul>
+                  <li>
+                    <strong>style.css</strong> — folha de estilos principal do
+                    frontend;
+                  </li>
+                  <li>
+                    <strong>docs.css</strong> — estilos relacionados à página de
+                    documentação;
+                  </li>
+                  <li>
+                    <strong>man-tec.css</strong> — estilos destinados ao Manual
+                    Técnico;
+                  </li>
+                  <li>
+                    <strong>man-usu.css</strong> — estilos destinados ao Manual
+                    de Usuário.
+                  </li>
+                </ul>
+
+                <p>
+                  A separação das folhas de estilo permite que diferentes áreas
+                  do frontend possuam regras específicas quando necessário,
+                  mantendo também uma folha principal para os elementos
+                  compartilhados da aplicação.
+                </p>
+
+                <h3>js/</h3>
+
+                <p>
+                  O diretório <strong>js/</strong> contém os scripts JavaScript
+                  utilizados pelo frontend.
+                </p>
+
+                <h3>main.js</h3>
+
+                <p>
+                  O arquivo <strong>main.js</strong> concentra os comportamentos
+                  e funcionalidades implementados em JavaScript no frontend.
+                </p>
+
+                <p>
+                  Entre suas responsabilidades estão as interações dinâmicas da
+                  interface e a comunicação necessária entre o frontend e os
+                  recursos disponibilizados pelo backend.
+                </p>
+
+                <p>
+                  A utilização de JavaScript permite que determinadas operações
+                  sejam realizadas de maneira dinâmica, sem depender
+                  exclusivamente do carregamento de novas páginas.
+                </p>
+
+                <h3>pages/</h3>
+
+                <p>
+                  O diretório <strong>pages/</strong> contém páginas HTML
+                  complementares à página principal do BookHub.
+                </p>
+
+                <p>Atualmente, são encontrados os seguintes arquivos:</p>
+
+                <ul>
+                  <li>
+                    <strong>docs.html</strong> — página destinada à documentação
+                    do projeto;
+                  </li>
+                  <li>
+                    <strong>man-tec.html</strong> — página destinada ao Manual
+                    Técnico;
+                  </li>
+                  <li>
+                    <strong>man-usu.html</strong> — página destinada ao Manual
+                    de Usuário.
+                  </li>
+                </ul>
+
+                <p>
+                  Essa organização permite separar as páginas complementares da
+                  página principal, mantendo uma estrutura de arquivos mais
+                  organizada.
+                </p>
+
+                <h3>Organização geral do frontend</h3>
+
+                <p>
+                  A estrutura do frontend pode ser resumida pela seguinte
+                  divisão:
+                </p>
+
+                <pre><code>               FRONTEND
+                   │
+      ┌────────────┼────────────┐
+      │            │            │
+      ▼            ▼            ▼
+   HTML           CSS      JavaScript
+      │            │            │
+      │            │            │
+      ▼            ▼            ▼
+   Páginas       Estilos     Interações
+      │
+      ├── index.html
+      │
+      └── pages/
+          ├── docs.html
+          ├── man-tec.html
+          └── man-usu.html
+
+   ┌───────────────────────┐
+   │        assets/        │
+   │                       │
+   │  icons/    images/    │
+   └───────────────────────┘</code></pre>
+
+                <p>
+                  A separação entre documentos HTML, folhas de estilo, scripts e
+                  recursos estáticos contribui para a organização do frontend e
+                  facilita a manutenção dos componentes da interface.
+                </p>
+
+                <p>
+                  Essa estrutura também permite que novas páginas, estilos,
+                  scripts ou recursos visuais sejam adicionados ao projeto sem
+                  concentrar todos os arquivos em um único diretório.
+                </p>
+              </article>
+
+              <!-- =====================================================
+     4.4. ARQUIVOS DE CONFIGURAÇÃO E CONTROLE
+     ===================================================== -->
+
+              <article id="arquivos-configuracao" class="manual-subsecao">
+                <h2>4.4. Arquivos de configuração e controle do projeto</h2>
+
+                <p>
+                  Além dos diretórios responsáveis pelo código do backend e
+                  frontend, o BookHub possui alguns arquivos e recursos
+                  utilizados para configuração do ambiente, controle de versões
+                  e documentação do projeto.
+                </p>
+
+                <p>Os principais elementos presentes na raiz do projeto são:</p>
+
+                <pre><code>BookHub/
+
+
+│
+├── .env
+├── .gitignore
+├── README.md
+└── .venv/</code></pre>
+
+                <h3>.env</h3>
+
+                <p>
+                  O arquivo <strong>.env</strong> é utilizado para armazenar
+                  variáveis de ambiente necessárias à configuração da aplicação.
+                </p>
+
+                <p>
+                  Entre as informações que podem ser mantidas nesse arquivo
+                  estão configurações relacionadas à conexão com o banco de
+                  dados e outros parâmetros que não devem ser incorporados
+                  diretamente ao código-fonte.
+                </p>
+
+                <p>
+                  A utilização de variáveis de ambiente permite separar
+                  informações de configuração do código da aplicação,
+                  facilitando a configuração do sistema em diferentes ambientes.
+                </p>
+
+                <p>
+                  Por motivos de segurança, informações sensíveis armazenadas no
+                  <strong>.env</strong>, como credenciais ou chaves utilizadas
+                  pela aplicação,
+                  <strong
+                    >não devem ser compartilhadas publicamente nem adicionadas
+                    ao repositório do projeto</strong
+                  >.
+                </p>
+
+                <h3>.gitignore</h3>
+
+                <p>
+                  O arquivo <strong>.gitignore</strong> define arquivos e
+                  diretórios que devem ser ignorados pelo Git durante o controle
+                  de versões.
+                </p>
+
+                <p>
+                  Esse mecanismo é utilizado para evitar que arquivos
+                  desnecessários ou informações que não devem ser versionadas
+                  sejam adicionados ao repositório.
+                </p>
+
+                <p>
+                  No contexto do BookHub, o <strong>.gitignore</strong> é
+                  especialmente importante para impedir o versionamento de
+                  elementos como o ambiente virtual <strong>.venv/</strong>,
+                  arquivos de configuração sensíveis e outros arquivos
+                  temporários ou específicos do ambiente de desenvolvimento.
+                </p>
+
+                <h3>README.md</h3>
+
+                <p>
+                  O arquivo <strong>README.md</strong> funciona como documento
+                  inicial de apresentação e orientação do projeto.
+                </p>
+
+                <p>
+                  Ele pode conter informações gerais sobre o BookHub, instruções
+                  de configuração, execução, organização do projeto, tecnologias
+                  utilizadas e outras informações relevantes para os integrantes
+                  da equipe ou pessoas que tenham acesso ao repositório.
+                </p>
+
+                <p>
+                  Por estar localizado na raiz do projeto, o README funciona
+                  como um dos principais pontos de entrada para quem deseja
+                  compreender ou executar o sistema.
+                </p>
+
+                <h3>.venv/</h3>
+
+                <p>
+                  O diretório <strong>.venv/</strong> corresponde ao ambiente
+                  virtual utilizado pelo backend Python.
+                </p>
+
+                <p>
+                  O ambiente virtual permite instalar as dependências
+                  necessárias para o BookHub de maneira isolada do ambiente
+                  Python global do computador.
+                </p>
+
+                <p>
+                  Durante o desenvolvimento, as bibliotecas utilizadas pelo
+                  backend são instaladas nesse ambiente, evitando conflitos com
+                  dependências de outros projetos Python presentes na mesma
+                  máquina.
+                </p>
+
+                <p>
+                  Por se tratar de um ambiente específico da máquina de
+                  desenvolvimento e por poder ser recriado, o diretório
+                  <strong>.venv/</strong>
+                  <strong>não deve ser versionado no repositório Git</strong>.
+                </p>
+
+                <h3>Importância dos arquivos de configuração</h3>
+
+                <p>
+                  Embora esses elementos não façam parte diretamente da lógica
+                  de negócio do BookHub, eles são fundamentais para o
+                  desenvolvimento e a execução do sistema.
+                </p>
+
+                <p>
+                  O <strong>.env</strong> concentra configurações do ambiente, o
+                  <strong>.gitignore</strong> auxilia na proteção e organização
+                  do repositório, o <strong>README.md</strong> fornece
+                  orientações sobre o projeto e o <strong>.venv</strong> mantém
+                  isoladas as dependências utilizadas pelo backend.
+                </p>
+
+                <p>
+                  A utilização adequada desses recursos contribui para a
+                  segurança, organização e portabilidade do projeto.
+                </p>
+              </article>
+            </section>
+          </article>
         </section>
+      </div>
+    </main>
 
-    </div>
-
-</main>
-
-
-<!-- =========================================
+    <!-- =========================================
      FOOTER
      ========================================= -->
 
-<footer class="bg-white border-top py-4 mt-5">
-
-    <div class="container text-center">
-
+    <footer class="bg-white border-top py-4 mt-5">
+      <div class="container text-center">
         <p class="text-muted mb-0">
-
-            &copy; 2026 BookHub. Todos os direitos reservados.
-
+          &copy; 2026 BookHub. Todos os direitos reservados.
         </p>
+      </div>
+    </footer>
 
-    </div>
+    <!-- Bootstrap JS -->
 
-</footer>
-
-
-<!-- Bootstrap JS -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-</script>
-
-
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
