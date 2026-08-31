@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 class LivroBase(BaseModel):
+
     titulo: str = Field(
         min_length=1,
         max_length=255
@@ -45,6 +46,7 @@ class LivroBase(BaseModel):
 
 
 class LivroCreate(BaseModel):
+
     titulo: str = Field(
         min_length=1,
         max_length=255
@@ -80,44 +82,94 @@ class LivroCreate(BaseModel):
 
 
 class LivroUpdate(BaseModel):
+
     titulo: str
+
     subtitulo: str | None = None
+
     isbn: str | None = None
+
     sinopse: str | None = None
+
     ano_publicacao: int | None = None
+
     numero_paginas: int | None = None
+
     idioma: str | None = None
+
     capa: str | None = None
+
     editora_id: int
 
 
 class LivroResponse(BaseModel):
+
     id: int
+
     titulo: str
+
     subtitulo: str | None = None
+
     isbn: str | None = None
+
     sinopse: str | None = None
+
     ano_publicacao: int | None = None
+
     numero_paginas: int | None = None
+
     idioma: str | None = None
+
     capa: str | None = None
+
     editora_id: int
+
     data_cadastro: datetime
 
     model_config = ConfigDict(from_attributes=True)
 
 
-class LivroListaResponse(BaseModel):
+class AutorResumo(BaseModel):
+
     id: int
+
+    nome: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class GeneroResumo(BaseModel):
+
+    id: int
+
+    nome: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class LivroListaResponse(BaseModel):
+
+    id: int
+
     titulo: str
-    ano_publicacao: int
-    idioma: str
-    numero_paginas: int
+
+    ano_publicacao: int | None
+
+    idioma: str | None
+
+    numero_paginas: int | None
+
+    capa: str | None
 
     editora: str | None
 
+    autores: list[AutorResumo]
+
+    generos: list[GeneroResumo]
+
     media_avaliacoes: float | None
+
     quantidade_avaliacoes: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+

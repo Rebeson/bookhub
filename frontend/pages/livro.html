@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Livro | BookHub</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- CSS específico da página -->
+    <link rel="stylesheet" href="../css/livro.css" />
+  </head>
+
+  <body class="bg-light">
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+      <div class="container">
+        <a
+          class="navbar-brand fw-bold d-flex align-items-center"
+          href="../index.html"
+        >
+          <span class="fs-3 me-2">📚</span>
+          BookHub
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav fs-6 fw-medium">
+            <li class="nav-item px-2">
+              <a class="nav-link" href="../index.html"> Explorar </a>
+            </li>
+
+            <li class="nav-item px-2">
+              <a class="nav-link" href="../index.html"> Minha Estante </a>
+            </li>
+
+            <li class="nav-item px-2">
+              <a class="nav-link" href="../index.html"> Favoritos </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Área de autenticação -->
+
+        <div class="d-flex align-items-center" id="auth-section">
+          <!-- Preenchido pelo JavaScript -->
+        </div>
+      </div>
+    </nav>
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="container my-5">
+      <!-- Botão voltar -->
+
+      <div class="mb-4">
+        <a href="../index.html" class="text-decoration-none text-muted">
+          <i class="fa-solid fa-arrow-left me-2"></i>
+
+          Voltar para o catálogo
+        </a>
+      </div>
+
+      <!-- =================================================
+             INFORMAÇÕES PRINCIPAIS DO LIVRO
+        ================================================== -->
+
+      <section class="book-details">
+        <div class="row g-5">
+          <!-- Capa -->
+
+          <div class="col-md-4 col-lg-3">
+            <div id="book-cover-container" class="book-cover-container">
+              <!-- Capa inserida pelo JavaScript -->
+            </div>
+          </div>
+
+          <!-- Informações -->
+
+          <div class="col-md-8 col-lg-9">
+            <!-- Gênero -->
+
+            <div id="book-genre" class="book-genre mb-2">
+              <!-- Gênero -->
+            </div>
+
+            <!-- Título -->
+
+            <h1 id="book-title" class="fw-bold mb-2">Carregando...</h1>
+
+            <!-- Subtítulo -->
+
+            <p id="book-subtitle" class="text-muted fs-5 mb-3">
+              <!-- Subtítulo -->
+            </p>
+
+            <!-- Autor -->
+
+            <div id="book-author" class="book-author-detail mb-3">
+              <!-- Autor -->
+            </div>
+
+            <!-- Avaliação -->
+
+            <div id="book-rating" class="book-rating-detail mb-4">
+              <!-- Avaliação -->
+            </div>
+
+            <!-- Ações -->
+
+            <div id="book-actions" class="d-flex flex-wrap gap-2 mb-4">
+              <!-- Botões inseridos pelo JavaScript -->
+            </div>
+
+            <!-- Informações rápidas -->
+
+            <div class="book-meta">
+              <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                  <div class="meta-item">
+                    <span class="meta-label"> Publicação </span>
+
+                    <strong id="book-year"> - </strong>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <div class="meta-item">
+                    <span class="meta-label"> Páginas </span>
+
+                    <strong id="book-pages"> - </strong>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <div class="meta-item">
+                    <span class="meta-label"> Idioma </span>
+
+                    <strong id="book-language"> - </strong>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                  <div class="meta-item">
+                    <span class="meta-label"> Editora </span>
+
+                    <strong id="book-publisher"> - </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             SINOPSE
+        ================================================== -->
+
+      <section class="book-section mt-5">
+        <h2 class="section-title">Sinopse</h2>
+
+        <div id="book-synopsis" class="book-description">
+          <p class="text-muted">Carregando informações...</p>
+        </div>
+      </section>
+
+      <!-- =================================================
+             AUTOR
+        ================================================== -->
+
+      <section class="book-section mt-5">
+        <h2 class="section-title">Autor</h2>
+
+        <div id="book-authors" class="authors-container">
+          <!-- Autores inseridos pelo JavaScript -->
+        </div>
+      </section>
+
+      <!-- =================================================
+             INFORMAÇÕES ADICIONAIS
+        ================================================== -->
+
+      <section class="book-section mt-5">
+        <h2 class="section-title">Informações adicionais</h2>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="info-row">
+              <span> ISBN </span>
+
+              <strong id="book-isbn"> - </strong>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="info-row">
+              <span> Data de cadastro </span>
+
+              <strong id="book-registration-date"> - </strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             AVALIAÇÕES
+        ================================================== -->
+
+      <section class="book-section mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="section-title mb-0">Avaliações</h2>
+
+          <span id="reviews-count" class="text-muted"> 0 avaliações </span>
+        </div>
+
+        <div id="book-reviews" class="reviews-container">
+          <p class="text-muted">As avaliações serão carregadas aqui.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- API -->
+
+    <script src="../js/api.js"></script>
+
+    <!-- JavaScript da página -->
+
+    <script src="../js/livro.js"></script>
+  </body>
+</html>

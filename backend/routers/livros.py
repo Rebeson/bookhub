@@ -74,16 +74,6 @@ def criar_livro(
 
     return novo_livro
 
-@router.get("/", response_model=list[LivroResponse])
-def listar_livros(
-    db: Session = Depends(get_db)
-):
-    livros = db.scalars(
-        select(Livro)
-    ).all()
-
-    return livros
-
 
 @router.get("/{livro_id}", response_model=LivroResponse)
 def buscar_livro(
@@ -400,15 +390,22 @@ def remover_genero_do_livro(
     }
 
 
+
 @router.get("/", response_model=list[LivroListaResponse])
-def listar_livros(db: Session = Depends(get_db)):
+def listar_livros(
+    db: Session = Depends(get_db)
+):
+
     resultados = (
         db.query(
             Livro,
             func.avg(Avaliacao.nota).label("media"),
             func.count(Avaliacao.id).label("quantidade")
         )
-        .outerjoin(Avaliacao, Livro.id == Avaliacao.livro_id)
+        .outerjoin(
+            Avaliacao,
+            Livro.id == Avaliacao.livro_id
+        )
         .group_by(Livro.id)
         .all()
     )
@@ -420,9 +417,34 @@ def listar_livros(db: Session = Depends(get_db)):
             "ano_publicacao": livro.ano_publicacao,
             "idioma": livro.idioma,
             "numero_paginas": livro.numero_paginas,
+            "capa": livro.capa,
             "editora": livro.editora.nome if livro.editora else None,
-            "media_avaliacoes": round(float(media), 2) if media is not None else None,
+
+            "autores": [
+                {
+                    "id": autor.id,
+                    "nome": autor.nome
+                }
+                for autor in livro.autores
+            ],
+
+            "generos": [
+                {
+                    "id": genero.id,
+                    "nome": genero.nome
+                }
+                for genero in livro.generos
+            ],
+
+            "media_avaliacoes": (
+                round(float(media), 2)
+                if media is not None
+                else None
+            ),
+
             "quantidade_avaliacoes": quantidade
         }
+
         for livro, media, quantidade in resultados
     ]
+

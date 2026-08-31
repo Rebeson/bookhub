@@ -13,9 +13,21 @@ let userFavorites = JSON.parse(localStorage.getItem('bookhub_favs')) || [];
 let userShelf = JSON.parse(localStorage.getItem('bookhub_shelf')) || {};
 
 // Ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     updateAuthUI();
-    renderBooks(booksData, 'books-grid', 'explorar');
+
+    try {
+        const livros = await getLivros();
+        renderBooks(livros, 'books-grid', 'explorar');
+    } catch (error) {
+        console.error('Erro ao carregar livros:', error);
+
+        document.getElementById('books-grid').innerHTML = `
+            <p class="text-danger">
+                Não foi possível carregar os livros.
+            </p>
+        `;
+    }
 });
 
 // Navegação entre abas
@@ -32,53 +44,145 @@ function navigate(section) {
 
 // Renderização dos cards de livros
 function renderBooks(books, containerId, context) {
+
     const container = document.getElementById(containerId);
+
     container.innerHTML = '';
 
     if (context === 'explorar') {
-        document.getElementById('book-count').innerText = `${books.length} livro(s) encontrado(s)`;
+        document.getElementById('book-count').innerText =
+            `${books.length} livro(s) encontrado(s)`;
     }
 
     books.forEach(book => {
+
         const isFav = userFavorites.includes(book.id) ? 'active' : '';
         const heartIcon = isFav ? 'fa-solid' : 'fa-regular';
-        
+
+        // Autor
+        const autores = book.autores && book.autores.length > 0
+            ? book.autores.map(autor => autor.nome).join(', ')
+            : 'Autor não informado';
+
+        // Gênero
+        const genero = book.generos && book.generos.length > 0
+            ? book.generos[0].nome
+            : 'Gênero não informado';
+
+        // Avaliação
+        const rating = book.media_avaliacoes !== null
+            ? book.media_avaliacoes
+            : 'Sem avaliações';
+
+        const reviews = book.quantidade_avaliacoes;
+
+        // Capa
+        const capa = book.capa
+            ? `
+                <img
+                    src="${book.capa}"
+                    alt="Capa de ${book.titulo}"
+                    class="book-cover"
+                >
+              `
+            : `
+                <div class="book-cover-placeholder">
+                    📚
+                </div>
+              `;
+
+        // Controle da estante
         let shelfHtml = '';
+
         if (currentUser) {
+
             const currentStatus = userShelf[book.id] || "";
+
             shelfHtml = `
-                <select class="form-select form-select-sm shelf-control mt-3" onchange="updateShelf(${book.id}, this.value)">
-                    <option value="">Adicionar à estante...</option>
-                    <option value="Desejo Ler" ${currentStatus === 'Desejo Ler' ? 'selected' : ''}>Desejo Ler</option>
-                    <option value="Lendo" ${currentStatus === 'Lendo' ? 'selected' : ''}>Lendo</option>
-                    <option value="Concluído" ${currentStatus === 'Concluído' ? 'selected' : ''}>Concluído</option>
-                </select>`;
+                <select
+                    class="form-select form-select-sm shelf-control mt-3"
+                    onchange="updateShelf(${book.id}, this.value)"
+                >
+
+                    <option value="">
+                        Adicionar à estante...
+                    </option>
+
+                    <option value="Desejo Ler"
+                        ${currentStatus === 'Desejo Ler' ? 'selected' : ''}>
+                        Desejo Ler
+                    </option>
+
+                    <option value="Lendo"
+                        ${currentStatus === 'Lendo' ? 'selected' : ''}>
+                        Lendo
+                    </option>
+
+                    <option value="Concluído"
+                        ${currentStatus === 'Concluído' ? 'selected' : ''}>
+                        Concluído
+                    </option>
+
+                </select>
+            `;
         }
 
         const card = `
             <div class="col-md-6 col-lg-3 mb-4">
+
                 <div class="book-card">
-                    <div class="book-card-top" style="background-color: ${book.color};">
-                        <span class="book-emoji">${book.emoji}</span>
-                        <button class="fav-btn ${isFav}" onclick="toggleFavorite(${book.id})">
+
+                    <div class="book-card-top">
+
+                        ${capa}
+
+                        <button
+                            class="fav-btn ${isFav}"
+                            onclick="toggleFavorite(${book.id})"
+                        >
                             <i class="${heartIcon} fa-heart"></i>
                         </button>
+
                     </div>
+
                     <div class="book-info">
-                        <div class="book-genre" style="color: ${book.genreColor};">${book.genre}</div>
-                        <h3 class="book-title">${book.title}</h3>
-                        <div class="book-author">${book.author}</div>
-                        <div class="book-rating">
-                            <i class="fa-solid fa-star star-icon"></i> <strong>${book.rating}</strong> (${book.reviews} avaliações)
+
+                        <div class="book-genre">
+                            ${genero}
                         </div>
+
+                        <h3 class="book-title">
+                            ${book.titulo}
+                        </h3>
+
+                        <div class="book-author">
+                            ${autores}
+                        </div>
+
+                        <div class="book-rating">
+
+                            <i class="fa-solid fa-star star-icon"></i>
+
+                            <strong>${rating}</strong>
+
+                            (${reviews} avaliações)
+
+                        </div>
+
                         ${shelfHtml}
+
                     </div>
+
                 </div>
+
             </div>
         `;
+
         container.innerHTML += card;
     });
 }
+
+
 
 // Filtro e Busca
 function filterBooks() {

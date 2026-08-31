@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from backend.routers.auth import router as auth_router
 from backend.routers.usuarios import router as usuarios_router
 from backend.routers.livros import router as livros_router
@@ -14,6 +15,14 @@ app = FastAPI(
     title="API do BookHub",
     description="API REST criada para o sistema do BookHub",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
