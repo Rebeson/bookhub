@@ -1,34 +1,74 @@
-// Base de dados 
-const booksData = [
-    { id: 1, title: '1984', author: 'George Orwell', genre: 'FICÇÃO', genreColor: '#6c5ce7', rating: 4.9, reviews: 3100, color: '#e67e22', emoji: '🏰' },
-    { id: 2, title: 'Hábitos Atômicos', author: 'James Clear', genre: 'DESENVOLVIMENTO PESSOAL', genreColor: '#6c5ce7', rating: 4.8, reviews: 1420, color: '#00b894', emoji: '💡' },
-    { id: 3, title: 'Entendendo Algoritmos', author: 'Aditya Bhargava', genre: 'ACADÊMICO E CIENTÍFICO', genreColor: '#6c5ce7', rating: 4.8, reviews: 640, color: '#a29bfe', emoji: '🧠' },
-    { id: 4, title: 'Sapiens: Uma Breve História da Humanidade', author: 'Yuval Noah Harari', genre: 'NÃO-FICÇÃO', genreColor: '#6c5ce7', rating: 4.8, reviews: 2750, color: '#00cec9', emoji: '🌍' },
-    { id: 5, title: 'O Pequeno Príncipe', author: 'Antoine de Saint-Exupéry', genre: 'INFANTOJUVENIL', genreColor: '#6c5ce7', rating: 4.8, reviews: 2750, color: '#00cec9', emoji: '🎈' }
-];
+// =====================================================
+// DADOS DOS LIVROS
+// =====================================================
 
-// Inicialização de estados
-let currentUser = JSON.parse(localStorage.getItem('bookhub_user')) || null;
-let userFavorites = JSON.parse(localStorage.getItem('bookhub_favs')) || [];
-let userShelf = JSON.parse(localStorage.getItem('bookhub_shelf')) || {};
+let livrosData = [];
+
+// =====================================================
+// ESTADOS DO USUÁRIO
+// =====================================================
+
+let currentUser =
+    JSON.parse(localStorage.getItem('bookhub_user')) || null;
+
+let userFavorites =
+    JSON.parse(localStorage.getItem('bookhub_favs')) || [];
+
+let userShelf =
+    JSON.parse(localStorage.getItem('bookhub_shelf')) || {};
 
 // Ao carregar a página
 document.addEventListener('DOMContentLoaded', async () => {
-    updateAuthUI();
 
-    try {
-        const livros = await getLivros();
-        renderBooks(livros, 'books-grid', 'explorar');
-    } catch (error) {
-        console.error('Erro ao carregar livros:', error);
 
-        document.getElementById('books-grid').innerHTML = `
-            <p class="text-danger">
-                Não foi possível carregar os livros.
-            </p>
-        `;
+// Verifica se existe uma sessão salva
+if (estaLogado()) {
+
+    const usuario = await getUsuarioAtual();
+
+    if (usuario) {
+
+        currentUser = usuario;
+
+        localStorage.setItem(
+            'bookhub_user',
+            JSON.stringify(usuario)
+        );
+
+    } else {
+
+        currentUser = null;
+        localStorage.removeItem('bookhub_user');
     }
+}
+
+updateAuthUI();
+
+try {
+
+    const livros = await getLivros();
+
+    renderBooks(
+        livros,
+        'books-grid',
+        'explorar'
+    );
+
+} catch (error) {
+
+    console.error('Erro ao carregar livros:', error);
+
+    document.getElementById('books-grid').innerHTML = `
+        <p class="text-danger">
+            Não foi possível carregar os livros.
+        </p>
+    `;
+}
+
+
 });
+
+
 
 // Navegação entre abas
 function navigate(section) {
@@ -186,16 +226,40 @@ function renderBooks(books, containerId, context) {
 
 // Filtro e Busca
 function filterBooks() {
-    const term = document.getElementById('searchInput').value.toLowerCase();
-    const genre = document.getElementById('genreFilter').value;
-    
-    const filtered = booksData.filter(book => {
-        const matchesTerm = book.title.toLowerCase().includes(term) || book.author.toLowerCase().includes(term);
-        const matchesGenre = genre === 'Todos' || book.genre === genre;
+
+    const term =
+        document
+            .getElementById('searchInput')
+            .value
+            .toLowerCase()
+            .trim();
+
+    const genre =
+        document.getElementById('genreFilter').value;
+
+    const filtered = livrosData.filter(book => {
+
+        // Título do livro
+        const titulo =
+            book.titulo?.toLowerCase() || '';
+
+        // Busca pelo título
+        const matchesTerm =
+            titulo.includes(term);
+
+        // Por enquanto o GET /livros/
+        // ainda não possui os gêneros.
+        const matchesGenre =
+            genre === 'Todos';
+
         return matchesTerm && matchesGenre;
     });
-    
-    renderBooks(filtered, 'books-grid', 'explorar');
+
+    renderBooks(
+        filtered,
+        'books-grid',
+        'explorar'
+    );
 }
 
 // Funcionalidades: Favoritos e Estante
@@ -227,54 +291,169 @@ function updateShelf(id, status) {
 }
 
 function loadFavorites() {
-    const favBooks = booksData.filter(b => userFavorites.includes(b.id));
-    renderBooks(favBooks, 'fav-grid', 'favoritos');
-    if(favBooks.length === 0) document.getElementById('fav-grid').innerHTML = '<p class="text-muted">Nenhum livro favoritado ainda.</p>';
+
+    const favBooks =
+        livrosData.filter(
+            b => userFavorites.includes(b.id)
+        );
+
+    renderBooks(
+        favBooks,
+        'fav-grid',
+        'favoritos'
+    );
+
+    if (favBooks.length === 0) {
+        document.getElementById('fav-grid').innerHTML =
+            '<p class="text-muted">Nenhum livro favoritado ainda.</p>';
+    }
 }
 
 function loadShelf() {
-    const shelfBooks = booksData.filter(b => userShelf[b.id]);
-    renderBooks(shelfBooks, 'shelf-grid', 'estante');
-    if(shelfBooks.length === 0) document.getElementById('shelf-grid').innerHTML = '<p class="text-muted">Sua estante está vazia.</p>';
+
+    const shelfBooks =
+        livrosData.filter(
+            b => userShelf[b.id]
+        );
+
+    renderBooks(
+        shelfBooks,
+        'shelf-grid',
+        'estante'
+    );
+
+    if (shelfBooks.length === 0) {
+        document.getElementById('shelf-grid').innerHTML =
+            '<p class="text-muted">Sua estante está vazia.</p>';
+    }
 }
 
 // Autenticação (Login / Cadastro)
-function register() {
-    const nome = document.getElementById('regNome').value;
-    const email = document.getElementById('regEmail').value;
-    const senha = document.getElementById('regSenha').value;
+async function register() {
 
-    if (nome && email && senha) {
-        const user = { nome, email, senha };
-        localStorage.setItem('bookhub_account', JSON.stringify(user));
-        alert('Cadastro realizado com sucesso! Você pode fazer login agora.');
-        bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
-    }
+
+const nome = document.getElementById('regNome').value.trim();
+const nomeUsuario = document.getElementById('regNomeUsuario').value.trim();
+const email = document.getElementById('regEmail').value.trim();
+const senha = document.getElementById('regSenha').value;
+
+if (!nome || !nomeUsuario || !email || !senha) {
+
+    alert('Preencha todos os campos.');
+
+    return;
 }
 
-function login() {
-    const email = document.getElementById('loginEmail').value;
-    const senha = document.getElementById('loginSenha').value;
-    const account = JSON.parse(localStorage.getItem('bookhub_account'));
+try {
 
-    if (account && account.email === email && account.senha === senha) {
-        currentUser = account;
-        localStorage.setItem('bookhub_user', JSON.stringify(currentUser));
-        updateAuthUI();
-        bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
-        filterBooks(); // Recarrega para mostrar controles de estante
-    } else {
-        alert('Credenciais inválidas!');
-    }
+    await cadastrarUsuario({
+        nome: nome,
+        nome_usuario: nomeUsuario,
+        email: email,
+        senha: senha
+    });
+
+    alert(
+        'Cadastro realizado com sucesso! Você já pode fazer login.'
+    );
+
+    bootstrap.Modal
+        .getInstance(
+            document.getElementById('registerModal')
+        )
+        .hide();
+
+    document.getElementById('regNome').value = '';
+    document.getElementById('regNomeUsuario').value = '';
+    document.getElementById('regEmail').value = '';
+    document.getElementById('regSenha').value = '';
+
+} catch (error) {
+
+    console.error('Erro no cadastro:', error);
+
+    alert(error.message);
 }
+
+
+}
+
+
+
+
+async function login() {
+
+
+const email = document.getElementById('loginEmail').value.trim();
+const senha = document.getElementById('loginSenha').value;
+
+if (!email || !senha) {
+    alert('Preencha o e-mail e a senha.');
+    return;
+}
+
+try {
+
+    // Faz login e recebe o JWT
+    await fazerLogin(email, senha);
+
+    // Busca os dados reais do usuário
+    const usuario = await getUsuarioAtual();
+
+    if (!usuario) {
+        throw new Error('Não foi possível obter os dados do usuário.');
+    }
+
+    // Guarda os dados públicos do usuário
+    currentUser = usuario;
+
+    localStorage.setItem(
+        'bookhub_user',
+        JSON.stringify(usuario)
+    );
+
+    updateAuthUI();
+
+    bootstrap.Modal
+        .getInstance(document.getElementById('loginModal'))
+        .hide();
+
+    // Limpa os campos
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginSenha').value = '';
+
+    // Atualiza os livros
+    filterBooks();
+
+} catch (error) {
+
+    console.error('Erro no login:', error);
+
+    alert(error.message);
+}
+
+
+}
+
+
 
 function logout() {
-    currentUser = null;
-    localStorage.removeItem('bookhub_user');
-    updateAuthUI();
-    navigate('explorar');
-    filterBooks(); // Remove controles de estante da view
+
+
+fazerLogout();
+
+currentUser = null;
+
+updateAuthUI();
+
+navigate('explorar');
+
+filterBooks();
+
+
 }
+
+
 
 function updateAuthUI() {
     const authSection = document.getElementById('auth-section');

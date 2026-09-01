@@ -176,12 +176,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Cadastrar</h5>
+
             <button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
             ></button>
           </div>
+
           <div class="modal-body">
             <input
               type="text"
@@ -189,24 +191,28 @@
               class="form-control mb-3"
               placeholder="Nome Completo"
             />
+
+            <input
+              type="text"
+              id="regNomeUsuario"
+              class="form-control mb-3"
+              placeholder="Nome de Usuário"
+            />
+
             <input
               type="email"
               id="regEmail"
               class="form-control mb-3"
-              placeholder="Email"
+              placeholder="E-mail"
             />
-            <input
-              type="tel"
-              id="regTelefone"
-              class="form-control mb-3"
-              placeholder="Telefone"
-            />
+
             <input
               type="password"
               id="regSenha"
               class="form-control mb-3"
               placeholder="Senha"
             />
+
             <button class="btn btn-success w-100" onclick="register()">
               Criar Conta
             </button>

@@ -391,7 +391,10 @@ def remover_genero_do_livro(
 
 
 
-@router.get("/", response_model=list[LivroListaResponse])
+@router.get(
+    "/",
+    response_model=list[LivroListaResponse]
+)
 def listar_livros(
     db: Session = Depends(get_db)
 ):
@@ -417,8 +420,8 @@ def listar_livros(
             "ano_publicacao": livro.ano_publicacao,
             "idioma": livro.idioma,
             "numero_paginas": livro.numero_paginas,
-            "capa": livro.capa,
-            "editora": livro.editora.nome if livro.editora else None,
+            "editora": livro.editora.nome
+                if livro.editora else None,
 
             "autores": [
                 {
@@ -436,15 +439,16 @@ def listar_livros(
                 for genero in livro.generos
             ],
 
-            "media_avaliacoes": (
+            "media_avaliacoes":
                 round(float(media), 2)
                 if media is not None
-                else None
-            ),
+                else None,
 
-            "quantidade_avaliacoes": quantidade
+            "quantidade_avaliacoes":
+                quantidade
         }
-
         for livro, media, quantidade in resultados
     ]
+
+
 

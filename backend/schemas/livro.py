@@ -3,6 +3,10 @@ from datetime import datetime
 from pydantic import BaseModel, Field, ConfigDict
 
 
+# =====================================================
+# LIVRO BASE
+# =====================================================
+
 class LivroBase(BaseModel):
 
     titulo: str = Field(
@@ -45,41 +49,18 @@ class LivroBase(BaseModel):
     editora_id: int
 
 
-class LivroCreate(BaseModel):
+# =====================================================
+# CRIAÇÃO DE LIVRO
+# =====================================================
 
-    titulo: str = Field(
-        min_length=1,
-        max_length=255
-    )
+class LivroCreate(LivroBase):
 
-    subtitulo: str | None = Field(
-        default=None,
-        max_length=255
-    )
+    pass
 
-    isbn: str | None = Field(
-        default=None,
-        max_length=20
-    )
 
-    sinopse: str | None = None
-
-    ano_publicacao: int | None = None
-
-    numero_paginas: int | None = None
-
-    idioma: str | None = Field(
-        default=None,
-        max_length=50
-    )
-
-    capa: str | None = Field(
-        default=None,
-        max_length=500
-    )
-
-    editora_id: int
-
+# =====================================================
+# ATUALIZAÇÃO DE LIVRO
+# =====================================================
 
 class LivroUpdate(BaseModel):
 
@@ -101,6 +82,10 @@ class LivroUpdate(BaseModel):
 
     editora_id: int
 
+
+# =====================================================
+# RESPOSTA COMPLETA DO LIVRO
+# =====================================================
 
 class LivroResponse(BaseModel):
 
@@ -126,26 +111,44 @@ class LivroResponse(BaseModel):
 
     data_cadastro: datetime
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True
+    )
 
 
-class AutorResumo(BaseModel):
+# =====================================================
+# AUTOR NA LISTAGEM DE LIVROS
+# =====================================================
 
-    id: int
-
-    nome: str
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-class GeneroResumo(BaseModel):
+class AutorLivroResponse(BaseModel):
 
     id: int
 
     nome: str
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True
+    )
 
+
+# =====================================================
+# GÊNERO NA LISTAGEM DE LIVROS
+# =====================================================
+
+class GeneroLivroResponse(BaseModel):
+
+    id: int
+
+    nome: str
+
+    model_config = ConfigDict(
+        from_attributes=True
+    )
+
+
+# =====================================================
+# RESPOSTA DA LISTAGEM DE LIVROS
+# =====================================================
 
 class LivroListaResponse(BaseModel):
 
@@ -159,17 +162,17 @@ class LivroListaResponse(BaseModel):
 
     numero_paginas: int | None
 
-    capa: str | None
-
     editora: str | None
 
-    autores: list[AutorResumo]
+    autores: list[AutorLivroResponse]
 
-    generos: list[GeneroResumo]
+    generos: list[GeneroLivroResponse]
 
     media_avaliacoes: float | None
 
     quantidade_avaliacoes: int
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True
+    )
 
