@@ -180,9 +180,7 @@ function preencherLivro(livro) {
 
     // Por enquanto o GET /livros/{id} retorna apenas editora_id.
     document.getElementById('book-publisher').innerText =
-        livro.editora_id
-            ? `Editora #${livro.editora_id}`
-            : 'Não informado';
+        livro.editora || 'Não informado';
 
 }
 

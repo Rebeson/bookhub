@@ -88,27 +88,16 @@ class LivroUpdate(BaseModel):
 # =====================================================
 
 class LivroResponse(BaseModel):
-
     id: int
-
     titulo: str
-
     subtitulo: str | None = None
-
     isbn: str | None = None
-
     sinopse: str | None = None
-
     ano_publicacao: int | None = None
-
     numero_paginas: int | None = None
-
     idioma: str | None = None
-
     capa: str | None = None
-
-    editora_id: int
-
+    editora: str | None = None
     data_cadastro: datetime
 
     model_config = ConfigDict(

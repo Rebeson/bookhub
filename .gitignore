@@ -1,5 +1,6 @@
 # Variáveis de ambiente
 .env
+.env.backup
 
 # Python
 __pycache__/

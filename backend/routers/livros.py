@@ -88,7 +88,19 @@ def buscar_livro(
             detail="Livro não encontrado."
         )
 
-    return livro
+    return {
+        "id": livro.id,
+        "titulo": livro.titulo,
+        "subtitulo": livro.subtitulo,
+        "isbn": livro.isbn,
+        "sinopse": livro.sinopse,
+        "ano_publicacao": livro.ano_publicacao,
+        "numero_paginas": livro.numero_paginas,
+        "idioma": livro.idioma,
+        "capa": livro.capa,
+        "editora": livro.editora.nome if livro.editora else None,
+        "data_cadastro": livro.data_cadastro
+    }
 
 @router.put("/{livro_id}", response_model=LivroResponse)
 def atualizar_livro(

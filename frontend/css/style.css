@@ -113,3 +113,8 @@ body {
     font-size: 0.85rem;
     margin-top: 10px;
 }
+
+/* Card dos livros */
+.book-card {
+    cursor: pointer;
+}

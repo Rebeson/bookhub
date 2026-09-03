@@ -48,8 +48,14 @@ try {
 
     const livros = await getLivros();
 
+    console.log("Livros recebidos da API:", livros);
+
+    livrosData = livros;
+
+    console.log("livrosData:", livrosData);
+
     renderBooks(
-        livros,
+        livrosData,
         'books-grid',
         'explorar'
     );
@@ -169,24 +175,15 @@ function renderBooks(books, containerId, context) {
 
         const card = `
             <div class="col-md-6 col-lg-3 mb-4">
-
-                <div class="book-card">
-
+                <div
+                    class="book-card"
+                    onclick="abrirLivro(${book.id})"
+                >
                     <div class="book-card-top">
-
                         ${capa}
-
-                        <button
-                            class="fav-btn ${isFav}"
-                            onclick="toggleFavorite(${book.id})"
-                        >
-                            <i class="${heartIcon} fa-heart"></i>
-                        </button>
-
                     </div>
 
                     <div class="book-info">
-
                         <div class="book-genre">
                             ${genero}
                         </div>
@@ -200,21 +197,14 @@ function renderBooks(books, containerId, context) {
                         </div>
 
                         <div class="book-rating">
-
                             <i class="fa-solid fa-star star-icon"></i>
-
                             <strong>${rating}</strong>
-
                             (${reviews} avaliações)
-
                         </div>
 
                         ${shelfHtml}
-
                     </div>
-
                 </div>
-
             </div>
         `;
 
@@ -224,7 +214,10 @@ function renderBooks(books, containerId, context) {
 
 
 
-// Filtro e Busca
+// =====================================================
+// FILTRO E BUSCA
+// =====================================================
+
 function filterBooks() {
 
     const term =
@@ -239,18 +232,53 @@ function filterBooks() {
 
     const filtered = livrosData.filter(book => {
 
-        // Título do livro
+        // =================================================
+        // TÍTULO
+        // =================================================
+
         const titulo =
             book.titulo?.toLowerCase() || '';
 
-        // Busca pelo título
-        const matchesTerm =
-            titulo.includes(term);
+        // =================================================
+        // AUTORES
+        // =================================================
 
-        // Por enquanto o GET /livros/
-        // ainda não possui os gêneros.
+        const autores =
+            book.autores && book.autores.length > 0
+                ? book.autores
+                    .map(autor => autor.nome.toLowerCase())
+                    .join(' ')
+                : '';
+
+        // =================================================
+        // GÊNEROS
+        // =================================================
+
+        const generos =
+            book.generos && book.generos.length > 0
+                ? book.generos.map(
+                    genero => genero.nome
+                )
+                : [];
+
+        // =================================================
+        // BUSCA
+        // =================================================
+
+        const matchesTerm =
+            titulo.includes(term) ||
+            autores.includes(term);
+
+        // =================================================
+        // FILTRO DE GÊNERO
+        // =================================================
+
         const matchesGenre =
-            genre === 'Todos';
+            genre === 'Todos' ||
+            generos.some(
+                generoNome =>
+                    generoNome.toLowerCase() === genre.toLowerCase()
+            );
 
         return matchesTerm && matchesGenre;
     });
@@ -261,6 +289,8 @@ function filterBooks() {
         'explorar'
     );
 }
+
+
 
 // Funcionalidades: Favoritos e Estante
 function toggleFavorite(id) {
@@ -468,4 +498,9 @@ function updateAuthUI() {
             <a href="#" class="auth-link" data-bs-toggle="modal" data-bs-target="#registerModal">Cadastrar</a>
         `;
     }
+}
+
+
+function abrirLivro(id) {
+    window.location.href = `pages/livro.html?id=${id}`;
 }
