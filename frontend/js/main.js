@@ -137,42 +137,6 @@ function renderBooks(books, containerId, context) {
                 </div>
               `;
 
-        // Controle da estante
-        let shelfHtml = '';
-
-        if (currentUser) {
-
-            const currentStatus = userShelf[book.id] || "";
-
-            shelfHtml = `
-                <select
-                    class="form-select form-select-sm shelf-control mt-3"
-                    onchange="updateShelf(${book.id}, this.value)"
-                >
-
-                    <option value="">
-                        Adicionar à estante...
-                    </option>
-
-                    <option value="Desejo Ler"
-                        ${currentStatus === 'Desejo Ler' ? 'selected' : ''}>
-                        Desejo Ler
-                    </option>
-
-                    <option value="Lendo"
-                        ${currentStatus === 'Lendo' ? 'selected' : ''}>
-                        Lendo
-                    </option>
-
-                    <option value="Concluído"
-                        ${currentStatus === 'Concluído' ? 'selected' : ''}>
-                        Concluído
-                    </option>
-
-                </select>
-            `;
-        }
-
         const card = `
             <div class="col-md-6 col-lg-3 mb-4">
                 <div
@@ -201,8 +165,6 @@ function renderBooks(books, containerId, context) {
                             <strong>${rating}</strong>
                             (${reviews} avaliações)
                         </div>
-
-                        ${shelfHtml}
                     </div>
                 </div>
             </div>
