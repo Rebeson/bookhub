@@ -30,6 +30,15 @@ services:
       JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-30}
     ports:
       - "8000:8000"
+  
+  frontend:
+    build: ./frontend
+    container_name: bookhub-frontend
+    restart: unless-stopped
+    depends_on:
+    - backend
+    ports:
+    - "80:80"
 
 volumes:
   postgres_data:
